@@ -2,11 +2,15 @@
 
 PROTESTANT is a responsive, easy-to-use javascript plugin coupling sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) with structure visualization provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since PROTESANT does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
 
-<script src="https://raw.githubusercontent.com/davidhoksza/protestant/master/dist/protestant.js"></script>
+## Getting started
+
+See the ``index.html`` file for an example of how to use the plugin in your webpage which shows only the plugin. 
+
+For an advanced example, see the ``web`` directory. It contains a simple web appliation which enables qurying Uniprot (only top 10 matches are retrieved) and for every found record one can click the UniProt ID which creates a new tab with new instance of PROTESTANT for that UniProt ID. Running instance of this web server can be found [here](https://minerva-dev.lcsb.uni.lu/protestant/).
 
 ## Features overview
 
-## Getting started
+## Data sources
 
 ## Building
 
