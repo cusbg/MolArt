@@ -1,0 +1,284 @@
+/*@import "../../node_modules/protvista/style/main.css";*/
+/*@import "../../node_modules/litemol/dist/css/LiteMol-plugin-light.css";*/
+@import "protvista-imputed.css";
+@import "LiteMol-plugin-light-imputed.css";
+
+@import "../../node_modules/semantic-ui-label/label.min.css";
+@import "../../node_modules/semantic-ui-dropdown/dropdown.min.css";
+@import "../../node_modules/semantic-ui-transition/transition.min.css";
+@import "../lib/semantic-ui-range/range.css";
+
+
+
+
+.pv-inner-container {
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.pv3d-pv {
+    height: 100%;
+    min-width: 400px;
+}
+
+.pv3d-lm {
+    min-width: 450px;
+}
+
+/* styles including !IMPORTANT ... neded to overwrite the semantics ui stales*/
+.pv3d-header-lm .lm-list .dropdown input{
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.pv3d-header-lm .lm-list .dropdown.icon {
+    top: 0.3em !important;
+}
+
+
+.pv3d-invisible {
+    display: none;
+}
+
+.pv3d-div-table{
+    display: table;
+}
+
+.pv3d-div-table-column{
+    display: table-row;
+}
+
+
+.pv3d-div-table-column{
+    display: table-column;
+}
+
+
+.pv3d-svg-icon {
+    fill: rgba(0, 0, 0, 0.5);
+    cursor: pointer !important;
+}
+
+.up_pftv_container .pv3d-svg-icon{
+    position: absolute;
+
+}
+
+.up_pftv_container .pv3d-svg-icon.selected {
+    fill: rgba(0, 0, 0, 1);
+}
+
+.pv3d-lm-transparency-slider {
+    width: 100%;
+}
+
+.pv3d-header {
+    position: absolute;
+    z-index: 100;
+
+    padding-top: 5px;
+    padding-bottom: 3px;
+
+    border-bottom: 1px dotted lightgray;
+    margin-bottom: 3px;
+}
+
+.pv3d-header *{
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.pv3d-header-pv, .pv3d-header-lm{
+    display: inline-block;
+    /*width: 100%;*/
+}
+
+.pv3d-header-pv {
+    text-align: right;
+    background-color: white;
+}
+
+
+.pv3d-content.pv-container {
+    width: 100%;
+    position: absolute;
+}
+
+.pv3d-content.lm-container {
+    width: 50%;
+    position: absolute;
+    top: 0;
+}
+
+
+.pv3d-footer {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.pv3d-header, .pv3d-footer {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+
+    box-sizing: border-box;
+}
+
+.pv3d-header-pv .unp-link{
+    display: inline-block;
+    float: right;
+}
+
+
+.pv3d-header-lm .lm-list{
+    display: inline-block;
+}
+
+.pv3d-header-lm .lm-list .selection.dropdown{
+    min-height: 0;
+    min-width: 8em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+}
+
+.pv3d-header-lm .pv3d-svg-icon {
+    position: relative;
+    height: 27px;
+    width: 27px; /* IE needs both width and height */
+    fill: #c2c2c2;
+}
+
+.pv3d-header .pdb-link{
+    display: inline-block;
+    left:0;
+}
+
+
+.pv3d-pv{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(50% - 2px);
+}
+
+.pv3d-split-bar{
+    vertical-align: top;
+    height:100%;
+    display: inline-block;
+    width: 4px;
+    background: transparent;
+    cursor: col-resize;
+}
+
+.pv3d-lm{
+    vertical-align: top;
+     position: relative;
+     display: inline-block;
+     width: calc(50% - 2px);
+     height: 100%;
+     top:0
+ }
+
+.pv3d-content .lm-component-container{
+    position: relative;
+}
+
+.pv3d-footer  .pv3d-lm-transparency-slider {
+    vertical-align: middle;
+}
+
+.pv3d-pv-bars{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.pv3d-pv-structure-bar, .pv3d-pv-highlight-bar{
+    position: absolute;
+    top: 0;
+    height:100%;
+    display: none;
+}
+
+.pv3d-pv-highlight-bar{
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+.pv3d-pv-structure-bar{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.error-message-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    color: white;
+    text-align: center;
+    display: none;
+}
+
+.error-message {
+    position: relative;
+    top: 50%;
+    font-weight: bold;
+}
+
+
+.ui.range .inner .thumb {
+    width: 15px;
+    height: 15px;
+    top: 2.5px;
+}
+
+.pv3d-button {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 1px inset, rgba(34, 36, 38, 0.15) 0px 0px 0px 0px inset;
+    color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    height: 28px;
+    min-height: 14px;
+    text-decoration: none solid rgba(0, 0, 0, 0.6);
+    text-size-adjust: 100%;
+    column-rule-color: rgba(0, 0, 0, 0.6);
+    perspective-origin: 44.5313px 18px;
+    transform-origin: 44.5313px 18px;
+    user-select: none;
+    caret-color: rgba(0, 0, 0, 0.6);
+    background: rgb(224, 225, 226) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgba(0, 0, 0, 0.6);
+    border-radius: 4px 4px 4px 4px;
+    font: normal normal 700 normal 14px / 14px Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin: 0px 3.5px 0px 0px;
+    outline: rgba(0, 0, 0, 0.6) none 0px;
+    padding: 5px 10px;
+    transition: opacity 0.1s ease 0s, background-color 0.1s ease 0s, color 0.1s ease 0s, box-shadow 0.1s ease 0s, background 0.1s ease 0s, -webkit-box-shadow 0.1s ease 0s;
+}
+
+.pv3d-button:hover {
+    color: rgba(0, 0, 0, 0.8);
+
+}
+
+.pv3d-download {
+    float: right;
+}
+
+.pv3d-download>svg{
+    width: 18px;
+    height: 18px;
+}
+
+.pv3d-download>svg path{
+    fill: rgba(0, 0, 0, 0.6);
+}
+
+.pv3d-download>svg:hover path{
+    fill: rgba(0, 0, 0, 1);
+}

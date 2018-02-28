@@ -1,0 +1,19 @@
+{
+  "sequence": "MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA",
+  "features": [
+    {
+      "type": "ACT_SITE",
+      "category": "MY_CATEGORY_EXTERNAL1",
+      "begin": "12",
+      "end": "12",
+      "color": "#00F5B8"
+    },
+    {
+      "type": "MY_REGIOM",
+      "category": "MY_CATEGORY_EXTERNAL1",
+      "begin": "12",
+      "end": "101",
+      "color": "#FF7094"
+    }
+  ]
+}

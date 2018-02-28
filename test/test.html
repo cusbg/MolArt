@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Protestant tests</title>
+
+    <script src="../dist/protestant.js"></script>
+
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+
+    <style type="text/css">
+        #pv3dContainer {
+            position: absolute;
+            left: -9999px;
+        }
+        /*run $('#pv3dContainer').css('left', 0) to show the plugin*/
+    </style>
+
+</head>
+
+
+<body style="padding: 0; margin: 0; background-color: #8ba5ab">
+
+    <button onclick="const container = document.getElementById('pv3dContainer'); (container.style.left === '0px' ? container.style.left = '-9999px' : container.style.left = '0px') ">Show/hide plugin</button>
+
+    <div id="pv3dContainer" style="width: 95%; height: 90vh; border: 3px solid black; border-radius: 10px;  margin:20px; position:absolute; overflow:auto; background-color: white">
+    </div>
+
+    <div id="mocha"></div>
+
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/sinon/pkg/sinon.js"></script>
+
+    <script>
+        mocha.ui('bdd');
+        const expect = chai.expect;
+    </script>
+    <script src="./data/mock.data.js"></script>
+    <script src="./spec.js"></script>
+    <script>
+        mocha.run();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "name": "protestant",
+  "description": "PROTEin STructure ANnoTator",
+  "version": "0.9.0",
+  "homepage": "https://github.com/davidhoksza/protestant",
+  "author": "David Hoksza",
+  "keywords": [],
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://gitlab.com/davidhoksza/protestant/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/davidhoksza/protestant.git"
+  },
+  "main": "dev/protestant.js",
+  "scripts": {
+    "test": "gulp test",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "dependencies": {
+    "ProtVista": "git://github.com/davidhoksza/protvista.git#scaling",
+    "downloadjs": "^1.4.7",
+    "jquery": "^3.2.1",
+    "litemol": "github:dsehnal/LiteMol"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-es2015-ie": "^6.7.0",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.18.13",
+    "browserify": "^14.5.0",
+    "browserify-css": "^0.14.0",
+    "chai": "^4.1.2",
+    "color-blend": "^1.0.0",
+    "eslint": "3.19.0",
+    "eslint-loader": "1.7.1",
+    "events": "^1.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-uglify": "^3.0.0",
+    "mocha": "^4.0.1",
+    "open": "0.0.5",
+    "postcss": "^6.0.19",
+    "postcss-url": "^7.3.1",
+    "semantic-ui-dropdown": "^2.2.12",
+    "semantic-ui-label": "^2.2.12",
+    "semantic-ui-transition": "^2.2.12",
+    "sinon": "^4.1.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
