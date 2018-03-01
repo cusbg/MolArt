@@ -1,6 +1,6 @@
 # PROTESTANT (PROTEin STructure ANnoTator)
 
-PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (more precisely on its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing PROTESTANT) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
 
 
 <div style="text-align:center">
