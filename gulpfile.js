@@ -12,8 +12,9 @@ const open = require('open');
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: './'
-            // https: true
+            baseDir: '.'
+            ,index: 'examples/plugin-page.html'
+            // ,https: true
         }
     });
 });
