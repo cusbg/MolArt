@@ -1,6 +1,6 @@
 # PROTESTANT (PROTEin STructure ANnoTator)
 
-PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since PROTESANT does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
 
 
 <div style="text-align:center">
@@ -26,8 +26,6 @@ PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein seque
 
 ## Data sources
 
-PROTESTANT retrieves its data on the fly from various APIs:
-
 - Sequence and annotation data
   - Sequence information comes from [UniProt website REST API](https://www.uniprot.org/help/api)
   - Sequence annotations are provided by the ProtVista plugin which utilizes the EBI's [Proteins REST API](https://www.ebi.ac.uk/proteins/api/doc/). Proteins API includes access to variation, proteomics and antigen services containing "annotations imported and mapped from large scale data sources, such as 1000 Genomes, ExAC (Exome Aggregation Consortium), COSMIC (Catalogue Of Somatic Mutations In Cancer), PeptideAtlas, MaxQB (MaxQuant DataBase), EPD (Encyclopedia of Proteome Dynamics) and HPA, along with UniProtKB annotations for these feature types".
@@ -40,7 +38,7 @@ PROTESTANT retrieves its data on the fly from various APIs:
 
 ## How to use PROTESTANT
 
-The detail description of using PROTESTANT in your project can be found in [developer documentation](tree/master/documentation).
+The detail description of how to incorporate PROTESTANT into your project can be found in the [developer documentation](tree/master/documentation).
 
 The general process consists of the following steps
 
@@ -55,7 +53,7 @@ The ``examples`` folder holds examples of how to use PROTESTANT.
 
 ## Contributing
 
-We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issude [here](https://github.com/davidhoksza/PROTESTANT/issues) or get in touch by email.
+We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issue [here](https://github.com/davidhoksza/PROTESTANT/issues) or get in touch by mail.
 
 ## Support
 
