@@ -1,0 +1,18 @@
+<html>
+<head></head>
+<body style="padding: 0; margin: 0;">
+<script type="text/javascript" src="../dist/protestant.js"></script>
+
+<div id="pluginContainer"></div>
+
+<script>
+  const Protestant = require('protestant');
+  protestant = new Protestant({
+    uniprotId: 'P37840',
+    containerId: 'pluginContainer',
+    //categoryOrder: ['PTM'],
+    exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']
+});
+</script>
+</body>
+</html>

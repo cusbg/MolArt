@@ -1,0 +1,65 @@
+<html>
+<head></head>
+<body style="padding: 0; margin: 0;">
+<script type="text/javascript" src="../dist/protestant.js"></script>
+
+<div id="pluginContainer"></div>
+
+<script>
+
+    function initializeTestDataSet(sequence, catName){
+
+        const ix1 = Math.floor(Math.random() * sequence.length);
+        const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
+
+        return {
+            sequence: sequence,
+            features: [
+                {
+                    type: "ACT_SITE",
+                    category: catName,
+                    begin: String(ix1),
+                    end: String(ix1),
+                    color: "#00F5B8"
+                },
+                {
+                    type: "MY_REGION",
+                    category: catName,
+                    begin: String(ix1),
+                    end: String(ix2),
+                    color: "#FF7094"
+                }
+            ]
+        };
+    }
+
+    const sequence = 'MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA';
+    const customDataSources = [
+        {
+            source: 'RANDOM',
+            useExtension: false,
+            data: initializeTestDataSet(sequence, 'MY_CATEGORY1')
+        },
+        {
+            source: 'RANDOM',
+            useExtension: false,
+            data: initializeTestDataSet(sequence, 'MY_CATEGORY2')
+        }
+        ,
+        {
+            source: 'RANDOM',
+            useExtension: true,
+            url: 'http://localhost/data/externalFeatures_' //works only with running local web server providing access to /data/externalFeatures_P37840.json
+        }
+    ];
+
+    const Protestant = require('protestant');
+    protestant = new Protestant({
+        uniprotId: 'P37840',
+        containerId: 'pluginContainer',
+        customDataSources: customDataSources
+});
+
+</script>
+</body>
+</html>

@@ -1,6 +1,12 @@
 # PROTESTANT (PROTEin STructure ANnoTator)
 
-PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing PROTESTANT) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+PROTESTANT is a responsive, easy-to-use JavaScript plugin which enables users to
+view annotated protein sequence (including variation data from large scale
+studies) and overlay the annotations over a corresponding experimental
+or predicted protein structure.
+It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing PROTESTANT) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+
+The plugin is being developed at the Luxembourg Center for Systems Biomedicine, University of Luxembourg.
 
 
 <div style="text-align:center">
@@ -12,11 +18,11 @@ PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein seque
 
 - Visualization of protein structure as provided by LiteMol
 - Annotation of protein sequence as provided by ProtVista
-- Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
 - Mapping of structure on corresponding substring in the sequence
+- Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
 - Retrieval of predicted models from [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if no PDB structure is available
 - Controlling transparency of the structure to see both cartoon and surface view of the structure
-- Hovering over position in sequence to highligt it in structure and vice versa
+- Hovering over position in sequence to highlight it in structure and vice versa
 - Color overlay any sequence feature over the structure
 - Color overlay all sequence features of given type over the structure
 - Color overlay individual variation over the structure
@@ -38,17 +44,16 @@ PROTESTANT is a responsive, easy-to-use JavaScript plugin coupling protein seque
 
 ## How to use PROTESTANT
 
-The detail description of how to incorporate PROTESTANT into your project can be found in the [developer documentation](tree/master/documentation).
-
-The general process consists of the following steps
-
 - Obtain the JavaScript file with PROTESTANT and link it from your web page
 - Create a container DIV (or SPAN) element which will hold the viewer
 - Create a JavaScript object and pass it reference to the DIV
 
+The detail description of how to incorporate PROTESTANT into your project can be found in the [developer documentation](tree/master/documentation).
+
 ### Examples of use
-The ``examples`` folder holds examples of how to use PROTESTANT.
-- See the ``plugin-page.html`` file for aa example of how to integrate a single instance of the plugin in your web page.
+Exmpales of how to use PROTESTANT are located in the ``examples`` folder.
+- See the ``bare.html`` file for a bare bones example of how to use the plugin.
+- The ``plugin-page.html`` is slightly styled plugin usage.
 - For an advanced example, see the ``web`` directory. It contains a simple web application which enables querying Uniprot (only top 10 matches are retrieved) and for every found record one can click the UniProt ID which creates a new tab with new instance of PROTESTANT for that UniProt ID. Running instance of this web server can be found [here](https://minerva-dev.lcsb.uni.lu/protestant/).
 
 ## Contributing

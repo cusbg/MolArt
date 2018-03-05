@@ -9,6 +9,8 @@ const postcss = require('postcss');
 const url = require('postcss-url');
 const open = require('open');
 
+var production = true;
+
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
@@ -60,10 +62,17 @@ gulp.task('build', ['css-impute'], function () {
         debug: true
     })
       .require("./src/index.js", {expose: "protestant"});
-    return appBundler.bundle().on('error', function(e){console.log(e)})
-        .pipe(source('protestant.js'))
-        .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-        .pipe(uglify())
+
+    var bundle = appBundler.bundle().on('error', function(e){console.log(e)})
+        .pipe(source('protestant.js'));
+
+    if (production) {
+        bundel = bundle
+            .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+            .pipe(uglify())
+    }
+
+    return bundle
         .pipe(gulp.dest('dist'))
         .pipe(gulp.dest('web/lib/protestant'));
 });
@@ -75,6 +84,8 @@ gulp.task('bs-reload-build', ['build'], function () {
 gulp.task('default', ['build']);
 
 gulp.task('watch', ['build', 'browser-sync'], function () {
+
+  production = false;
   gulp.watch("src/**/*.css", ['bs-reload-build']);
   gulp.watch("src/**/*.js", ['bs-reload-build']);
   gulp.watch("*.html", ['bs-reload']);

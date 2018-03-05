@@ -24,19 +24,8 @@
 }
 
 .pv3d-lm {
-    min-width: 450px;
+    min-width: 400px;
 }
-
-/* styles including !IMPORTANT ... neded to overwrite the semantics ui stales*/
-.pv3d-header-lm .lm-list .dropdown input{
-    padding-top: 0.3em !important;
-    padding-bottom: 0.3em !important;
-}
-
-.pv3d-header-lm .lm-list .dropdown.icon {
-    top: 0.3em !important;
-}
-
 
 .pv3d-invisible {
     display: none;
@@ -138,9 +127,19 @@
     display: inline-block;
 }
 
+/* !IMPORTANT needed to overwrite the semantics ui styles*/
+.pv3d-header-lm .lm-list .dropdown input{
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.pv3d-header-lm .lm-list .dropdown.icon {
+    top: 0.3em !important;
+}
+
 .pv3d-header-lm .lm-list .selection.dropdown{
     min-height: 0;
-    min-width: 8em;
+    min-width: 4em;
     padding-top: 0.3em;
     padding-bottom: 0.3em;
 }
