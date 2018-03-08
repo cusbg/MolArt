@@ -59,9 +59,10 @@ gulp.task('build', ['css-impute'], function () {
             ],
             ['browserify-css']
         ],
+        standalone: 'Protestant',
         debug: true
     })
-      .require("./src/index.js", {expose: "protestant"});
+      .require("./src/index.js", {expose: "Protestant"});
 
     var bundle = appBundler.bundle().on('error', function(e){console.log(e)})
         .pipe(source('protestant.js'));

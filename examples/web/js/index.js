@@ -26,7 +26,7 @@ function searchUniprot() {
         $('#progressDiv').css('display', 'none');
 
         const lines = result.split(/\r?\n/);
-        console.log(lines);
+        // console.log(lines);
         let table = $('table');
         if (table.length === 0) {
             table = $('<table class="ui sortable celled table"></table>');
@@ -125,7 +125,7 @@ function addTab(uniprotId) {
         }
     });
 
-    pv3d = new PV3D({
+    const protestant = new Protestant({
         uniprotId: uniprotId,
         containerId: 'pluginContainer' + uniprotId
     });
