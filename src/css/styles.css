@@ -79,6 +79,12 @@
     box-sizing: border-box;
 }
 
+.pv3d-header .label{
+
+    font-size: 13px;
+}
+
+
 .pv3d-header-pv, .pv3d-header-lm{
     display: inline-block;
     /*width: 100%;*/
@@ -109,7 +115,7 @@
 
 .pv3d-header, .pv3d-footer {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1em;
+    font-size: 13px;
     font-style: normal;
     font-variant: normal;
     font-weight: 500;
@@ -129,25 +135,30 @@
 
 /* !IMPORTANT needed to overwrite the semantics ui styles*/
 .pv3d-header-lm .lm-list .dropdown input{
-    padding-top: 0.3em !important;
-    padding-bottom: 0.3em !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
 }
 
 .pv3d-header-lm .lm-list .dropdown.icon {
-    top: 0.3em !important;
+    top: 4px !important;
 }
 
 .pv3d-header-lm .lm-list .selection.dropdown{
     min-height: 0;
-    min-width: 4em;
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
+    min-width: 100px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    line-height: 13px;
+}
+
+.pv3d-header-lm .lm-list .selection.dropdown .menu>.item {
+    font-size: 13px;
 }
 
 .pv3d-header-lm .pv3d-svg-icon {
     position: relative;
-    height: 27px;
-    width: 27px; /* IE needs both width and height */
+    height: 25px;
+    width: 25px; /* IE needs both width and height */
     fill: #c2c2c2;
 }
 
@@ -237,11 +248,13 @@
     top: 2.5px;
 }
 
+
+
 .pv3d-button {
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 1px inset, rgba(34, 36, 38, 0.15) 0px 0px 0px 0px inset;
     color: rgba(0, 0, 0, 0.6);
     cursor: pointer;
-    height: 28px;
+    height: 26px;
     min-height: 14px;
     text-decoration: none solid rgba(0, 0, 0, 0.6);
     text-size-adjust: 100%;
