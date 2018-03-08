@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://gitlab.com/davidhoksza/protestant.git"
   },
-  "main": "dev/protestant.js",
+  "main": "dist/protestant.js",
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",
