@@ -449,6 +449,10 @@ function createPlugin() {
             }
         };
 
+        const destroyPlugin = function() {
+            controller.destroy();
+        }
+
         function moleculeLoaded() {
             return controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Visual)).length > 0;
         }
@@ -474,6 +478,7 @@ function createPlugin() {
 
         return {
             initializePlugin: initializePlugin
+            , destroyPlugin: destroyPlugin
             , loadMolecule: loadMolecule
             , registerHighlightCallback: registerHighlightCallback
             , highlightResidue: highlightResidue

@@ -319,8 +319,6 @@ const LmController = function () {
         });
     }
 
-
-
     function createUniprotMappingGroup(rec) {
         return plugin.createGroup(globals.settings.pvMappedStructuresCat.name, 'Uniprot mapping', mapping[rec.getId()].getModelId());
     }
@@ -475,7 +473,10 @@ const LmController = function () {
 
         if ('pdbRecords' in globals) populateHeaderPdbIds();
         registerCallbacksAndEvents();
+    }
 
+    function destroy(){
+        plugin.destroyPlugin();
     }
 
     // function formatSelectionForColoring(selections, colors) {
@@ -601,6 +602,7 @@ const LmController = function () {
 
     return {
         initialize: initialize,
+        destroy: destroy,
         loadRecord: loadRecord,
         mapFeatures: mapFeatures,
         unmapFeature: unmapFeature,

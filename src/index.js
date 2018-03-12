@@ -531,6 +531,10 @@ const Protestant = function(opts) {
     }
 };
 
+Protestant.prototype.destroy = function () {
+    return this.getLmController().destroy();
+};
+
 Protestant.prototype.getGlobals = function () {
     return this.globals;
 };
