@@ -218,24 +218,23 @@ const Protestant = function(opts) {
 
             const lmHeader = $(`        
         <div class="pv3d-header pv3d-header-lm">
-                <a class="ui label pdb-link pv3d-invisible" href="" target="_blank">                    
-                    <div class="detail"></div>
-                </a>
-                <div class="lm-list">
-                    <div class="lm-pdb-id-list ui search selection dropdown">
-                        <div class="text"></div>
-                        <i class="dropdown icon"></i>
-                    </div>
-                :
-                    <div class="lm-pdb-chain-list ui search selection dropdown">
-                        <div class="text"></div>
-                        <i class="dropdown icon"></i>
-                    </div>
+            <div class="pv3d-button pv3d-download" title="Export to PyMol">
+                ${svgSymbols.download}
+            </div>            
+            <a class="ui label pdb-link pv3d-invisible" href="" target="_blank">                    
+                <div class="detail"></div>
+            </a>
+            <div class="lm-list">
+                <div class="lm-pdb-id-list ui search selection dropdown">
+                    <div class="text"></div>
+                    <i class="dropdown icon"></i>
                 </div>
-                
-                <div class="pv3d-button pv3d-download" title="Export to PyMol">                    
-                    ${svgSymbols.download}
-                 </div>                
+                :
+                <div class="lm-pdb-chain-list ui search selection dropdown">
+                    <div class="text"></div>
+                    <i class="dropdown icon"></i>
+                </div>
+            </div>          
         </div>
         `);
 
@@ -425,7 +424,7 @@ const Protestant = function(opts) {
             globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
             return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                console.log('uniprotIdSmrs',uniprotIdSmrs)
+                // console.log('uniprotIdSmrs',uniprotIdSmrs)
                 globals.pdbRecords = JSON.parse(uniprotIdSmrs.body).result.structures.map(rec => pdbMapping(rec, 'SMR'));
             }, function (error) {
                 return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);

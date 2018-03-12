@@ -363,7 +363,7 @@ const PvController = function () {
 
                 let target = $(e.target); //clicked element
                 if (!target.is('svg')) target = target.closest('svg');
-                if (!target.hasClass('selected')){
+                if (target.attr('class').indexOf('selected') === -1){
                     const tracks = {trackData: [], trackColors: []};
                     if (target.closest('.up_pftv_category-tracks').length > 0) { //track icon was clicked
                         const track = getTrack(target);
@@ -389,11 +389,11 @@ const PvController = function () {
 
                     globals.activeFeature.unset();
                     globals.activeFeature.set(tracks.trackData, tracks.trackColors);
-                    target.addClass('selected');
+                    target.attr('class', target.attr('class') + ' selected');
                 } else {
                     globals.activeFeature.unset();
                     // p3.lm.unmapFeature();
-                    target.removeClass('selected');
+                    target.attr('class', target.attr('class').replace(' selected', ''));
                 }
             })
         });
