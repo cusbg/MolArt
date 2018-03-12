@@ -84,9 +84,12 @@ gulp.task('bs-reload-build', ['build'], function () {
 
 gulp.task('default', ['build']);
 
-gulp.task('watch', ['build', 'browser-sync'], function () {
+gulp.task('debug', function(){
+    production = false;
+});
 
-  production = false;
+gulp.task('watch', ['debug', 'build', 'browser-sync'], function () {
+
   gulp.watch("src/**/*.css", ['bs-reload-build']);
   gulp.watch("src/**/*.js", ['bs-reload-build']);
   gulp.watch("*.html", ['bs-reload']);

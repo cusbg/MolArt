@@ -363,8 +363,8 @@ const LmController = function () {
         // };
 
         return loadMolecule(rec, params.hideOthers)
-            .then(()=> {extractObservedResidues(rec); return Promise.resolve();})
             .then(() => {updateHeaderPdbLink(); return Promise.resolve();})
+            .then(()=> {extractObservedResidues(rec); return Promise.resolve();})
             .then(() => createUniprotMappingGroup(rec))
             .then(groupId => createPdbSelections(rec, groupId))
             .then(selectionId => {

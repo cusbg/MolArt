@@ -145,7 +145,7 @@
 
 .pv3d-header-lm .lm-list .selection.dropdown{
     min-height: 0;
-    min-width: 100px;
+    min-width: 95px;
     padding-top: 4px;
     padding-bottom: 4px;
     line-height: 13px;
@@ -251,35 +251,24 @@
 
 
 .pv3d-button {
-    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 1px inset, rgba(34, 36, 38, 0.15) 0px 0px 0px 0px inset;
-    color: rgba(0, 0, 0, 0.6);
+    font-size: 17px;
+    /*padding-top: 2px;*/
+    background:rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    height: 26px;
-    min-height: 14px;
-    text-decoration: none solid rgba(0, 0, 0, 0.6);
-    text-size-adjust: 100%;
-    column-rule-color: rgba(0, 0, 0, 0.6);
-    perspective-origin: 44.5313px 18px;
-    transform-origin: 44.5313px 18px;
-    user-select: none;
-    caret-color: rgba(0, 0, 0, 0.6);
-    background: rgb(224, 225, 226) none repeat scroll 0% 0% / auto padding-box border-box;
-    border: 0px none rgba(0, 0, 0, 0.6);
-    border-radius: 4px 4px 4px 4px;
-    font: normal normal 700 normal 14px / 14px Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
-    margin: 0px 3.5px 0px 0px;
-    outline: rgba(0, 0, 0, 0.6) none 0px;
-    padding: 5px 10px;
-    transition: opacity 0.1s ease 0s, background-color 0.1s ease 0s, color 0.1s ease 0s, box-shadow 0.1s ease 0s, background 0.1s ease 0s, -webkit-box-shadow 0.1s ease 0s;
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    text-align: center;
 }
 
 .pv3d-button:hover {
-    color: rgba(0, 0, 0, 0.8);
-
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .pv3d-download {
     float: right;
+    padding-top:3px;
+    margin-right:5px;
 }
 
 .pv3d-download>svg{

@@ -233,9 +233,9 @@ const Protestant = function(opts) {
                     </div>
                 </div>
                 
-                <button class="pv3d-button pv3d-download" title="Export to PyMol">                    
+                <div class="pv3d-button pv3d-download" title="Export to PyMol">                    
                     ${svgSymbols.download}
-                 </button>                
+                 </div>                
         </div>
         `);
 
@@ -428,8 +428,7 @@ const Protestant = function(opts) {
                 console.log('uniprotIdSmrs',uniprotIdSmrs)
                 globals.pdbRecords = JSON.parse(uniprotIdSmrs.body).result.structures.map(rec => pdbMapping(rec, 'SMR'));
             }, function (error) {
-                console.log('error',error.statusText)
-                throw {type: 'NO_PDB_MAPPING', message: 'No PDB mapping or Swissprot model available for UniprotId ' + uniprotId};
+                return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
             });
         });
     }
@@ -507,7 +506,8 @@ const Protestant = function(opts) {
             });
 
             if (pdbRetrievalError  !== undefined) {
-                globals.lm.showErrorMessage(pdbRetrievalError.message);
+                if (typeof pdbRetrievalError !== "string") pdbRetrievalError = "No structure retrieved";
+                globals.lm.showErrorMessage(pdbRetrievalError);
                 eventEmitter.emit('pvReady');
                 pvReady = true;
                 resize();
