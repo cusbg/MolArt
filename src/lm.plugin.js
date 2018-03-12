@@ -1,6 +1,6 @@
 var blender = require('color-blend');
 //var LiteMol = require('LiteMol').default;
-window.LiteMol = require('LiteMol').default;
+var LiteMol = require('LiteMol').default;
 
 const CustomTheme = (function(){
     const Core = LiteMol.Core;

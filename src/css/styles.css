@@ -87,7 +87,7 @@
 
 .pv3d-header-pv, .pv3d-header-lm{
     display: inline-block;
-    /*width: 100%;*/
+    width: 100%;
 }
 
 .pv3d-header-pv {
