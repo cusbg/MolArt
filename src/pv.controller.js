@@ -290,8 +290,12 @@ const PvController = function () {
         });
     }
 
+    function removeClass(elements, className) {
+        elements.attr('class', elements.attr('class').replace(' ' + className, ''));
+    }
+
     function deselectAllOverlayIcons(){
-        globals.pvContainer.find(svgSymbols.svgIconSelector).removeClass('selected');
+        removeClass(globals.pvContainer.find(svgSymbols.svgIconSelector), 'selected')
     }
 
     function hex2rgb(hex) {
@@ -393,7 +397,7 @@ const PvController = function () {
                 } else {
                     globals.activeFeature.unset();
                     // p3.lm.unmapFeature();
-                    target.attr('class', target.attr('class').replace(' selected', ''));
+                    removeClass(target, 'selected');
                 }
             })
         });

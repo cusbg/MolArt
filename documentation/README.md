@@ -85,6 +85,10 @@ protestant = new Protestant({
 
 If you are using a bundling system to build your application, not using NPM and not using the `script` tag to embed Protestant, you need to change the `require` location to point to the plugin script. The above syntax should work just fine if you are using NPM.
 
+#### Destroy PROTESTANT
+
+If you need to create an instance repeatedly , e.g. every time a user clicks on UniprotID you open/create a tab and spawn a new instance of PROTESTANT and when she closes the tab, you remove all its content. In such situations LiteMol (or rather THREE.js) does not release all the WebGL related structures and still tries to draw something into HTML elements which are not available any more. To get rid of the warning messages, you can call the `destroy` method. However, if there are still some callback functions active, which try to access LiteMol, you will get the
+
 ## Options and parameters
 
 All parameters for ProtVista are also available in PROTESTANT, which simply

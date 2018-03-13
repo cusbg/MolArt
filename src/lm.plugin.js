@@ -141,11 +141,18 @@ function createPlugin() {
         var Event = Bootstrap.Event;
         var highlightCallbacks = [];
 
+        function controllerAvailability(){
+            if (!controller.instance) throw new ReferenceError("LiteMol plugin controller not available.");
+        }
+
         function selectNodes(what) {
+            controllerAvailability();
             return controller.context.select(what);
         }
 
         const loadMolecule = function (pdbId, source, url) {
+            controllerAvailability();
+
             const modelId = getModelId(pdbId);
             const visualId = getVisualId(modelId);
             if (selectNodes(modelId).length > 0) return Promise.resolve(modelId);
@@ -184,6 +191,8 @@ function createPlugin() {
         };
 
         const resetVisuals = function () {
+            controllerAvailability();
+
             for (const visualId in defaultlVisuals) {
                 const visual = selectNodes(visualId)[0];
                 const theme = defaultlVisuals[visualId];
@@ -193,6 +202,8 @@ function createPlugin() {
         };
 
         const hideModelsExcept = function (modelIdsToShow) {
+            controllerAvailability();
+
             let promises = [];
             controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Model)).forEach(
                 function (model) {
@@ -206,10 +217,14 @@ function createPlugin() {
         };
 
         const focusSelection = function (selectionId) {
+            controllerAvailability();
+
             Command.Entity.Focus.dispatch(controller.context, selectNodes(selectionId));
         };
 
         const getDefaultSurfaceVis = function () {
+            controllerAvailability();
+
             const surfaceVis = Visualization.Molecule.Default.ForType.get('Surface');
             surfaceVis.theme.transparency.alpha = settings.surfaceTransparencyAlpha;
             surfaceVis.theme.colors = surfaceVis.theme.colors.set('Uniform', {r: 0.75, g: 0.75, b: 0.75});
@@ -218,6 +233,8 @@ function createPlugin() {
         };
 
         const createVisual = function (entityId, params) {
+            controllerAvailability();
+
             const surfaceVis = getDefaultSurfaceVis();
 
             if (params === undefined) params = {style: surfaceVis};
@@ -263,6 +280,7 @@ function createPlugin() {
         };
 
         const createSelection = function (entityId, name, chainId, startResidueNumber, endResidueNumber) {
+            controllerAvailability();
 
             const entity = selectNodes(entityId)[0];
             if (!entity) return Promise.reject("Non-existing entity");
@@ -294,26 +312,36 @@ function createPlugin() {
         };
 
         const changeEntityVisibility = function (entityId, visible) {
+            controllerAvailability();
+
             const entity = controller.context.select(entityId)[0];
             Bootstrap.Command.Entity.SetVisibility.dispatch(controller.context, {entity: entity, visible: visible});
 
         };
 
         const hideEntity = function (entityId) {
+            controllerAvailability();
+
             changeEntityVisibility(entityId, false);
         };
 
         const showEntity = function (entityId) {
+            controllerAvailability();
+
             changeEntityVisibility(entityId, true);
         };
 
         const toggleEntity = function (entitiyId, on) {
+            controllerAvailability();
+
             const entity = selectNodes(entitiyId)[0];
             if ((entity.state.isCollapsed && on === false) || (!entity.state.isCollapsed && on === true)) return;
             controller.command(LiteMol.Bootstrap.Command.Entity.ToggleExpanded, entity);
         };
 
         const createGroup = function (groupName, groupDesc, entityId) {
+            controllerAvailability();
+
             const groupId = getGroupId(groupName, entityId);
 
             if (selectNodes(groupId).length > 0) return Promise.resolve(groupId);
@@ -329,11 +357,15 @@ function createPlugin() {
         };
 
         const removeEntity = function (entityId) {
+            controllerAvailability();
+
             const entity = selectNodes(entityId);
             if (entity.length > 0) controller.command(LiteMol.Bootstrap.Command.Tree.RemoveNode, entity[0]);
         };
 
         function dehighlightAll() {
+            controllerAvailability();
+
             controller.selectEntities(Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Model)).forEach(
                 function (model) {
                     Command.Molecule.Highlight.dispatch(controller.context, {
@@ -345,6 +377,8 @@ function createPlugin() {
         }
 
         const highlightResidue = function (modelId, chainId, resNum) {
+            controllerAvailability();
+
             const model = controller.selectEntities(modelId)[0];
             if (!model) return;
             const query = modSequence('1', {authAsymId: chainId}, {seqNumber: resNum}, {seqNumber: resNum});
@@ -378,6 +412,8 @@ function createPlugin() {
         }
 
         function colorSelections(modelId, selColors) {
+            controllerAvailability();
+
             if (selColors.length == 0) return;
             const model = controller.selectEntities(modelId)[0];
             if (!model) return;
@@ -450,14 +486,20 @@ function createPlugin() {
         };
 
         const destroyPlugin = function() {
+            controllerAvailability();
+
             controller.destroy();
         }
 
         function moleculeLoaded() {
+            controllerAvailability();
+
             return controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Visual)).length > 0;
         }
 
         function setSurfaceTransparency(val) {
+            controllerAvailability();
+
             settings.surfaceTransparencyAlpha = val;
 
             const visuals = controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Visual));

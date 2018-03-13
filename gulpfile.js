@@ -68,7 +68,7 @@ gulp.task('build', ['css-impute'], function () {
         .pipe(source('protestant.js'));
 
     if (production) {
-        bundel = bundle
+        bundle = bundle
             .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
             .pipe(uglify())
     }
