@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+
+        <script
+                src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+
+        <script src="lib/protestant/protestant.js"></script>
+
+        <script src="js/semantic.min.js"></script>
+        <script src="js/index.js"></script>
+        <link rel="stylesheet" href="css/semantic.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Protestant (PROTein STructure ANnoTator) web server</title>
+    </head>
+    <body>
+
+    <a href="https://lcsb.uni.lu" target="_blank"><img id="logoImg" class="ui right floated image top aligned" src="img/lcsb_logo.png"></a>
+    <h2 id="pageHeader" class="ui center aligned header">PROTEin STructure ANnoTator web server</h2>
+
+    <div id="mainTabMenu" class="ui top attached tabular menu">
+        <a class="item active" data-tab="search-tab">Search</a>
+    </div>
+
+    <div id="mainTabs">
+        <div id="searchTab" class="ui bottom attached tab segment active" data-tab="search-tab">
+            <div id="searchSection">
+                <div class="ui action left icon input">
+                    <i class="search icon"></i>
+                    <input id="uniprotQueryInput" type="text" placeholder="Uniprot ID or search term ...">
+                    <div class="ui teal button" onclick="searchUniprot()">Search</div>
+                </div>
+
+                <div id="progressDiv">
+                    <div class="ui segment">
+                        <div class="ui active dimmer">
+                            <div class="ui indeterminate text loader">Searching Uniprot</div>
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+
+        $('#uniprotQueryInput').on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                searchUniprot();
+            }
+        });
+    </script>
+    </body>
+</html>
