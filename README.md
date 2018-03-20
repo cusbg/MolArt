@@ -50,7 +50,7 @@ The plugin is being developed at the Luxembourg Center for Systems Biomedicine, 
 - Create a container DIV (or SPAN) element which will hold the viewer
 - Create a JavaScript object and pass it reference to the DIV
 
-The detail description of how to incorporate PROTESTANT into your project can be found in the [developer documentation](/tree/master/docs).
+The detail description of how to incorporate PROTESTANT into your project can be found in the [developer documentation](https://github.com/davidhoksza/protestant/tree/master/docs).
 
 ### Examples of use
 Exmpales of how to use PROTESTANT are located in the ``examples`` folder.
