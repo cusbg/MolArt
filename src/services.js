@@ -16,7 +16,9 @@ function getUnpToPdbMapping(uniprotId) {
 }
 
 function getUnpToSmrMapping(uniprotId) {
-    return ajaxQuery('http://cors-proxy.htmldriven.com/?url=https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel');
+    const corsProxy = 'https://crossorigin.me/';
+    // const corsProxy = 'http://cors-proxy.htmldriven.com/?url=';
+    return ajaxQuery(corsProxy + 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel');
 }
 
 module.exports = {
