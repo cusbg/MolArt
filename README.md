@@ -6,6 +6,8 @@ studies) and overlay the annotations over a corresponding experimental
 or predicted protein structure.
 It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing PROTESTANT) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
 
+Examples of PROTESTANT's use can be found at https://davidhoksza.github.io/protestant/ .
+
 The plugin is being developed at the Luxembourg Center for Systems Biomedicine, University of Luxembourg.
 
 
