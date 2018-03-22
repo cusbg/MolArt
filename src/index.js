@@ -424,7 +424,7 @@ const MolStar = function(opts) {
             globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
             return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                console.log('uniprotIdSmrs',uniprotIdSmrs)
+                // console.log('uniprotIdSmrs',uniprotIdSmrs)
                 globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
             }, function (error) {
                 return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
