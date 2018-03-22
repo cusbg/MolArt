@@ -1,5 +1,4 @@
 var blender = require('color-blend');
-//var LiteMol = require('LiteMol').default;
 var LiteMol = require('LiteMol').default;
 
 const CustomTheme = (function(){
@@ -518,6 +517,10 @@ function createPlugin() {
             return controller;
         }
 
+        function getLiteMol(){
+            return LiteMol;
+        }
+
         return {
             initializePlugin: initializePlugin
             , destroyPlugin: destroyPlugin
@@ -540,6 +543,7 @@ function createPlugin() {
             , setSurfaceTransparency: setSurfaceTransparency
             , selectNodes: selectNodes
             , getController: getController
+            , getLiteMol: getLiteMol
         }
 
     })(LiteMol || (LiteMol = {}));

@@ -125,7 +125,7 @@ function addTab(uniprotId) {
         }
     });
 
-    const protestant = new Protestant({
+    const molstar = new MolStar({
         uniprotId: uniprotId,
         containerId: 'pluginContainer' + uniprotId
     });

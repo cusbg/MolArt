@@ -1,15 +1,15 @@
 # Developers documentation
 
-## Obtaining PROTESTANT
+## Obtaining MOLSTAR
 
 #### Using precompiled distribution file
 
 The easiest way is to simply download the precompiled distribution file
-``protestant.js`` from the [dist](https://github.com/davidhoksza/protestant/tree/master/dist) directory.
+``molstar.js`` from the [dist](https://github.com/davidhoksza/MolStar/tree/master/dist) directory.
 
-#### Building PROTESTANT from source code
+#### Building MOLSTAR from source code
 
-Other option, especially if you want to do some modification to the code before using it, is to build PROTESTANT
+Other option, especially if you want to do some modification to the code before using it, is to build MOLSTAR
 directly from the source codes.
 
 ###### Obtain the source
@@ -17,12 +17,12 @@ directly from the source codes.
 Download the Github repository with the following command:
 
 ```
-git clone https://github.com/davidhoksza/protestant
+git clone https://github.com/davidhoksza/MolStar
 ```
 
 ###### Building the source codes
 
-PROTESTANT uses [Gulp](https://gulpjs.com/) as its build system. So if Gulp is not installed on your system yet, you will first need to download it and only then run its default task to build PROTESTANT.
+MOLSTAR uses [Gulp](https://gulpjs.com/) as its build system. So if Gulp is not installed on your system yet, you will first need to download it and only then run its default task to build MOLSTAR.
 
 ```
 npm install -g gulp
@@ -31,25 +31,25 @@ gulp
 ```
 
 This process will result in a single file in the ``dist`` directory with single file
-named ``protestant.js``, the only file needed to use the plugin.
+named ``molstar.js``, the only file needed to use the plugin.
 
-#### Using PROTESTANT as a NPM package
+#### Using MOLSTAR as a NPM package
 
-If your application uses NPM as the packaging system, PROTESTANT can be
+If your application uses NPM as the packaging system, MOLSTAR can be
 also easily obtain with NPM using:
 
 ```
-npm install git://github.com/davidhoksza/protestant
+npm install git://github.com/davidhoksza/MolStar
 ```
 
 ## Using the plugin
 
 #### Include the code into a web page
 
-All javascript files, style sheets, SVG and font files used by ProtVista and LiteMol are included in the PROTESTANT distribution js file, so that is the only thing you need to embed into your web page. You can embed it into your HTML using the script tag:
+All javascript files, style sheets, SVG and font files used by ProtVista and LiteMol are included in the MOLSTAR distribution js file, so that is the only thing you need to embed into your web page. You can embed it into your HTML using the script tag:
 
 ```
-<script type="text/javascript" src="protestant.js"></script>
+<script type="text/javascript" src="molstar.js"></script>
 ```
 
 or, if you are using Browserify or Webpack to bundle your Javascript the above script tag is of course not required and the require` statement discussed bellow is sufficient.
@@ -70,28 +70,28 @@ If this is the only element in the page then the plugin will span the whole widt
 
 However, please bear in mind that there exists a minimal width (800px) the plugin needs to comfortably accommodate all its components. So if you set the width of the container below this threshold, horizontal scrollbar will appear.
 
-#### Create instance of PROTESTANT
+#### Create instance of MOLSTAR
 
 Finally, you need to create an instance of the plugin and specify a UniProt ID and the ID of the container.
 
 ```javascript
-var Protestant = require('protestant');
-protestant = new Protestant({
+var MolStar = require('MolStar');
+molstar = new MolStar({
     uniprotId: 'P37840',
     containerId: 'pluginContainer'
 });
 ```
 
 
-If you are using a bundling system to build your application, not using NPM and not using the `script` tag to embed Protestant, you need to change the `require` location to point to the plugin script. The above syntax should work just fine if you are using NPM.
+If you are using a bundling system to build your application, not using NPM and not using the `script` tag to embed MolStar, you need to change the `require` location to point to the plugin script. The above syntax should work just fine if you are using NPM.
 
-#### Destroy PROTESTANT
+#### Destroy MOLSTAR
 
-If you need to create an instance repeatedly , e.g. every time a user clicks on UniprotID you open/create a tab and spawn a new instance of PROTESTANT and when she closes the tab, you remove all its content. In such situations LiteMol (or rather THREE.js) does not release all the WebGL related structures and still tries to draw something into HTML elements which are not available any more. To get rid of the warning messages, you can call the `destroy` method. However, if there are still some callback functions active, which try to access LiteMol, you will get the
+If you need to create an instance repeatedly , e.g. every time a user clicks on UniprotID you open/create a tab and spawn a new instance of MOLSTAR and when she closes the tab, you remove all its content. In such situations LiteMol (or rather THREE.js) does not release all the WebGL related structures and still tries to draw something into HTML elements which are not available any more. To get rid of the warning messages, you can call the `destroy` method. However, if there are still some callback functions active, which try to access LiteMol, you will get the
 
 ## Options and parameters
 
-All parameters for ProtVista are also available in PROTESTANT, which simply
+All parameters for ProtVista are also available in MOLSTAR, which simply
 takes them and passes them to ProtVista. These include ability to exclude
 cateogires, customization of their order and also ability to specify
 custom categories/data sources. The full description with examples can be
@@ -100,10 +100,10 @@ found in [ProtVista's documentation](http://ebi-uniprot.github.io/ProtVista/deve
 #### Define visibility and order of categories
 
 In order to exclude categories or customize their order, simply pass additional
-parameters to the `Protestant` object as you would when using ProtVista only.
+parameters to the `MolStar` object as you would when using ProtVista only.
 
 ```javascript
-protestant = new Protestant({
+molstar = new MolStar({
     uniprotId: 'P37840',
     containerId: 'pluginContainer',
     categoryOrder: ['PTM'],
@@ -111,7 +111,7 @@ protestant = new Protestant({
 });
 ```
 
-Since the core of PROTESTANT lies in mapping between the sequence and structure,
+Since the core of MOLSTAR lies in mapping between the sequence and structure,
 the customization does not impact the experimental/predicted structures category
 which always appears first.
 
@@ -120,9 +120,9 @@ which always appears first.
 You can also provide custom annotations which will be automatically
 mapped over the structures. The format of the annotation data
 is defined in ProtVista documentation in [Adding your own sources](http://ebi-uniprot.github.io/ProtVista/developerGuide.html#adding-your-own-sources) section.
-However, unlike in ProtVista, in PROTESTANT you can pass the data directly
+However, unlike in ProtVista, in MOLSTAR you can pass the data directly
 in the constructor and the annotations can thus be
-generated on the fly, if needed. Moreover, PROTESTANT lets you to
+generated on the fly, if needed. Moreover, MOLSTAR lets you to
 use multiple data sources.
 
 The following example shows how to mix "local"
@@ -177,8 +177,8 @@ const customDataSources = [
     }
 ];
 
-const Protestant = require('protestant');
-protestant = new Protestant({
+const MolStar = require('MolStar');
+molstar = new MolStar({
     uniprotId: 'P37840',
     containerId: 'pluginContainer',
     customDataSources: customDataSources

@@ -8,8 +8,12 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Catamaran';
+  font-family: 'Calibri';
   font-weight: 800 !important;
+}
+
+section h2 {
+  font-family: 'Lobster';
 }
 
 .btn-xl {
@@ -48,13 +52,27 @@ h6 {
   letter-spacing: 0.1rem;
 }
 
+header.masthead::before{
+  content: ""; /* important */
+  z-index: -1; /* important */
+  position: inherit;
+  left: inherit;
+  top: inherit;
+  width: inherit;
+  height: inherit;
+  background-image: inherit;
+  background-size: cover;
+  filter: blur(8px);
+}
+
 header.masthead {
   position: relative;
   overflow: hidden;
   padding-top: calc(7rem + 72px);
-  padding-bottom: 7rem;
-  background: linear-gradient(0deg, #000000 0%, #ffffff 100%);
-  background-repeat: no-repeat;
+  padding-bottom: 4rem;
+  /*background: linear-gradient(0deg, #000000 0%, #ffffff 100%);*/
+  background-image: url("../img/star-field.jpeg");
+  background-repeat: repeat-x;
   background-position: center center;
   background-attachment: scroll;
   background-size: cover;
@@ -110,8 +128,8 @@ header.masthead .bg-circle-4 {
 
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: calc(10rem + 55px);
-    padding-bottom: 10rem;
+    padding-top: calc(5rem + 55px);
+    padding-bottom: 5rem;
   }
   header.masthead .masthead-content .masthead-heading {
     font-size: 6rem;

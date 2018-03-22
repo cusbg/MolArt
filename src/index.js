@@ -154,7 +154,7 @@ class ActiveFeature {
 
 
 
-const Protestant = function(opts) {
+const MolStar = function(opts) {
 
     let pvReady  = false;
 
@@ -424,8 +424,8 @@ const Protestant = function(opts) {
             globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
             return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                // console.log('uniprotIdSmrs',uniprotIdSmrs)
-                globals.pdbRecords = JSON.parse(uniprotIdSmrs.body).result.structures.map(rec => pdbMapping(rec, 'SMR'));
+                console.log('uniprotIdSmrs',uniprotIdSmrs)
+                globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
             }, function (error) {
                 return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
             });
@@ -531,25 +531,25 @@ const Protestant = function(opts) {
     }
 };
 
-Protestant.prototype.destroy = function () {
+MolStar.prototype.destroy = function () {
     return this.getLmController().destroy();
 };
 
-Protestant.prototype.getGlobals = function () {
+MolStar.prototype.getGlobals = function () {
     return this.globals;
 };
 
- Protestant.prototype.getPvController = function () {
+MolStar.prototype.getPvController = function () {
     return this.getGlobals().pv;
 };
 
 
- Protestant.prototype.getLmController = function () {
+MolStar.prototype.getLmController = function () {
      return this.getGlobals().lm;
  };
 
- Protestant.prototype.on = function (eventType, callback) {
+MolStar.prototype.on = function (eventType, callback) {
     this.eventEmitter.on(eventType, callback);
 };
 
- module.exports = Protestant;
+ module.exports = MolStar;

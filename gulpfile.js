@@ -59,13 +59,13 @@ gulp.task('build', ['css-impute'], function () {
             ],
             ['browserify-css']
         ],
-        standalone: 'Protestant',
+        standalone: 'MolStar',
         debug: true
     })
-      .require("./src/index.js", {expose: "Protestant"});
+      .require("./src/index.js", {expose: "MolStar"});
 
     var bundle = appBundler.bundle().on('error', function(e){console.log(e)})
-        .pipe(source('protestant.js'));
+        .pipe(source('molstar.js'));
 
     if (production) {
         bundle = bundle
@@ -75,7 +75,8 @@ gulp.task('build', ['css-impute'], function () {
 
     return bundle
         .pipe(gulp.dest('dist'))
-        .pipe(gulp.dest('web/lib/protestant'));
+        .pipe(gulp.dest('examples/web/lib/molstar'))
+        .pipe(gulp.dest('docs/examples/web/lib/molstar'));
 });
 
 gulp.task('bs-reload-build', ['build'], function () {

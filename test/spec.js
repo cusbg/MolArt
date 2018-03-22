@@ -1,5 +1,6 @@
 /* eslint-disable max-len,indent */
-const Protestant = require('protestant');
+// const MolStar = require('MolStar');
+
 
 let lmController;
 let pvController;
@@ -7,7 +8,7 @@ let pvController;
 function initPlugin(done, uniprotId, parameters) {
     if (parameters === undefined) parameters = {};
 
-    const pv3d = new Protestant(Object.assign({}, parameters, {
+    const pv3d = new MolStar(Object.assign({}, parameters, {
         uniprotId: uniprotId,
         containerId: 'pv3dContainer'
     }));
@@ -38,7 +39,6 @@ function createMockServer (uniprotId) {
     let server = sinon.fakeServer.create();
 
     server.autoRespond = true;
-    console.log(mockData);
     for (let address in mockData[uniprotId]) {
         server.respondWith(address, mockData[uniprotId][address]);
     }
@@ -72,6 +72,7 @@ describe('Given UniProt ID P37840', function () {
             }
 
             function lmGetModel(pdbId) {
+                const LiteMol = pv3d.getLmController().getPlugin().getLiteMol();
                 const lm = pv3d.getLmController().getPlugin().getController();
 
                 const models = lm.selectEntities(LiteMol.Bootstrap.Tree.Selection.subtree().ofType(LiteMol.Bootstrap.Entity.Molecule.Model));
@@ -89,6 +90,7 @@ describe('Given UniProt ID P37840', function () {
 
             function lmGetAtomIndices(pdbId, pdbResNum, chainId) {
                 const m = lmGetModel(pdbId);
+                const LiteMol = pv3d.getLmController().getPlugin().getLiteMol();
                 const frags = LiteMol.Core.Structure.Query.apply(LiteMol.Core.Structure.Query.residuesById(pdbResNum).inside(LiteMol.Core.Structure.Query.chainsById(chainId)), m.props.model).fragments;
 
                 let atomIndices = [];
@@ -101,6 +103,7 @@ describe('Given UniProt ID P37840', function () {
             }
 
             function lmGetVisuals(pdbId) {
+                const LiteMol = pv3d.getLmController().getPlugin().getLiteMol();
                 if (!pdbId) return pv3d.getLmController().getPlugin().selectNodes(LiteMol.Bootstrap.Tree.Selection.subtree().ofType(LiteMol.Bootstrap.Entity.Molecule.Visual));
                 const lm = pv3d.getLmController().getPlugin().getController();
                 const m = lmGetModel(pdbId);
@@ -495,7 +498,6 @@ describe('Given UniProt ID P37840', function () {
                         consistencyTesting();
 
                         it('should be hidden', function () {
-                            console.log("asdf", pv3d.getGlobals().container.find('.pv3d-lm .error-message-container').css('display'));
                             expect(pv3d.getGlobals().container.find('.pv3d-lm .error-message-container').css('display')).to.equal('none');
 
                         });
