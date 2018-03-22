@@ -49,7 +49,9 @@ gulp.task('css-impute', function () {
 
 });
 
-gulp.task('build', ['build-js-css', 'build-doc']);
+gulp.task('build', ['build-js-css'], function () {
+    gulp.start('build-doc');
+});
 
 gulp.task('build-doc', function () {
     gulp.src(['examples/web/**/*']).pipe(gulp.dest('docs/examples/web'));
