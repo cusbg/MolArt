@@ -16,7 +16,7 @@ gulp.task('browser-sync', function() {
         server: {
             baseDir: '.'
             ,index: 'examples/plugin-page.html'
-            // ,https: true
+            ,https: true
         }
     });
 });

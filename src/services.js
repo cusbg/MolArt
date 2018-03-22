@@ -16,8 +16,8 @@ function getUnpToPdbMapping(uniprotId) {
 }
 
 function getUnpToSmrMapping(uniprotId) {
-    const corsProxy = 'https://crossorigin.me/';
-    // const corsProxy = 'http://cors-proxy.htmldriven.com/?url=';
+    // const corsProxy = 'https://crossorigin.me/';
+    const corsProxy = 'http://cors-proxy.htmldriven.com/?url=';
     return ajaxQuery(corsProxy + 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel').then(function (result) {
         if (corsProxy.indexOf('crossorigin.me') >= 0) {
             return Promise.resolve(result.result)
