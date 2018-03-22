@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <title>Basic plugin test</title>
+        <title>Basic MolStar plugin test</title>
 
-        <script src="https://rawgithub.com/davidhoksza/MolStar/master/dist/molstar.js"></script>
+        <script type="text/javascript" src="https://rawgithub.com/davidhoksza/MolStar/master/dist/molstar.js">></script>
 
 
     </head>
@@ -21,7 +21,24 @@
             window.onload = function() {
                 const molstar = new MolStar({
                     uniprotId: 'P37840',
+                    // uniprotId: 'Q5S007', //LRRK2 Human
+                   // uniprotId: 'P04637',
+                   // uniprotId: 'P05067', //disulfide bond
+        //            uniprotId: 'Q6UWZ7',
+        //            uniprotId: 'P10636',
+        //             uniprotId: 'Q5S007',
+        //                uniprotId: 'P00846',
+        //             uniprotId: 'Q13526',
+        //             uniprotId: 'XXX',
+        //             uniprotId: 'P58340',
+        //             uniprotId: 'P08044',
+        //             uniprotId: 'Q41358',
+        //             uniprotId: 'P79307', //no PDB, many models
+        //             uniprotId: 'Q99LX0', //no PDB, one model
+        //            uniprotId: 'A0A0E3JSU2', //no PDB, no model
                     containerId: 'pv3dContainer'
+                    // ,categoryOrder: ['STRUCTURAL']
+                    // , exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']
                 });
             };
         </script>

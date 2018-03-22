@@ -420,14 +420,19 @@ const MolStar = function(opts) {
     }
 
     function retrieveStructureRecords(uniprotId){
+        function noMappingAvailable() {
+            return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
+        }
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
             globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
             return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                // console.log('uniprotIdSmrs',uniprotIdSmrs)
+                if (uniprotIdSmrs.structures.length == 0) return noMappingAvailable();
                 globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
+                return Promise.resolve();
             }, function (error) {
-                return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
+                return noMappingAvailable();
+
             });
         });
     }

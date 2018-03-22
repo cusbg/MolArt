@@ -8,6 +8,7 @@ const fs = require('fs');
 const postcss = require('postcss');
 const url = require('postcss-url');
 const open = require('open');
+var replace = require('gulp-replace');
 
 var production = true;
 
@@ -48,7 +49,17 @@ gulp.task('css-impute', function () {
 
 });
 
-gulp.task('build', ['css-impute'], function () {
+gulp.task('build', ['build-js-css', 'build-doc']);
+
+gulp.task('build-doc', function () {
+    gulp.src(['examples/web/**/*']).pipe(gulp.dest('docs/examples/web'));
+
+    gulp.src(['examples/plugin-page.html'])
+        .pipe(replace('src="../dist/molstar.js"', 'src="https://rawgithub.com/davidhoksza/MolStar/master/dist/molstar.js">'))
+        .pipe(gulp.dest('docs/examples/'));
+});
+
+gulp.task('build-js-css', ['css-impute'], function () {
     const appBundler = browserify({
         entries: ['./src/index.js'],
         transform: [
@@ -93,6 +104,7 @@ gulp.task('watch', ['debug', 'build', 'browser-sync'], function () {
 
   gulp.watch("src/**/*.css", ['bs-reload-build']);
   gulp.watch("src/**/*.js", ['bs-reload-build']);
+  gulp.watch("examples/**/*", ['bs-reload-build']);
   gulp.watch("*.html", ['bs-reload']);
 });
 
