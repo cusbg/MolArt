@@ -17,7 +17,7 @@ gulp.task('browser-sync', function() {
         server: {
             baseDir: '.'
             ,index: 'examples/plugin-page.html'
-            ,https: true
+            // ,https: true
         }
     });
 });
@@ -102,12 +102,16 @@ gulp.task('debug', function(){
     production = false;
 });
 
-gulp.task('watch', ['debug', 'build', 'browser-sync'], function () {
+gulp.task('bs-watch', ['browser-sync'], function () {
+    gulp.watch("src/**/*.css", ['bs-reload-build']);
+    gulp.watch("src/**/*.js", ['bs-reload-build']);
+    gulp.watch("examples/**/*", ['bs-reload-build']);
+    gulp.watch("*.html", ['bs-reload']);
 
-  gulp.watch("src/**/*.css", ['bs-reload-build']);
-  gulp.watch("src/**/*.js", ['bs-reload-build']);
-  gulp.watch("examples/**/*", ['bs-reload-build']);
-  gulp.watch("*.html", ['bs-reload']);
+})
+
+gulp.task('watch', ['debug', 'build'], function () {
+    gulp.start('bs-watch');
 });
 
 gulp.task('test', ['prepare-mock-data'], function() {
