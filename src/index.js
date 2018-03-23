@@ -110,7 +110,6 @@ class ActiveStructure {
         }
 
         const annotations = this.globals.pv.extractAnnotationData();
-        console.log(annotations);
 
         Object.keys(annotations).forEach(cat => {
             const featureNames = [];
@@ -420,19 +419,12 @@ const MolStar = function(opts) {
     }
 
     function retrieveStructureRecords(uniprotId){
-        function noMappingAvailable() {
-            return Promise.reject('No PDB mapping or Swissprot model available for UniprotId ' + uniprotId);
-        }
+
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
             globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
             return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                if (uniprotIdSmrs.structures.length == 0) return noMappingAvailable();
-                globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
-                return Promise.resolve();
-            }, function (error) {
-                return noMappingAvailable();
-
+                if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
             });
         });
     }
@@ -474,9 +466,6 @@ const MolStar = function(opts) {
 
         return retrieveStructureRecords(globals.uniprotId).then(() => {
             return services.getFastaByUniprotId(globals.uniprotId);
-        }, function (error) {
-            pdbRetrievalError = error;
-            return services.getFastaByUniprotId(globals.uniprotId);
         }).then(function(fasta) {
 
             //simulating user-provided data source
@@ -509,9 +498,8 @@ const MolStar = function(opts) {
                 globals: globals,
             });
 
-            if (pdbRetrievalError  !== undefined) {
-                if (typeof pdbRetrievalError !== "string") pdbRetrievalError = "No structure retrieved";
-                globals.lm.showErrorMessage(pdbRetrievalError);
+            if (!('pdbRecords' in globals)) {
+                globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
                 eventEmitter.emit('pvReady');
                 pvReady = true;
                 resize();

@@ -18,10 +18,10 @@ function getUnpToPdbMapping(uniprotId) {
 function getUnpToSmrMapping(uniprotId) {
     const spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
     return ajaxQuery('http://cors-proxy.htmldriven.com/?url=' + spUrl).then(function (result) {
-        return Promise.resolve(JSON.parse(result.body).result);
+        return JSON.parse(result.body).result;
     }, function(){
         return ajaxQuery('https://crossorigin.me/' + spUrl).then(function (result) {
-            return Promise.resolve(result.result)
+            return result.result;
         });
     })
 }
