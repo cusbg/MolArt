@@ -445,10 +445,8 @@ const MolStar = function(opts) {
         let pdbRetrievalError;
 
         return retrieveStructureRecords(globals.uniprotId).then(() => {
-            console.log('x');
             return services.getFastaByUniprotId(globals.uniprotId);
         }).then(function(fasta) {
-            console.log('y');
 
             //simulating user-provided data source
             // opts.customDataSources = [

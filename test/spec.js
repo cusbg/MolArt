@@ -68,6 +68,7 @@ describe('Given UniProt ID P37840', function () {
             this.timeout(5000);
 
             function lmGetModels() {
+                const LiteMol = pv3d.getLmController().getPlugin().getLiteMol();
                 return pv3d.getLmController().getPlugin().selectNodes(LiteMol.Bootstrap.Tree.Selection.subtree().ofType(LiteMol.Bootstrap.Entity.Molecule.Model));
             }
 
@@ -568,7 +569,7 @@ describe('Given existing Uniprot ID  with no matching structure (P00846), LiteMo
     });
 
     it('should show information window', function () {
-        expect(pv3d.getGlobals().container.find('.pv3d-lm .error-message-container').css('display') === 'block').to.be.true;
+        expect(pv3d.getGlobals().container.find('.error-message-container').css('display') === 'block').to.be.true;
 
     });
 
