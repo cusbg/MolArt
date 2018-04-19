@@ -1,3 +1,5 @@
+const corsServer = require('./settings').corsServer;
+
 const pdbMapping = function (record, _source = 'PDB') {
 
     let pdbId = undefined,
@@ -34,7 +36,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         pdbEnd = parseInt(record.to);
         uniprotStart = parseInt(record.from);
         uniprotEnd = parseInt(record.to);
-        coordinatesFile = 'https://crossorigin.me/'+record.coordinates;
+        coordinatesFile = corsServer + record.coordinates;
     } else {
         throw Error('Unknown source of PDB mapping data');
     }

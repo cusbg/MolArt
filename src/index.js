@@ -14,26 +14,6 @@ const services = require('./services');
 const pdbMapping = require('./pdb.mapping');
 const svgSymbols = require('./svg.symbols');
 
-const settings = {
-    loadAllChains: true
-    , pvMappedStructuresCat: {
-        id: 'EXPERIMENTAL_STRUCTURES'
-        ,idPredicted: 'PREDICTED_STRUCTURES'
-        ,name: 'Experimental structures'
-        ,namePredicted: 'Predicted structures'
-        ,clazz: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
-        ,clazzPred: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
-    }
-    , pvVariationCat: {
-        clazz: 'up_pftv_category_VARIATION'
-    }
-    ,variationColors: {
-        min: [200, 200, 200]
-        ,max: [50, 50, 50]
-    },
-    boundaryFeatureTypes: ['DISULFID']
-};
-
 function loadRecord(rec, globals){
     let loadedRecord = globals.lm.loadRecord(rec);
     if (globals.settings.loadAllChains) {
@@ -102,7 +82,7 @@ class ActiveStructure {
         if (source === 'PDB'){
             content += `cmd.load('${this.record.getCoordinatesFile()}')\n`;
         } else if (source === 'SMR') {
-            const url = this.record.getCoordinatesFile().replace("https://crossorigin.me/", "");
+            const url = this.record.getCoordinatesFile().replace(globals.settings.corsServer, "");
             const name = `${this.globals.uniprotId}.${this.record.getPdbId()}.${this.record.getChainId()}.${this.record.getPdbStart()}-${this.record.getPdbEnd()}`;
             content += `cmd.load('${url}', '${name}', 0, 'pdb')\n`;
         } else {
@@ -166,7 +146,7 @@ const MolStar = function(opts) {
         ,lm: LmController()
         ,pv: PvController()
 
-        ,settings: settings
+        ,settings: require('./settings')
     };
 
     globals.activeStructure =  new ActiveStructure(globals);
@@ -465,8 +445,10 @@ const MolStar = function(opts) {
         let pdbRetrievalError;
 
         return retrieveStructureRecords(globals.uniprotId).then(() => {
+            console.log('x');
             return services.getFastaByUniprotId(globals.uniprotId);
         }).then(function(fasta) {
+            console.log('y');
 
             //simulating user-provided data source
             // opts.customDataSources = [
@@ -518,6 +500,7 @@ const MolStar = function(opts) {
                 });
             }
         }, function (error) {
+            console.log('z');
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
             eventEmitter.emit('pvReady');
         });

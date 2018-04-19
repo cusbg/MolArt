@@ -1,3 +1,5 @@
+const corsServer = require('./settings').corsServer;
+
 function ajaxQuery(url, type) {
     if (type === undefined) type = "GET";
 
@@ -17,12 +19,8 @@ function getUnpToPdbMapping(uniprotId) {
 
 function getUnpToSmrMapping(uniprotId) {
     const spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
-    return ajaxQuery('http://cors-proxy.htmldriven.com/?url=' + spUrl).then(function (result) {
-        return JSON.parse(result.body).result;
-    }, function(){
-        return ajaxQuery('https://crossorigin.me/' + spUrl).then(function (result) {
-            return result.result;
-        });
+    return ajaxQuery(corsServer + spUrl).then(function (result) {
+        return result.result;
     })
 }
 

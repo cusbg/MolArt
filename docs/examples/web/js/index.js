@@ -12,7 +12,10 @@ function queryUniprot(query) {
 }
 
 function querySwissprot(uniprotId) {
-    return ajaxQuery('http://cors-proxy.htmldriven.com/?url=http://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel')
+    const spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
+    return ajaxQuery('https://dobrman.ms.mff.cuni.cz/' + spUrl).then(function (result) {
+        return result.result;
+    });
 }
 
 function searchUniprot() {
@@ -55,7 +58,7 @@ function searchUniprot() {
                 const td = $(`<td class="">${cellContent}</td>`).appendTo(tableRow);
                 if (ix === ix3D && !cell) {
                     querySwissprot(uniprotId).then(function(uniprotIdSmrs){
-                        if (JSON.parse(uniprotIdSmrs.body).result.structures.length > 0) td.text('Predicted');
+                        if (uniprotIdSmrs.structures.length > 0) td.text('Predicted');
                     });
                 }
             });
