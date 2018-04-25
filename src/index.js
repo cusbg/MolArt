@@ -176,7 +176,8 @@ const MolStar = function(opts) {
 
         globals.lmErrorMessageContainer = $(`
         <div class="error-message-container">
-            <div class="error-message">.</div>
+            <a href="#" class="pv3d-error-close-button"></a>
+            <div class="error-message">.</div>            
         </div>`).appendTo(lmBlock);
 
         globals.container.append(pvBlock);
@@ -330,6 +331,10 @@ const MolStar = function(opts) {
         $(window).on('resize', () => {
             resize();
         });
+
+      globals.container.find('.pv3d-error-close-button').on('click',function () {
+          $(this).parent().css('display', 'none');
+      });
     }
 
     function positionHeadersAndContainersTop(){
@@ -340,6 +345,7 @@ const MolStar = function(opts) {
         const newHeaderTop = containerTop - pvContainerTop + headerHeight;
 
         globals.container.find('.pv3d-header').css('top', newHeaderTop + 'px');
+        globals.container.find('.pv3d-lm .error-message-container').css('top', newHeaderTop + 'px');
         globals.pvContainer.css('top', headerHeight + 'px');
         globals.lmContainer.css('top', (newHeaderTop + headerHeight) + 'px');
     }

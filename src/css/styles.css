@@ -8,9 +8,6 @@
 @import "../../node_modules/semantic-ui-transition/transition.min.css";
 @import "../lib/semantic-ui-range/range.css";
 
-
-
-
 .pv-inner-container {
     width: 100%;
     height: 100%;
@@ -282,4 +279,17 @@
 
 .pv3d-download>svg:hover path{
     fill: rgba(0, 0, 0, 1);
+}
+
+.pv3d-error-close-button {
+    color: #f6f5f3;
+    font-sze: 20px;
+    position: absolute;
+    right: 10px;
+    text-decoration: none;
+    top: 10px;
+}
+
+.pv3d-error-close-button:after {
+    content: '✖'; /* UTF-8 symbol */
 }

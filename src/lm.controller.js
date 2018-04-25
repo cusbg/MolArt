@@ -366,6 +366,10 @@ const LmController = function () {
             .then(() => createUniprotMappingGroup(rec))
             .then(groupId => createPdbSelections(rec, groupId))
             .then(selectionId => {
+                if (plugin.getEntity(selectionId).length == 0){
+                  throw Error('Invalid mapping (the structure file does not contain the selection)');
+                }
+
                 mapping[recId].setSelectionId(selectionId);
                 if (params.focus) plugin.focusSelection(selectionId);
                 return plugin.createVisual(selectionId);

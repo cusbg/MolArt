@@ -278,6 +278,10 @@ function createPlugin() {
             });
         };
 
+        const getEntity = function(entityId){
+          return selectNodes(entityId)
+        };
+
         const createSelection = function (entityId, name, chainId, startResidueNumber, endResidueNumber) {
             controllerAvailability();
 
@@ -544,6 +548,7 @@ function createPlugin() {
             , selectNodes: selectNodes
             , getController: getController
             , getLiteMol: getLiteMol
+            , getEntity: getEntity
         }
 
     })(LiteMol || (LiteMol = {}));
