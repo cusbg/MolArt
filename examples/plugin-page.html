@@ -19,7 +19,7 @@
 
         <script type="application/javascript">
             window.onload = function() {
-                const molstar = new MolStar({
+                window.molstar = new MolStar({
                     uniprotId: 'P37840',
                     // uniprotId: 'Q5S007', //LRRK2 Human
                    // uniprotId: 'P04637',
@@ -36,6 +36,7 @@
         //             uniprotId: 'P79307', //no PDB, many models
         //             uniprotId: 'Q99LX0', //no PDB, one model
         //            uniprotId: 'Q9UPY5', //no PDB, no model
+        //             uniprotId: 'P35498', //invalid SMR mapping
                     containerId: 'pv3dContainer'
                     // ,categoryOrder: ['STRUCTURAL']
                     // , exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']

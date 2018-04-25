@@ -318,7 +318,7 @@ const PvController = function () {
 
     function extractAnnotationData(){
         const data = {};
-        pv3d.getGlobals().pv.getPlugin().categories.forEach(cat => {
+        globals.pv.getPlugin().categories.forEach(cat => {
             if (cat.categoryViewer.constructor.name === 'VariantCategoryViewer' ||
                 cat.name === globals.settings.pvMappedStructuresCat.id ||
                 cat.name === globals.settings.pvMappedStructuresCat.idPredicted) return;

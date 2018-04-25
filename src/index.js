@@ -96,7 +96,7 @@ class ActiveStructure {
             annotations[cat].forEach(feature => {
                 const featureName = `${feature.type}${feature.begin}-${feature.end}`;
                 featureNames.push(featureName);
-                const selection = settings.boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
+                const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
             });
             content += `cmd.group('${cat}', '${featureNames.join(" ")}')\n`;

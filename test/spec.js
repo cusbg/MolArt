@@ -271,6 +271,10 @@ describe('Given UniProt ID P37840', function () {
                     it('should have pdb link set to the selected value of the list', () => {
                         expect(lmController.getHeaderLinkContainer().text()).to.have.string(lmController.getHeaderPdbId());
                     });
+
+                    it('should have a working download button');//, ()=>{
+                      //expect($('.pv3d-button.pv3d-download').click).to.throw()
+                    //})
                 });
 
                 describe('ProtVista', () => {
