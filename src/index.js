@@ -340,13 +340,14 @@ const MolStar = function(opts) {
     function positionHeadersAndContainersTop(){
 
         const headerHeight =  globals.container.find('.pv3d-header.pv3d-header-pv').outerHeight();
+        globals.pvContainer.css('top', headerHeight + 'px');
         const containerTop = globals.container.offset().top;
         const pvContainerTop = globals.pvContainer.offset().top;
         const newHeaderTop = containerTop - pvContainerTop + headerHeight;
 
         globals.container.find('.pv3d-header').css('top', newHeaderTop + 'px');
         globals.container.find('.pv3d-lm .error-message-container').css('top', newHeaderTop + 'px');
-        globals.pvContainer.css('top', headerHeight + 'px');
+
         globals.lmContainer.css('top', (newHeaderTop + headerHeight) + 'px');
     }
 
