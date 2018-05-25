@@ -16,6 +16,7 @@ module.exports = {
     ,max: [50, 50, 50]
   },
   boundaryFeatureTypes: ['DISULFID'],
+  useCorsForSmr: true,
   corsServer: 'https://dobrman.ms.mff.cuni.cz/'
 
 };

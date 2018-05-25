@@ -1,3 +1,4 @@
+const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
 
 const pdbMapping = function (record, _source = 'PDB') {
@@ -36,7 +37,8 @@ const pdbMapping = function (record, _source = 'PDB') {
         pdbEnd = parseInt(record.to);
         uniprotStart = parseInt(record.from);
         uniprotEnd = parseInt(record.to);
-        coordinatesFile = corsServer + record.coordinates;
+        coordinatesFile = record.coordinates;
+        if (useCorsForSmr) coordinatesFile = corsServer + coordinatesFile
     } else {
         throw Error('Unknown source of PDB mapping data');
     }

@@ -1,3 +1,4 @@
+const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
 
 function ajaxQuery(url, type) {
@@ -18,10 +19,15 @@ function getUnpToPdbMapping(uniprotId) {
 }
 
 function getUnpToSmrMapping(uniprotId) {
-    const spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
-    return ajaxQuery(corsServer + spUrl).then(function (result) {
-        return result.result;
-    })
+  let spUrl;
+  if (useCorsForSmr)
+    spUrl = corsServer + 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
+  else
+    spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
+  return ajaxQuery(spUrl).then(function (result) {
+
+    return result.result;
+  })
 }
 
 module.exports = {
