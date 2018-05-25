@@ -505,7 +505,6 @@ const MolStar = function(opts) {
                 });
             }
         }, function (error) {
-            console.log('z');
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
             eventEmitter.emit('pvReady');
         });
