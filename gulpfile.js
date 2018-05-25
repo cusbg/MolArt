@@ -8,9 +8,9 @@ const fs = require('fs');
 const postcss = require('postcss');
 const url = require('postcss-url');
 const open = require('open');
-var replace = require('gulp-replace');
+const replace = require('gulp-replace');
 
-var production = true;
+let production = true;
 
 gulp.task('browser-sync', function() {
     browserSync({
@@ -107,7 +107,7 @@ gulp.task('bs-watch', ['browser-sync'], function () {
     gulp.watch("src/**/*.js", ['bs-reload-build']);
     gulp.watch("examples/**/*.html", ['bs-reload-build']);
     // gulp.watch("*.html", ['bs-reload']);
-})
+});
 
 gulp.task('watch', ['debug', 'build'], function () {
     gulp.start('bs-watch');

@@ -409,7 +409,7 @@ const PvController = function () {
             el.off().on('click', (e) => {
 
                 // get the variant category
-                const variantFeatures = globals.pv.getPlugin().categories.filter(cat => cat.categoryViewer.constructor.name === 'VariantCategoryViewer')[0].categoryViewer.features;
+                const variantFeatures = globals.pv.getPlugin().categories.filter(cat => "features" in cat.categoryViewer)[0].categoryViewer.features;
 
                 let variant = $(e.target).parent().attr('class').match(/up_pftv_aa_([^ ]*)/)[1];
                 if (variant === 'd') variant = 'del';
