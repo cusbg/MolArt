@@ -259,16 +259,24 @@ const LmController = function () {
         }
     }
 
+    function updateSurfaceTransparencyTitle(val){
+        globals.container.find('.transparency-slider').attr('title', `Surface transparency:  ${val}%`)
+    }
+
     function handleEvents() {
 
+        const initialTransparency = 30;
         globals.container.find('.transparency-slider').range({
             min: 0,
             max: 100,
-            start: 30,
+            start: initialTransparency * 2, //for some reason the initial transparency got set to half of the required value
             onChange: function(val) {
                 globals.lm.setSurfaceTransparency(parseFloat(val) / 100);
+                updateSurfaceTransparencyTitle(val);
             }
         });
+        globals.lm.setSurfaceTransparency(initialTransparency / 100)
+        updateSurfaceTransparencyTitle(initialTransparency);
 
         activateDropdownsEvents();
         // pdbChainListOnChange(true);

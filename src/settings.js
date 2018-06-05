@@ -14,9 +14,8 @@ module.exports = {
   ,variationColors: {
     min: [200, 200, 200]
     ,max: [50, 50, 50]
-  },
-  boundaryFeatureTypes: ['DISULFID'],
-  useCorsForSmr: true,
-  corsServer: 'https://dobrman.ms.mff.cuni.cz/'
-
+  }
+  ,boundaryFeatureTypes: ['DISULFID']
+  ,useCorsForSmr: true
+  ,corsServer: 'https://dobrman.ms.mff.cuni.cz/'
 };

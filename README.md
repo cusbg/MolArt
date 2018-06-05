@@ -1,12 +1,12 @@
-# MolStar (MOLecular STructure AnnotatoR)
+# MolArt (MOLeculAR structure annoTator)
 
-MolStar is a responsive, easy-to-use JavaScript plugin which enables users to
+MolArt is a responsive, easy-to-use JavaScript plugin which enables users to
 view annotated protein sequence (including variation data from large scale
 studies) and overlay the annotations over a corresponding experimental
 or predicted protein structure.
-It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing MolStar) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing MolArt) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
 
-Examples of MolStar's use can be found at https://davidhoksza.github.io/MolStar/ .
+Examples of MolArt's use can be found at https://davidhoksza.github.io/MolArt/ .
 
 The plugin is being developed at the Luxembourg Center for Systems Biomedicine, University of Luxembourg.
 
@@ -30,7 +30,7 @@ The plugin is being developed at the Luxembourg Center for Systems Biomedicine, 
 - Color overlay individual variation over the structure
 - Color overlay all mutations to given amino acid over the structure
 - Color overlay mutation frequency of residues over the structure
-- Exports of the structure and annotations to [PyMol](https://pymol.org/2/) for advanced inspection
+- Exports of the structure and annotations to [PyMol](https://pymol.org/2/) for advanced inspection (the export does not include variants)
 
 ## Data sources
 
@@ -38,33 +38,33 @@ The plugin is being developed at the Luxembourg Center for Systems Biomedicine, 
   - Sequence information comes from [UniProt website REST API](https://www.uniprot.org/help/api)
   - Sequence annotations are provided by the ProtVista plugin which utilizes the EBI's [Proteins REST API](https://www.ebi.ac.uk/proteins/api/doc/). Proteins API includes access to variation, proteomics and antigen services containing "annotations imported and mapped from large scale data sources, such as 1000 Genomes, ExAC (Exome Aggregation Consortium), COSMIC (Catalogue Of Somatic Mutations In Cancer), PeptideAtlas, MaxQB (MaxQuant DataBase), EPD (Encyclopedia of Proteome Dynamics) and HPA, along with UniProtKB annotations for these feature types".
 - Structure mapping
-    - To obtain the mapping between UniProt and PDB, MolStar is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
+    - To obtain the mapping between UniProt and PDB, MolArt is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
     - In case the SIFTS mapping yields no PDB structures, SMR is queried using its [API](https://swissmodel.expasy.org/docs/repository_help#smr_api) for available models.
 - Structure data
-  - In case an experimental structure is available in PDB for given UniProt ID, this structure is downloaded by LiteMol. In this case, MolStar instructs LiteMol to use the mmCIF format.
-  - In case there is no experimental structure in PDB, but a model exists in SMR, MolStar instructs LiteMol to use the PDB-format structure data from SMR.
+  - In case an experimental structure is available in PDB for given UniProt ID, this structure is downloaded by LiteMol. In this case, MolArt instructs LiteMol to use the mmCIF format.
+  - In case there is no experimental structure in PDB, but a model exists in SMR, MolArt instructs LiteMol to use the PDB-format structure data from SMR.
 
-## How to use MolStar
+## How to use MolArt
 
-- Obtain the JavaScript file with MolStar and link it from your web page
+- Obtain the JavaScript file with MolArt and link it from your web page
 - Create a container DIV (or SPAN) element which will hold the viewer
 - Create a JavaScript object and pass it reference to the DIV
 
-The detail description of how to incorporate MolStar into your project can be found in the [developer documentation](https://github.com/davidhoksza/MolStar/tree/master/docs).
+The detail description of how to incorporate MolArt into your project can be found in the [developer documentation](https://github.com/davidhoksza/MolArt/tree/master/docs).
 
 ### Examples of use
-Exmpales of how to use MolStar are located in the ``examples`` folder.
+Exmpales of how to use MolArt are located in the ``examples`` folder.
 - See the ``bare.html`` file for a bare bones example of how to use the plugin.
 - The ``plugin-page.html`` is slightly styled plugin usage.
-- For an advanced example, see the ``web`` directory. It contains a simple web application which enables querying Uniprot (only top 10 matches are retrieved) and for every found record one can click the UniProt ID which creates a new tab with new instance of MolStar for that UniProt ID.
+- For an advanced example, see the ``web`` directory. It contains a simple web application which enables querying Uniprot (only top 10 matches are retrieved) and for every found record one can click the UniProt ID which creates a new tab with new instance of MolArt for that UniProt ID.
 
 ## Contributing
 
-We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issue [here](https://github.com/davidhoksza/MolStar/issues) or get in touch by mail.
+We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issue [here](https://github.com/davidhoksza/MolArt/issues) or get in touch by mail.
 
 ## Support
 
-Please submit your issues through the MolStar's repository issue tracker available [here](https://github.com/davidhoksza/MolStar/issues).
+Please submit your issues through the MolArt's repository issue tracker available [here](https://github.com/davidhoksza/MolArt/issues).
 
 ## License
 

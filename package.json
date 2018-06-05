@@ -1,19 +1,19 @@
 {
-  "name": "molstar",
-  "description": "MOLecular STructure AnnoatoR",
-  "version": "1.0.2",
-  "homepage": "https://github.com/davidhoksza/MolStar",
+  "name": "molart",
+  "description": "MOLeculAR structure annoTator",
+  "version": "1.0.0",
+  "homepage": "https://github.com/davidhoksza/MolArt",
   "author": "David Hoksza",
   "keywords": [],
   "license": "Apache 2",
   "bugs": {
-    "url": "https://github.com/davidhoksza/MolStar/issues"
+    "url": "https://github.com/davidhoksza/MolArt/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidhoksza/MolStar.git"
+    "url": "https://github.com/davidhoksza/MolArt.git"
   },
-  "main": "dist/molstar.js",
+  "main": "dist/molart.js",
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",

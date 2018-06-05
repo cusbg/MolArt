@@ -1,6 +1,7 @@
 /* eslint-disable max-len,indent */
-// const MolStar = require('MolStar');
+// const MolArt = require('MolArt');
 
+it.should('test the enableTitles option');
 
 let lmController;
 let pvController;
@@ -8,7 +9,7 @@ let pvController;
 function initPlugin(done, uniprotId, parameters) {
     if (parameters === undefined) parameters = {};
 
-    const pv3d = new MolStar(Object.assign({}, parameters, {
+    const pv3d = new MolArt(Object.assign({}, parameters, {
         uniprotId: uniprotId,
         containerId: 'pv3dContainer'
     }));
@@ -53,7 +54,7 @@ function createMockServer (uniprotId) {
 function getActiveStructurePdbNum(pv3d, num){
     const rec = pv3d.getGlobals().activeStructure.record;
     return rec.mapPosUnpToPdb(num);
-}
+
 
 describe('Given UniProt ID P37840', function () {
 
@@ -235,13 +236,13 @@ describe('Given UniProt ID P37840', function () {
                     }
                 ];
 
-                server = createMockServer(uniprotId);
+                // server = createMockServer(uniprotId);
                 pv3d = initPlugin(done, uniprotId, {customDataSources: customDataSources});
 
             });
 
             after(() => {
-                server.restore();
+                // server.restore();
             });
 
             describe('When data is loaded', () => {
@@ -301,7 +302,7 @@ describe('Given UniProt ID P37840', function () {
                         pv3d.getLmController().highlightCallback({data: {residues: []} })
                     });
 
-                    it('should show a highlight bar', () => {
+                    it.only('should show a highlight bar', () => {
                         expect(pv3d.getGlobals().container.find('.pv3d-pv-highlight-bar').css('display') == 'block').to.be.true;
                     });
                 });
@@ -564,12 +565,12 @@ describe('Given existing Uniprot ID  with no matching structure (P00846), LiteMo
 
     before((done) => {
         clearPlugin();
-        server = createMockServer(uniprotId);
+        // server = createMockServer(uniprotId);
         pv3d = initPlugin(done, uniprotId);
     });
 
     after(() => {
-        server.restore();
+        // server.restore();
     });
 
     it('should show information window', function () {

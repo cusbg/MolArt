@@ -128,7 +128,7 @@ function addTab(uniprotId) {
         }
     });
 
-    const molstar = new MolStar({
+    const molart = new MolArt({
         uniprotId: uniprotId,
         containerId: 'pluginContainer' + uniprotId
     });

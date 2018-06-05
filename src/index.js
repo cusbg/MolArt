@@ -133,7 +133,7 @@ class ActiveFeature {
 
 
 
-const MolStar = function(opts) {
+const MolArt = function(opts) {
 
     let pvReady  = false;
 
@@ -498,6 +498,7 @@ const MolStar = function(opts) {
                     globals.pv.modifyHtmlStructure();
                     globals.pv.resized();
                     globals.pv.registerCallbacksAndEvents();
+                    globals.pv.enableCategoriesTitles(opts.enableTitles);
 
                     eventEmitter.emit('pvReady');
                     pvReady = true;
@@ -511,25 +512,25 @@ const MolStar = function(opts) {
     }
 };
 
-MolStar.prototype.destroy = function () {
+MolArt.prototype.destroy = function () {
     return this.getLmController().destroy();
 };
 
-MolStar.prototype.getGlobals = function () {
+MolArt.prototype.getGlobals = function () {
     return this.globals;
 };
 
-MolStar.prototype.getPvController = function () {
+MolArt.prototype.getPvController = function () {
     return this.getGlobals().pv;
 };
 
 
-MolStar.prototype.getLmController = function () {
+MolArt.prototype.getLmController = function () {
      return this.getGlobals().lm;
  };
 
-MolStar.prototype.on = function (eventType, callback) {
+MolArt.prototype.on = function (eventType, callback) {
     this.eventEmitter.on(eventType, callback);
 };
 
- module.exports = MolStar;
+ module.exports = MolArt;

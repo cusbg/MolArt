@@ -60,13 +60,7 @@ const PvController = function () {
                     defaultSources: true,
                     // customDataSource: ds,
                     customDataSources: customDataSources
-                }));
-
-            getPlugin().getDispatcher().on('ready', () => {
-                globals.pv.modifyHtmlStructure();
-                globals.pv.resized();
-                globals.pv.registerCallbacksAndEvents();
-            });
+                }))
 
         } else {
             plugin = new ProtVista({
@@ -77,6 +71,12 @@ const PvController = function () {
         }
 
         initializeHeader();
+    }
+
+    function enableCategoriesTitles(enable) {
+        if (enable === undefined || !enable) {
+          globals.pvContainer.find('a.up_pftv_category-name').removeAttr('title');
+        }
     }
 
     function getUniprotLink(uniprotId) {
@@ -319,7 +319,7 @@ const PvController = function () {
     function extractAnnotationData(){
         const data = {};
         globals.pv.getPlugin().categories.forEach(cat => {
-            if (cat.categoryViewer.constructor.name === 'VariantCategoryViewer' ||
+            if ('features' in cat.categoryViewer ||
                 cat.name === globals.settings.pvMappedStructuresCat.id ||
                 cat.name === globals.settings.pvMappedStructuresCat.idPredicted) return;
             data[cat.name] = [];
@@ -331,7 +331,7 @@ const PvController = function () {
                     end: feature.end
                 })
             })
-        })
+        });
 
         return data;
     }
@@ -456,9 +456,6 @@ const PvController = function () {
         featureDeselectedCallback();
         overlayCallbacks();
         handleMouseMoveEvents();
-
-
-
     }
 
     function getPlugin() {
@@ -480,6 +477,7 @@ const PvController = function () {
         ,deselectAllOverlayIcons: deselectAllOverlayIcons
         ,resized: resized
         ,extractAnnotationData: extractAnnotationData
+        ,enableCategoriesTitles: enableCategoriesTitles
 
         //Exposed for testing purposes
         ,getHeaderLinkContainer: getHeaderLinkContainer

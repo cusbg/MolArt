@@ -57,7 +57,7 @@ gulp.task('build-doc', function () {
     gulp.src(['examples/web/**/*']).pipe(gulp.dest('docs/examples/web'));
 
     gulp.src(['examples/plugin-page.html'])
-        .pipe(replace('src="../dist/molstar.js"', 'src="https://rawgithub.com/davidhoksza/MolStar/master/dist/molstar.js">'))
+        .pipe(replace('src="../dist/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
         .pipe(gulp.dest('docs/examples/'));
 });
 
@@ -72,13 +72,13 @@ gulp.task('build-js-css', ['css-impute'], function () {
             ],
             ['browserify-css']
         ],
-        standalone: 'MolStar',
+        standalone: 'MolArt',
         debug: true
     })
-      .require("./src/index.js", {expose: "MolStar"});
+      .require("./src/index.js", {expose: "MolArt"});
 
     var bundle = appBundler.bundle().on('error', function(e){console.log(e)})
-        .pipe(source('molstar.js'));
+        .pipe(source('molart.js'));
 
     if (production) {
         bundle = bundle
@@ -88,8 +88,8 @@ gulp.task('build-js-css', ['css-impute'], function () {
 
     return bundle
         .pipe(gulp.dest('dist'))
-        .pipe(gulp.dest('examples/web/lib/molstar'))
-        .pipe(gulp.dest('docs/examples/web/lib/molstar'));
+        .pipe(gulp.dest('examples/web/lib/molart'))
+        .pipe(gulp.dest('docs/examples/web/lib/molart'));
 });
 
 gulp.task('bs-reload-build', ['build'], function () {
