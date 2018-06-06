@@ -265,7 +265,7 @@ const LmController = function () {
 
     function handleEvents() {
 
-        const initialTransparency = 30;
+        const initialTransparency = 15;
         globals.container.find('.transparency-slider').range({
             min: 0,
             max: 100,

@@ -73,10 +73,17 @@ const PvController = function () {
         initializeHeader();
     }
 
-    function enableCategoriesTitles(enable) {
-        if (enable === undefined || !enable) {
+    function setCategoriesTooltips(enable, toolTips) {
+        if (enable !== undefined && !enable) {
           globals.pvContainer.find('a.up_pftv_category-name').removeAttr('title');
+        } else {
+            if (toolTips !== undefined) {
+                toolTips.forEach(keyVal => {
+                    globals.pvContainer.find(`div.up_pftv_category_${keyVal[0]} a.up_pftv_category-name`).attr('title', keyVal[1])
+                })
+            }
         }
+
     }
 
     function getUniprotLink(uniprotId) {
@@ -477,7 +484,7 @@ const PvController = function () {
         ,deselectAllOverlayIcons: deselectAllOverlayIcons
         ,resized: resized
         ,extractAnnotationData: extractAnnotationData
-        ,enableCategoriesTitles: enableCategoriesTitles
+        ,setCategoriesTooltips: setCategoriesTooltips
 
         //Exposed for testing purposes
         ,getHeaderLinkContainer: getHeaderLinkContainer
