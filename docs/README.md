@@ -187,6 +187,11 @@ molart = new MolArt({
 
 #### Other options
 
-- ```enableTitles``` (default ```false```) - when set to ```true``` hovering over a category
-shows tooltip for that category as ProtVista does by default. However,
-this tooltip only shows code of that category.
+- ```enableTooltips``` (default ```true```) - when set to ```false``` hovering over a category
+does not show a tooltip for that category as ProtVista does by default. This option
+was added because default category tooltips in ProtVista are not very illustrative.
+- ```categoriesTooltips``` - array of arrays of size two containing category code and
+its tooltip text. This option allows to set user-defined titles for categories.
+The tooltips for tracks can be set using the ProtVista [custom config file](http://ebi-uniprot.github.io/ProtVista/developerGuide.html#further-customization) option.
+Since all options passed to MolArt's constructor are further passed to ProtVista,
+this option is available in MolArt as well.
