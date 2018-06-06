@@ -1,5 +1,5 @@
-var blender = require('color-blend');
-var LiteMol = require('LiteMol').default;
+const blender = require('color-blend');
+let LiteMol = require('LiteMol').default;
 
 const CustomTheme = (function(){
     const Core = LiteMol.Core;
@@ -72,7 +72,7 @@ const CustomTheme = (function(){
                             r: 255 * existingColor.r,
                             g: 255 * existingColor.g,
                             b: 255 * existingColor.b
-                        }
+                        };
                         colorIndex = mapper.addColor(mergeRgb(existingColor255, e.color));
                     }
                     map[a] = colorIndex;
@@ -81,7 +81,7 @@ const CustomTheme = (function(){
         }
         const fallbackColor = { r: 0.6, g: 0.6, b: 0.6 };
         const selectionColor = { r: 0, g: 0, b: 1 };
-        const highlightColor = { r: 1, g: 0, b: 1 };
+        const highlightColor = { r: 1, g: 1, b: 0 };
         const colors = Core.Utils.FastMap.create();
         colors.set('Uniform', fallbackColor);
         colors.set('Selection', selectionColor);

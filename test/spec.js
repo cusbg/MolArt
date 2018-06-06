@@ -1,7 +1,9 @@
 /* eslint-disable max-len,indent */
 // const MolArt = require('MolArt');
 
-it.should('test the enableTitles option');
+it.should('test the enableTooltips option');
+it.should('test the highlightByHovering option');
+it.should('test the highlightByHovering option disregards experimental and predicted structures');
 
 let lmController;
 let pvController;

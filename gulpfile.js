@@ -109,8 +109,13 @@ gulp.task('bs-watch', ['browser-sync'], function () {
     // gulp.watch("*.html", ['bs-reload']);
 });
 
-gulp.task('watch', ['debug', 'build'], function () {
+gulp.task('watch', ['build-debug'], function () {
     gulp.start('bs-watch');
+});
+
+gulp.task('build-debug', ['debug'], function () {
+    gulp.start('build');
+
 });
 
 gulp.task('test', ['prepare-mock-data'], function() {

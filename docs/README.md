@@ -187,11 +187,17 @@ molart = new MolArt({
 
 #### Other options
 
-- ```enableTooltips``` (default ```true```) - when set to ```false``` hovering over a category
-does not show a tooltip for that category as ProtVista does by default. This option
-was added because default category tooltips in ProtVista are not very illustrative.
 - ```categoriesTooltips``` - array of arrays of size two containing category code and
 its tooltip text. This option allows to set user-defined titles for categories. An example can be found in the plugin page example (```categoriesTooltips: [['DOMAINS_AND_SITES', 'Describes various domains and sites'], ['PTM', 'Post-translational modifications']]```).
 The tooltips for tracks can be set using the ProtVista [custom config file](http://ebi-uniprot.github.io/ProtVista/developerGuide.html#further-customization) option.
 Since all options passed to MolArt's constructor are further passed to ProtVista,
 this option is available in MolArt as well.
+
+- ```enableTooltips``` (default ```true```) - when set to ```false``` hovering over a category
+does not show a tooltip for that category as ProtVista does by default. This option
+was added because default category tooltips in ProtVista are not very illustrative.
+
+- ```highlightByHovering``` (default ```false```) - when set to ```true```
+hovering over an annotation in sequence view highlights the corresponding part
+of the structure in the structure view. By default, an annotation is highlighted
+only when clicked on in the sequence view.

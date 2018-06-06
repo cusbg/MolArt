@@ -10,9 +10,14 @@ const PvController = function () {
     let plugin;
     let globals;
 
+    const settings = {
+        highlightByHovering: false
+    };
+
     function initialize(params) {
 
         globals = params.globals;
+        if (params.opts.highlightByHovering !== undefined) settings.highlightByHovering = params.opts.highlightByHovering;
 
         const sequence = params.fasta.split("\n").slice(1).join("");
 
@@ -69,6 +74,8 @@ const PvController = function () {
                 defaultSources: true
             });
         }
+
+
 
         initializeHeader();
     }
@@ -169,8 +176,9 @@ const PvController = function () {
     }
 
     function getTrackData(trackContainer) {
-        for (let ixCat = 0; ixCat < plugin.categories.length; ixCat++){
-            const cat = plugin.categories[ixCat];
+        const categories = getCategories();
+        for (let ixCat = 0; ixCat < categories.length; ixCat++){
+            const cat = categories[ixCat];
             for (let ixTrack = 0; ixTrack < cat.tracks.length; ixTrack++) {
                 const track = cat.tracks[ixTrack];
                 if (globals.pvContainer.find(track.trackContainer[0]).is(trackContainer)) {
@@ -192,8 +200,9 @@ const PvController = function () {
         }
 
         let relativeHist;
-        for (let ixCat = 0; ixCat < plugin.categories.length; ixCat++){
-            const cat = plugin.categories[ixCat];
+        const categories = getCategories();
+        for (let ixCat = 0; ixCat < categories.length; ixCat++){
+            const cat = categories[ixCat];
             if (globals.pvContainer.find(cat.categoryContainer[0]).parent().is(catContainer)) {
                 const histogram = cat.categoryViewer.variationCountArray;
                 const max = Math.max(...histogram);
@@ -325,7 +334,8 @@ const PvController = function () {
 
     function extractAnnotationData(){
         const data = {};
-        globals.pv.getPlugin().categories.forEach(cat => {
+        const categories = getCategories();
+        categories.forEach(cat => {
             if ('features' in cat.categoryViewer ||
                 cat.name === globals.settings.pvMappedStructuresCat.id ||
                 cat.name === globals.settings.pvMappedStructuresCat.idPredicted) return;
@@ -416,7 +426,8 @@ const PvController = function () {
             el.off().on('click', (e) => {
 
                 // get the variant category
-                const variantFeatures = globals.pv.getPlugin().categories.filter(cat => "features" in cat.categoryViewer)[0].categoryViewer.features;
+                const categories = getCategories();
+                const variantFeatures = categories.filter(cat => "features" in cat.categoryViewer)[0].categoryViewer.features;
 
                 let variant = $(e.target).parent().attr('class').match(/up_pftv_aa_([^ ]*)/)[1];
                 if (variant === 'd') variant = 'del';
@@ -439,6 +450,10 @@ const PvController = function () {
         });
     }
 
+    function getCategories() {
+        return plugin.categories;
+    }
+
     function handleMouseMoveEvents() {
         globals.container.find('.up_pftv_category-viewer svg, .up_pftv_track svg, .up_pftv_aaviewer svg')
             .off()
@@ -454,6 +469,41 @@ const PvController = function () {
             .on('wheel mousemove', e => {
                 if (e.type === 'wheel' || (e.type === 'mousemove' && e.which === 1)) globals.pv.highlightActiveStructure();
             });
+
+        if (settings.highlightByHovering) {
+
+            globals.container.find('path.up_pftv_feature').off().hover(
+                function (e) {
+                    const featureEl = e.target;
+                    const featureId = featureEl.getAttribute('name');
+
+                    if (featureId.indexOf(globals.settings.pvMappedStructuresCat.id) == 0 || featureId.indexOf(globals.settings.pvMappedStructuresCat.idPredicted) == 0)
+                        return;
+
+                    const featureCategoryEl = featureEl.closest('div.up_pftv_category');
+                    const featureCategoryName = $(featureCategoryEl).parent().attr('class').replace('up_pftv_category_', '');
+                    const featureCategory = getCategories().filter(c => c.name === featureCategoryName)[0];
+
+                    const featureData = featureCategory.data.filter(d=>d.internalId === featureId)[0];
+                    const featureColor = $(featureEl).css('stroke');
+
+                    let activeFeatures = globals.activeFeature.features;
+                    if (activeFeatures === undefined) activeFeatures = []
+                    let activeColors = globals.activeFeature.colors;
+                    if (activeColors === undefined) activeColors = []
+
+
+                    globals.lm.mapFeatures(activeFeatures.concat([featureData]), activeColors.concat([featureColor]));
+
+
+                    console.log('in', featureId, featureData)
+
+                },
+                function(e) {
+                    globals.activeFeature.overlay();
+                    console.log('out', e.target.getAttribute('name'))
+                });
+        }
     }
 
     let callBacksRegistered = false;
