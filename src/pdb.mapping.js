@@ -14,8 +14,6 @@ const pdbMapping = function (record, _source = 'PDB') {
         taxId = undefined,
         source = _source,
         coordinatesFile = undefined;
-
-
     if (source === 'PDB') {
         pdbId = record.pdb_id;
         chain = record.chain_id;
