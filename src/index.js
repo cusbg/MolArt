@@ -82,7 +82,7 @@ class ActiveStructure {
         if (source === 'PDB'){
             content += `cmd.load('${this.record.getCoordinatesFile()}')\n`;
         } else if (source === 'SMR') {
-            const url = this.record.getCoordinatesFile().replace(globals.settings.corsServer, "");
+            const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
             const name = `${this.globals.uniprotId}.${this.record.getPdbId()}.${this.record.getChainId()}.${this.record.getPdbStart()}-${this.record.getPdbEnd()}`;
             content += `cmd.load('${url}', '${name}', 0, 'pdb')\n`;
         } else {
