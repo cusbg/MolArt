@@ -19,13 +19,11 @@
     "build": "gulp build",
     "watch": "gulp watch"
   },
-  "dependencies": {
+  "devDependencies": {
     "ProtVista": "git://github.com/davidhoksza/protvista.git#scaling",
     "downloadjs": "^1.4.7",
     "jquery": "^3.2.1",
-    "litemol": "github:dsehnal/LiteMol"
-  },
-  "devDependencies": {
+    "litemol": "github:dsehnal/LiteMol",
     "babel-cli": "6.24.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "7.2.3",
