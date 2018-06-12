@@ -54,11 +54,19 @@ gulp.task('build', ['build-js-css'], function () {
 });
 
 gulp.task('build-doc', function () {
-    gulp.src(['examples/web/**/*']).pipe(gulp.dest('docs/examples/web'));
+
+    gulp.src(['examples/web/css/**/*']).pipe(gulp.dest('docs/examples/web/css'));
+    gulp.src(['examples/web/img/**/*']).pipe(gulp.dest('docs/examples/web/img'));
+    gulp.src(['examples/web/js/**/*']).pipe(gulp.dest('docs/examples/web/js'));
+
+    gulp.src(['examples/web/index.html'])
+        .pipe(replace('src="lib/molart/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
+        .pipe(gulp.dest('docs/examples/web/'));
 
     gulp.src(['examples/plugin-page.html'])
         .pipe(replace('src="../dist/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
         .pipe(gulp.dest('docs/examples/'));
+
 });
 
 gulp.task('build-js-css', ['css-impute'], function () {
