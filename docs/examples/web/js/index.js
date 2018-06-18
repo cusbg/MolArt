@@ -22,6 +22,7 @@ function searchUniprot() {
 
     const query  = $('#uniprotQueryInput').val();
 
+    $('#errorDiv').css('display', 'none');
     $('#progressDiv').css('display', 'block');
     $('#progressDiv.text').text('Searching Uniprot for ' + query);
     queryUniprot(query).then(function (result) {
@@ -66,6 +67,12 @@ function searchUniprot() {
         });
 
         $('div[data-tab="search-tab"]').append(table);
+    }, function(error) {
+        console.log('error', error);
+        $('#progressDiv').css('display', 'none');
+        $('#errorDiv').css('display', 'block');
+
+
     })
 }
 

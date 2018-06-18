@@ -3,6 +3,13 @@ body{
     padding: 0;
 }
 
+#errorDiv {
+    height: 500px;
+    width: 100%;
+    position: relative;
+    display: none;
+}
+
 #progressDiv {
     height: 500px;
     width: 100%;
