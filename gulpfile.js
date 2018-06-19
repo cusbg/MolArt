@@ -31,6 +31,7 @@ gulp.task('bs-reload', function () {
 });
 
 function impute(sourceCss, targetCss){
+    console.log('sourceCss', sourceCss)
   fs.readFile(sourceCss, (err, css) => {
     postcss([url({url:'inline'})])
       .process(css, { from: sourceCss, to: targetCss })
@@ -43,8 +44,9 @@ function impute(sourceCss, targetCss){
 }
 
 gulp.task('css-impute', function () {
-
-  impute('node_modules/protvista/style/main.css', 'src/css/protvista-imputed.css');
+console.log('x')
+  impute('node_modules/ProtVista/style/main.css', 'src/css/protvista-imputed.css');
+  console.log('y')
   impute('node_modules/litemol/dist/css/LiteMol-plugin-light.css', 'src/css/LiteMol-plugin-light-imputed.css');
 
 });
