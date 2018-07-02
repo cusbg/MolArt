@@ -11,7 +11,9 @@ Examples of MolArt's use can be found at https://davidhoksza.github.io/MolArt/ .
 The plugin is being developed at the Luxembourg Center for Systems Biomedicine, University of Luxembourg.
 
 ---
+
 To cite MolArt use: **MolArt: A molecular structure annotation and visualization tool** (doi: [10.1093/bioinformatics/bty489](https://doi.org/10.1093/bioinformatics/bty489))
+
 ---
 
 <div style="text-align:center">
