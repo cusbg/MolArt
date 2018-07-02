@@ -62,7 +62,7 @@ Exmpales of how to use MolArt are located in the ``examples`` folder.
 
 ## Contributing
 
-We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issue [here](https://github.com/davidhoksza/MolArt/issues) or get in touch by mail.
+We would be happy to hear about your use cases, experiences and ideas/feature requests. Either raise an issue [here](https://github.com/davidhoksza/MolArt/issues) or get in touch by mail (david.hoksza at gmail).
 
 ## Support
 
