@@ -1,9 +1,9 @@
 /* eslint-disable max-len,indent */
 // const MolArt = require('MolArt');
 
-it.should('test the enableTooltips option');
-it.should('test the highlightByHovering option');
-it.should('test the highlightByHovering option disregards experimental and predicted structures');
+it('should test the enableTooltips option');
+it('should test the highlightByHovering option');
+it('should test the highlightByHovering option disregards experimental and predicted structures');
 
 let lmController;
 let pvController;
@@ -53,9 +53,10 @@ function createMockServer (uniprotId) {
     return server;
 }
 
-function getActiveStructurePdbNum(pv3d, num){
+function getActiveStructurePdbNum(pv3d, num) {
     const rec = pv3d.getGlobals().activeStructure.record;
     return rec.mapPosUnpToPdb(num);
+}
 
 
 describe('Given UniProt ID P37840', function () {
@@ -238,13 +239,13 @@ describe('Given UniProt ID P37840', function () {
                     }
                 ];
 
-                // server = createMockServer(uniprotId);
+                server = createMockServer(uniprotId);
                 pv3d = initPlugin(done, uniprotId, {customDataSources: customDataSources});
 
             });
 
             after(() => {
-                // server.restore();
+                server.restore();
             });
 
             describe('When data is loaded', () => {
@@ -304,7 +305,7 @@ describe('Given UniProt ID P37840', function () {
                         pv3d.getLmController().highlightCallback({data: {residues: []} })
                     });
 
-                    it.only('should show a highlight bar', () => {
+                    it('should show a highlight bar', () => {
                         expect(pv3d.getGlobals().container.find('.pv3d-pv-highlight-bar').css('display') == 'block').to.be.true;
                     });
                 });
@@ -355,7 +356,6 @@ describe('Given UniProt ID P37840', function () {
 
                         const e = new Event('click'); $('.tick.up_pftv_aa_G text')[0].dispatchEvent(e);
                         setTimeout(function () {
-                            // residues with uniprotId 31-41 should be highlighted
                             const colors = lmGetColors('1xq8', 'A', glob.pdbRecords[0].getPdbStart(), glob.pdbRecords[0].getPdbEnd());
                             expect(colors.length).to.equal(4);
                             done();
@@ -567,12 +567,12 @@ describe('Given existing Uniprot ID  with no matching structure (P00846), LiteMo
 
     before((done) => {
         clearPlugin();
-        // server = createMockServer(uniprotId);
+        server = createMockServer(uniprotId);
         pv3d = initPlugin(done, uniprotId);
     });
 
     after(() => {
-        // server.restore();
+        server.restore();
     });
 
     it('should show information window', function () {
