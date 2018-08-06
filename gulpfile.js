@@ -44,9 +44,7 @@ function impute(sourceCss, targetCss){
 }
 
 gulp.task('css-impute', function () {
-console.log('x')
   impute('node_modules/ProtVista/style/main.css', 'src/css/protvista-imputed.css');
-  console.log('y')
   impute('node_modules/litemol/dist/css/LiteMol-plugin-light.css', 'src/css/LiteMol-plugin-light-imputed.css');
 
 });
