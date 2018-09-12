@@ -1,0 +1,124 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../dist/molart.js"></script>
+</head>
+<body style="padding: 0; margin: 0;">
+
+
+<div id="pluginContainer"></div>
+
+<script>
+
+    class Variation {
+
+        constructor(position, from, to, varType, description) {
+            this.position = position;
+            this.from = from;
+            this.to = to;
+            this.varType = varType;
+            this.description = description;
+
+        }
+
+    }
+
+    function ajaxQuery(url, type) {
+        if (type === undefined) type = "GET";
+
+        return $.ajax({
+            type: type,
+            url: url
+        });
+    }
+
+    function getUniprotSequence(id) {
+        return ajaxQuery('https://www.uniprot.org/uniprot/?query=accession%3A'+id+'&columns=sequence&format=tab');
+    }
+
+    function geVariationData(id) {
+        return ajaxQuery(id+'_variations.txt');
+    }
+
+    function parseVariationData(data){
+
+        variations = data.split(/\r?\n/).map((d, i) => {
+            if (i  ===  0) return;
+
+            let cols = d.split('\t');
+
+            let varType = cols[4];
+            let description = d;
+            if (cols.length < 10 || cols[10] == '.') return undefined;
+            let change = cols[10].split('.').slice(-1)[0];
+            let m = change.match( /([a-zA-Z]+)(\d+)([a-zA-Z])+/ );
+            if (!m || m.length != 4) return undefined;
+
+            [ ,from, pos, to] = m;
+            return new Variation(pos, from, to, varType, description);
+        }).filter(d => d !== undefined)
+
+        console.log(variations);
+        return variations;
+
+    }
+
+    function constructVariationsData(sequence, variations){
+        return {
+            sequence: sequence,
+            features: variations.map(v => {
+                return {
+                    type: "VARIANT",
+                    category: "VARIATION",
+                    description: v.description,
+                    begin: v.position,
+                    end: v.position,
+                    // wildType: v.from,
+                    alternativeSequence: v.to,
+                    consequence: "User-defined consequence",
+                }
+            })
+        }
+    }
+
+    window.onload = function() {
+
+        const uniprotId = 'Q5S007';
+
+        let sequence;
+        getUniprotSequence(uniprotId).then(data => {
+
+            console.log(data)
+
+            sequence = data.split(/\r?\n/)[1];
+
+            console.log(sequence)
+
+            return geVariationData(uniprotId);
+
+        }).then(data => {
+
+            variations = parseVariationData(data);
+
+            const customDataSources = [
+                {
+                    source: 'VARIANT DB',
+                    useExtension: false,
+                    data: constructVariationsData(sequence, variations)
+                }];
+            console.log(customDataSources)
+
+            //create molart object
+            window.molart = new MolArt({
+                uniprotId: uniprotId,
+                containerId: 'pluginContainer',
+                customDataSources: customDataSources
+            });
+
+        });
+    };
+
+
+</script>
+</body>
+</html>

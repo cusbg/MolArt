@@ -115,7 +115,7 @@ Since the core of MOLART lies in mapping between the sequence and structure,
 the customization does not impact the experimental/predicted structures category
 which always appears first.
 
-#### Custom data source
+#### Custom data sources
 
 You can also provide custom annotations which will be automatically
 mapped over the structures. The format of the annotation data
@@ -201,3 +201,7 @@ was added because default category tooltips in ProtVista are not very illustrati
 hovering over an annotation in sequence view highlights the corresponding part
 of the structure in the structure view. By default, an annotation is highlighted
 only when clicked on in the sequence view.
+
+- ```alwaysLoadPredicted``` (default ```false```) - when set to ```true```
+MolArt always connects to SMR and downloads available models; by default, 
+it will query SMR only when no experimental structure is available.

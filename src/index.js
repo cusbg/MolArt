@@ -405,14 +405,22 @@ const MolArt = function(opts) {
         resize();
     }
 
-    function retrieveStructureRecords(uniprotId){
+    function loadSmr(uniprotId) {
+        return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
+            if (!globals.pdbRecords) globals.pdbRecords = [];
+            if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = globals.pdbRecords.concat(uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR')));
+            return Promise.resolve();
+        });
+    }
+
+    function retrieveStructureRecords(uniprotId, opts){
 
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
-            globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
+            return globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
         }, function(error){
-            return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-                if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR'));
-            });
+            return loadSmr(uniprotId);
+        }).then(function(){
+            return opts.alwaysLoadPredicted ? loadSmr(uniprotId) : Promise.resolve();
         });
     }
 
@@ -421,58 +429,104 @@ const MolArt = function(opts) {
         globals.activeStructure.set(rec.getPdbId(), rec.getChainId());
     }
 
-    function initializeTestDataSet(sequence, catName){
-
-        const ix1 = Math.floor(Math.random() * sequence.length);
-        const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
-
-        return {
-            sequence: sequence,
-            features: [
-                {
-                    type: "ACT_SITE",
-                    category: catName,
-                    begin: String(ix1),
-                    end: String(ix1),
-                    color: "#00F5B8"
-                },
-                {
-                    type: "MY_REGIOM",
-                    category: catName,
-                    begin: String(ix1),
-                    end: String(ix2),
-                    color: "#FF7094"
-                }
-            ]
-        };
-    }
+    // function initializeTestDataSet(sequence, catName, variant=false){
+    //
+    //     const ix1 = Math.floor(Math.random() * sequence.length);
+    //     const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
+    //     // const ix1 = 1468;
+    //     // const ix2 = 1950;
+    //
+    //     if (variant) {
+    //         return {
+    //             sequence: sequence,
+    //             features: [
+    //                 {
+    //                     type: "VARIANT",
+    //                     category: "VARIATION",
+    //                     description: "Random variantion data",
+    //                     begin: String(ix1),
+    //                     end: String(ix1),
+    //                     // wildType: "X",
+    //                     alternativeSequence: "E",
+    //                     consequence: "User-defined consequence",
+    //                     evidences: [
+    //                         {
+    //                             code: "ECO code 1",
+    //                             source: {
+    //                                 name: "Source name 1",
+    //                                 id: "source id 1",
+    //                                 url: "localhost://sourceid1"
+    //                             }
+    //                         }
+    //                     ],
+    //                     xrefs: [
+    //                         {
+    //                             name: "xref name 1",
+    //                             id: "xref id 1",
+    //                             url: "localhost://xrefid1"
+    //                         }
+    //                     ]
+    //                 }
+    //             ]
+    //         }
+    //     } else {
+    //
+    //         return {
+    //             sequence: sequence,
+    //             features: [
+    //                 {
+    //                     type: "ACT_SITE",
+    //                     category: catName,
+    //                     begin: String(ix1),
+    //                     end: String(ix1),
+    //                     color: "#00F5B8"
+    //                 },
+    //                 {
+    //                     type: "MY_REGION",
+    //                     category: catName,
+    //                     begin: String(ix1),
+    //                     end: String(ix2),
+    //                     color: "#FF7094"
+    //                 }
+    //             ]
+    //         };
+    //     }
+    //
+    // }
 
     function initializePlugins(opts) {
 
         let pdbRetrievalError;
 
-        return retrieveStructureRecords(globals.uniprotId).then(() => {
+        return retrieveStructureRecords(globals.uniprotId, opts).then(() => {
             return services.getFastaByUniprotId(globals.uniprotId);
         }).then(function(fasta) {
 
-            //simulating user-provided data source
+            // simulating user-provided data source
+            // let fastaOneLine = fasta.split("\n").slice(1).join('');
             // opts.customDataSources = [
             //
             //     {
             //         source: 'RANDOM',
             //         useExtension: false,
-            //         data: initializeTestDataSet(fasta.split("\n").slice(1).join(''), 'MY_CATEGORY1')
+            //         data: initializeTestDataSet(fastaOneLine, 'MY_CATEGORY1')
             //     },
             //     {
             //         source: 'RANDOM',
             //         useExtension: false,
-            //         data: initializeTestDataSet(fasta.split("\n").slice(1).join(''), 'MY_CATEGORY2')
+            //         data: initializeTestDataSet(fastaOneLine, 'MY_CATEGORY2 asdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             //     },
             //     {
-            //         source: 'RANDOM',
-            //         useExtension: true,
-            //         url: './test/data/externalFeatures_'
-            //     }
+            //         source: 'RANDOM_VARIATION',
+            //         useExtension: false,
+            //         data: initializeTestDataSet(fastaOneLine, 'MY_VARIATION_DATA', true)
+            //     },
+            //     // {
+            //     //     source: 'RANDOM',
+            //     //     useExtension: true,
+            //     //     url: '../test/data/externalFeatures_'
+            //     // }
+            //
             //     ];
 
             globals.pv.initialize({

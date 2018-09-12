@@ -1,7 +1,10 @@
 <html>
-<head></head>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../dist/molart.js"></script>
+</head>
 <body style="padding: 0; margin: 0;">
-<script type="text/javascript" src="../dist/molart.js"></script>
+
 
 <div id="pluginContainer"></div>
 
@@ -9,31 +12,69 @@
 
   window.onload = function() {
 
-    function initializeTestDataSet(sequence, catName) {
+      function initializeTestDataSet(sequence, catName, variant=false){
 
-      const ix1 = Math.floor(Math.random() * sequence.length);
-      const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
+          const ix1 = Math.floor(Math.random() * sequence.length);
+          const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
 
-      return {
-        sequence: sequence,
-        features: [
-          {
-            type: "ACT_SITE",
-            category: catName,
-            begin: String(ix1),
-            end: String(ix1),
-            color: "#00F5B8"
-          },
-          {
-            type: "MY_REGION",
-            category: catName,
-            begin: String(ix1),
-            end: String(ix2),
-            color: "#FF7094"
+
+          if (variant) {
+              return {
+                  sequence: sequence,
+                  features: [
+                      {
+                          type: "VARIANT",
+                          category: "VARIATION",
+                          description: "Random variantion data",
+                          begin: String(ix1),
+                          end: String(ix1),
+                          // wildType: "X",
+                          alternativeSequence: "E",
+                          consequence: "User-defined consequence",
+                          evidences: [
+                              {
+                                  code: "ECO code 1",
+                                  source: {
+                                      name: "Source name 1",
+                                      id: "source id 1",
+                                      url: "localhost://sourceid1"
+                                  }
+                              }
+                          ],
+                          xrefs: [
+                              {
+                                  name: "xref name 1",
+                                  id: "xref id 1",
+                                  url: "localhost://xrefid1"
+                              }
+                          ]
+                      }
+                  ]
+              }
+          } else {
+
+              return {
+                  sequence: sequence,
+                  features: [
+                      {
+                          type: "ACT_SITE",
+                          category: catName,
+                          begin: String(ix1),
+                          end: String(ix1),
+                          color: "#00F5B8"
+                      },
+                      {
+                          type: "MY_REGION",
+                          category: catName,
+                          begin: String(ix1),
+                          end: String(ix2),
+                          color: "#FF7094"
+                      }
+                  ]
+              };
           }
-        ]
-      };
-    }
+
+      }
 
     const sequence = 'MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA';
     const customDataSources = [
@@ -52,7 +93,12 @@
         source: 'RANDOM',
         useExtension: true,
         url: 'http://localhost/data/externalFeatures_' //works only with running local web server providing access to /data/externalFeatures_P37840.json
-      }
+      },
+      {
+        source: 'RANDOM_VARIATION',
+        useExtension: false,
+        data: initializeTestDataSet(sequence, 'MY_VARIATION_DATA', true)
+    },
     ];
 
     const molart = new MolArt({

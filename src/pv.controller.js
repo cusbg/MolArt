@@ -16,6 +16,7 @@ const PvController = function () {
 
     function initialize(params) {
 
+        console.log('initializing pv')
         globals = params.globals;
         if (params.opts.highlightByHovering !== undefined) settings.highlightByHovering = params.opts.highlightByHovering;
 
