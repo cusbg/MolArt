@@ -10,6 +10,8 @@ const PvController = function () {
     let plugin;
     let globals;
 
+    let variationOverlayIcons = [];
+
     const settings = {
         highlightByHovering: false
     };
@@ -163,7 +165,17 @@ const PvController = function () {
 
             const icon = svgSymbols.createJQSvgIcon(svgSymbols.arrowCircleRight, top, left, width);
             icon.prependTo(el.parent());
+
+            if (isVariationIcon(icon, globals.settings.pvVariationCat.clazz)) addVariationIcon(icon);
         });
+    }
+
+    function addVariationIcon(icon) {
+        variationOverlayIcons.push(icon);
+    }
+
+    function getVariationIcons() {
+        return variationOverlayIcons;
     }
 
     function createOverlayLinks() {
@@ -279,6 +291,18 @@ const PvController = function () {
         return '.variation-y.axis.left text, .variation-y.axis.right text';
     }
 
+    function variantsCallbacks(){
+        globals.pv.registerCallback("variantDataUpdated", function(f) {
+
+            getVariationIcons().forEach(icon => {
+                if (isSelected(icon)) {
+                    icon.click();
+                    icon.click();
+                }
+            });
+        });
+    }
+
     function featureSelectedCallback(){
         globals.pv.registerCallback("featureSelected", function(f) {
 
@@ -383,16 +407,17 @@ const PvController = function () {
                 if (!globals.lm.moleculeLoaded()) return;
 
                 let target = $(e.target); //clicked element
-                if (!target.is('svg')) target = target.closest('svg');
-                if (target.attr('class').indexOf('selected') === -1){
+                target =  getClosestSvgElement(target);
+                if (!isSelected(target)){
                     const tracks = {trackData: [], trackColors: []};
-                    if (target.closest('.up_pftv_category-tracks').length > 0) { //track icon was clicked
+                    if (isTrackIcon(target)) { //track icon was clicked
                         const track = getTrack(target);
                         tracks.trackData = tracks.trackData.concat(track.trackData);
                         tracks.trackColors = tracks.trackColors.concat(track.trackColors)
                     } else { //category icon was clicked
                         const closestCat = target.closest('.up_pftv_category');
-                        if (closestCat.parent().hasClass(globals.settings.pvVariationCat.clazz)) {
+                        if (isVariationIcon(target, globals.settings.pvVariationCat.clazz)) {
+                        // if (closestCat.parent().hasClass(globals.settings.pvVariationCat.clazz)) {
                             //if variation category was clicked we need to retrieve the histogram and overlay it
                             //each residue will be converted to a feature with a color based on the histogram value
                             const category = getVariationCategory(closestCat.parent());
@@ -488,20 +513,16 @@ const PvController = function () {
                     const featureColor = $(featureEl).css('stroke');
 
                     let activeFeatures = globals.activeFeature.features;
-                    if (activeFeatures === undefined) activeFeatures = []
+                    if (activeFeatures === undefined) activeFeatures = [];
                     let activeColors = globals.activeFeature.colors;
-                    if (activeColors === undefined) activeColors = []
+                    if (activeColors === undefined) activeColors = [];
 
 
                     globals.lm.mapFeatures(activeFeatures.concat([featureData]), activeColors.concat([featureColor]));
 
-
-                    console.log('in', featureId, featureData)
-
                 },
                 function(e) {
                     globals.activeFeature.overlay();
-                    console.log('out', e.target.getAttribute('name'))
                 });
         }
     }
@@ -512,6 +533,7 @@ const PvController = function () {
         featureSelectedCallback();
         featureDeselectedCallback();
         overlayCallbacks();
+        variantsCallbacks();
         handleMouseMoveEvents();
     }
 
@@ -542,4 +564,23 @@ const PvController = function () {
 
 };
 
+function isTrackIcon(e) {
+    return e.closest('.up_pftv_category-tracks').length > 0;
+}
+
+function isVariationCategoryElement(e, categoryClass) {
+    return e.parent().hasClass(categoryClass);
+}
+
+function isVariationIcon(e, categoryClass) {
+    return isVariationCategoryElement(e.closest('.up_pftv_category'), categoryClass);
+}
+
+function isSelected(e) {
+    return e.attr('class').indexOf('selected') >= 0;
+}
+
+function getClosestSvgElement(e) {
+    return e.is('svg') ? e : e.closest('svg');
+}
 module.exports = PvController;
