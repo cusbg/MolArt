@@ -56,7 +56,7 @@
 
             [ ,from, pos, to] = m;
             return new Variation(pos, from, to, varType, description);
-        }).filter(d => d !== undefined)
+        }).filter(d => d !== undefined);
 
         console.log(variations);
         return variations;
@@ -73,8 +73,8 @@
                     description: v.description,
                     begin: v.position,
                     end: v.position,
-                    // wildType: v.from,
-                    alternativeSequence: v.to,
+                    wildType: v.from,
+                    alternativeSequence: 'd',
                     consequence: "User-defined consequence",
                 }
             })
@@ -88,11 +88,11 @@
         let sequence;
         getUniprotSequence(uniprotId).then(data => {
 
-            console.log(data)
+            console.log(data);
 
             sequence = data.split(/\r?\n/)[1];
 
-            console.log(sequence)
+            console.log(sequence);
 
             return geVariationData(uniprotId);
 
@@ -106,12 +106,13 @@
                     useExtension: false,
                     data: constructVariationsData(sequence, variations)
                 }];
-            console.log(customDataSources)
+            console.log(customDataSources);
 
             //create molart object
             window.molart = new MolArt({
                 uniprotId: uniprotId,
                 containerId: 'pluginContainer',
+                alwaysLoadPredicted: true,
                 customDataSources: customDataSources
             });
 

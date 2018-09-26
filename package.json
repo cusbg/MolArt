@@ -1,7 +1,7 @@
 {
   "name": "molart",
   "description": "MOLeculAR structure annoTator",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "https://github.com/davidhoksza/MolArt",
   "author": "David Hoksza",
   "keywords": [],
@@ -33,7 +33,7 @@
     "browser-sync": "^2.18.13",
     "browserify": "^14.5.0",
     "browserify-css": "^0.14.0",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "color-blend": "^1.0.0",
     "downloadjs": "^1.4.7",
     "eslint": "3.19.0",
