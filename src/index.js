@@ -163,6 +163,9 @@ const MolArt = function(opts) {
     initializePlugins(opts).then( () => updatePageStructure() );
 
     function createPageStructure(){
+        if ($("#" + globals.containerId).height() == 0)
+            $("#" + globals.containerId).css("height", "100vh");
+
         globals.container = $('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
 
         const pvBlock = $('<div class="pv3d-pv"></div>').appendTo(globals.container);
