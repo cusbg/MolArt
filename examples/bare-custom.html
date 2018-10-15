@@ -18,6 +18,9 @@
           const ix1 = Math.floor(Math.random() * sequence.length);
           const ix2 = ix1 + Math.floor(Math.random() * (sequence.length - ix1));
 
+          const ix11 = ix2 + Math.floor(Math.random() * (sequence.length - ix2));
+          const ix21 = ix11 + Math.floor(Math.random() * (sequence.length - ix11));
+
 
           if (variant) {
               return {
@@ -69,7 +72,18 @@
                           category: catName,
                           begin: String(ix1),
                           end: String(ix2),
+                          // begin: String(20),
+                          // end: String(50),
                           color: "#FF7094"
+                      },
+                      {
+                          type: "MY_REGION",
+                          category: catName,
+                          begin: String(ix11),
+                          end: String(ix21),
+                          // begin: String(70),
+                          // end: String(100),
+                          color: "#000000"
                       }
                   ]
               };
@@ -84,12 +98,12 @@
         useExtension: false,
         data: initializeTestDataSet(sequence, 'MY_CATEGORY1')
       },
-      {
-        source: 'RANDOM',
-        useExtension: false,
-        data: initializeTestDataSet(sequence, 'MY_CATEGORY2')
-      }
-      ,
+      // {
+      //   source: 'RANDOM',
+      //   useExtension: false,
+      //   data: initializeTestDataSet(sequence, 'MY_CATEGORY2')
+      // }
+      // ,
       {
         source: 'RANDOM',
         useExtension: true,

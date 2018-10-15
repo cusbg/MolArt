@@ -391,8 +391,8 @@ const PvController = function () {
             function getTrack(svg){
                 const trackContainer = svg.closest('div').find('.up_pftv_track');
                 const trackData = globals.pv.getTrackData(trackContainer);
-                const color = trackContainer.find(".up_pftv_feature").css('stroke');
-                const trackColors = trackData.map(() =>  {return color;});
+                //const color = trackContainer.find(".up_pftv_feature").css('stroke');
+                const trackColors = trackData.map(td => trackContainer.find(`.up_pftv_feature[name="${td.internalId}"]`).css('stroke'));
                 return {
                     trackData: trackData,
                     trackColors: trackColors
