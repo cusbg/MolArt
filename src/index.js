@@ -421,10 +421,35 @@ const MolArt = function(opts) {
         });
     }
 
+    function mappingInMappings(m, mps){
+
+        for (let i = 0; i < mps.length; i++) {
+            if (m.getId() === mps[i].getId() && m.isPDB() === mps[i].isPDB()) return i;
+        }
+        return -1;
+    }
+
+    function mergeMappings(mps) {
+
+        let res = [];
+
+        mps.forEach(m => {
+            let i = mappingInMappings(m, res);
+            if (i >= 0) {
+                mps[i].setTaxId(mps[i].getTaxId() + ',' + m.getTaxId());
+            } else {
+                res.push(m);
+            }
+        });
+
+        return res;
+    }
+
     function retrieveStructureRecords(uniprotId, opts){
 
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
-            globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
+            console.log('uniprotIdPdbs', uniprotIdPdbs);
+            globals.pdbRecords = mergeMappings(uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
             }

@@ -55,7 +55,9 @@ const pdbMapping = function (record, _source = 'PDB') {
     const getTaxId = function(){return taxId;};
     const getObservedResidues = function(){return observedResidues;};
     const getSource = function(){return source};
-    const getCoordinatesFile = function () {return coordinatesFile; }
+    const getCoordinatesFile = function () {return coordinatesFile; };
+
+    const setTaxId = function (tId) {taxId = tId};
 
     const setObservedResidues = function(or){observedResidues = or};
 
@@ -122,6 +124,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,getDescription: getDescription
         ,getObservedResidues: getObservedResidues
         ,setObservedResidues: setObservedResidues
+        ,setTaxId: setTaxId
         ,isValidPdbPos: isValidPdbPos
         ,isValidPdbRegion: isValidPdbRegion
         ,idMatch: idMatch
