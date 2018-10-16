@@ -408,10 +408,15 @@ const MolArt = function(opts) {
         resize();
     }
 
-    function loadSmr(uniprotId) {
+    function loadSmr(uniprotId, opts) {
         return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
             if (!globals.pdbRecords) globals.pdbRecords = [];
             if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = globals.pdbRecords.concat(uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR')));
+
+            if (opts.smrIds && opts.smrIds.length > 0) {
+                globals.pdbRecords = globals.pdbRecords.filter(rec => rec.isPDB() || opts.smrIds.indexOf(rec.getPdbId()) >= 0);
+            }
+
             return Promise.resolve();
         });
     }
@@ -419,12 +424,18 @@ const MolArt = function(opts) {
     function retrieveStructureRecords(uniprotId, opts){
 
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
-            return globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
+            globals.pdbRecords = uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB'));
+            if (opts.pdbIds && opts.pdbIds.length > 0) {
+                globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
+            }
+            return Promise.resolve();
         }, function(error){
-            return loadSmr(uniprotId);
+            return loadSmr(uniprotId, opts);
         }).then(function(){
-            return opts.alwaysLoadPredicted ? loadSmr(uniprotId) : Promise.resolve();
-        });
+            return opts.alwaysLoadPredicted ? loadSmr(uniprotId, opts) : Promise.resolve();
+        }).then(function () {
+            if (globals.pdbRecords.length === 0) delete globals.pdbRecords;
+        })
     }
 
     function initializeActiveStructure(){

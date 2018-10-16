@@ -205,3 +205,13 @@ only when clicked on in the sequence view.
 - ```alwaysLoadPredicted``` (default ```false```) - when set to ```true```
 MolArt always connects to SMR and downloads available models; by default, 
 it will query SMR only when no experimental structure is available.
+
+- ```pdbIds``` (default ```undefined```) - list of PDB IDs (such as ```['6cu7', '6flt']```) which are
+supposed to be shown in the Experimental structures category. 
+Structures in the mapping outside of this list will not be shown. If
+not set or the list is empty, no restriction takes place.
+
+- ```smrIds``` (default ```undefined```) - list of PDB IDs (such as ```['3q27.1']```) which are
+supposed to be shown in the Predicted structures category. 
+Structures in the mapping outside of this list will not be shown. If
+not set or the list is empty, no restriction takes place.

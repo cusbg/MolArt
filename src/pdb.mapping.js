@@ -100,6 +100,10 @@ const pdbMapping = function (record, _source = 'PDB') {
         }
     };
 
+    const isPDB = function () {
+        return getSource() === 'PDB';
+    };
+
     return  {
         getId: getId
         ,getPdbId: getPdbId
@@ -121,6 +125,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,isValidPdbPos: isValidPdbPos
         ,isValidPdbRegion: isValidPdbRegion
         ,idMatch: idMatch
+        ,isPDB: isPDB
         ,content: {
             id: getId(),
             pdbId: getPdbId(),
