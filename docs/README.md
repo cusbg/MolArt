@@ -100,7 +100,8 @@ found in [ProtVista's documentation](http://ebi-uniprot.github.io/ProtVista/deve
 #### Define visibility and order of categories
 
 In order to exclude categories or customize their order, simply pass additional
-parameters to the `MolArt` object as you would when using ProtVista only.
+parameters to the `MolArt` object as you would when using ProtVista only. The list 
+of all categories available in ProtVista can be found [here](https://github.com/davidhoksza/ProtVista/blob/90000af6e11131d138faab050d89e30f27e03e19/src/config.json#L2)
 
 ```javascript
 molart = new MolArt({
