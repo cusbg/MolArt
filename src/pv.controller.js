@@ -160,7 +160,7 @@ const PvController = function () {
             const categoryLink = category.find('a');
 
             const width = categoryLink.outerHeight()*0.5;
-            const left = categoryLink.width() - width;
+            const left = categoryLink.outerWidth() - 1.2 * width;
             const top = categoryLink.outerHeight() / 2 - width / 2;
 
             const icon = svgSymbols.createJQSvgIcon(svgSymbols.arrowCircleRight, top, left, width);
