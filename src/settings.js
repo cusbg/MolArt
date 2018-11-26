@@ -1,4 +1,5 @@
 module.exports = {
+  homepage: 'https://github.com/davidhoksza/MolArt/',
   loadAllChains: true
   , pvMappedStructuresCat: {
     id: 'EXPERIMENTAL_STRUCTURES'

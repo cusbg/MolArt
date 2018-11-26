@@ -15,10 +15,29 @@
     /*white-space: nowrap;*/
 }
 
+.pv-inner-container .logo {
+    position: absolute;
+    z-index: 1000;
+    left: 5px;
+    top: 4px;
+    font-size: 13px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: whitesmoke;
+    /*font-weight: bold;*/
+    /*padding: 5px;*/
+    /*border-radius: 5px;*/
+}
+
+.pv-inner-container .logo a {
+    text-decoration: none;
+}
+
 .pv3d-pv {
     height: 100%;
     min-width: 400px;
 }
+
+
 
 .pv3d-lm {
     min-width: 400px;

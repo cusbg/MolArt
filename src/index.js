@@ -190,6 +190,9 @@ const MolArt = function(opts) {
         /**
          *************** HEADER
          */
+
+        globals.container.append(`<span class="logo ui label"><a href="${globals.settings.homepage}" target="_blank">MolArt</a></span>`)
+
         const pvHeader = $(`        
         <div class="pv3d-header pv3d-header-pv">
                 <a class="ui label unp-link pv3d-invisible" href="" target="_blank">
@@ -199,7 +202,7 @@ const MolArt = function(opts) {
         </div>
         `);
 
-            const lmHeader = $(`        
+        const lmHeader = $(`        
         <div class="pv3d-header pv3d-header-lm">
             <div class="pv3d-button pv3d-download" title="Export to PyMol">
                 ${svgSymbols.download}
