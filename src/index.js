@@ -77,6 +77,10 @@ class ActiveStructure {
             "from pymol import cmd\n" +
             "cmd.delete('all')\n";
 
+        const sanitizeFeatureName = function(name) {
+            return name.replace('&', 'and').replace(/[^a-zA-Z0-9_]/g, "_")
+        };
+
 
         const source = this.record.getSource();
         if (source === 'PDB'){
@@ -94,7 +98,7 @@ class ActiveStructure {
         Object.keys(annotations).forEach(cat => {
             const featureNames = [];
             annotations[cat].forEach(feature => {
-                const featureName = `${feature.type}${feature.begin}-${feature.end}`;
+                const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
                 featureNames.push(featureName);
                 const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
