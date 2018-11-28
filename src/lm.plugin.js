@@ -231,6 +231,16 @@ function createPlugin() {
             return surfaceVis;
         };
 
+        const getStyleDefinition = function(type, color){
+            return {
+                    type: 'BallsAndSticks', params: { useVDW: true, probeRadius: false, atomRadius: 0.15, bondRadius: 0.07, detail: 'Automatic' },
+                    theme: { template: Visualization.Molecule.Default.UniformThemeTemplate,
+                        colors: Visualization.Molecule.Default.UniformThemeTemplate.colors.set('Uniform', color ),
+                        transparency: { alpha: 1 }
+                    }
+                };
+        };
+
         const createVisual = function (entityId, params) {
             controllerAvailability();
 
@@ -282,24 +292,44 @@ function createPlugin() {
           return selectNodes(entityId)
         };
 
-        const createSelection = function (entityId, name, chainId, startResidueNumber, endResidueNumber) {
+        const createSelectionFromList = function(entityId, name, chainId, resList, onlyBackbone){
+
+            const residues = resList.map(r => {return {authAsymId: chainId, seqNumber: r}}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+            return createSelection(entityId, name, chainId, residues, onlyBackbone);
+
+        };
+
+        const createSelectionFromRange = function (entityId, name, chainId, startResidueNumber, endResidueNumber, onlyBackbone) {
+
+            const residues = [];
+            for (let i = startResidueNumber; i < endResidueNumber; i++) {
+                residues.push({authAsymId: chainId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+            }
+            return createSelection(entityId, name, chainId, residues, onlyBackbone);
+        };
+
+        const createSelection = function (entityId, name, chainId, residues, onlyBackbone) {
             controllerAvailability();
 
             const entity = selectNodes(entityId)[0];
             if (!entity) return Promise.reject("Non-existing entity");
 
-            let selectionId = getSelectionId(entityId, chainId, startResidueNumber, endResidueNumber);
+            const resConcat = residues.map(r=> `${r.authAsymId}${r.seqNumber}`).join("");
+
+            let selectionId = getSelectionId(entityId, chainId, resConcat);
             if (selectNodes(selectionId).length > 0) {
                 return Promise.resolve(selectionId);
             }
 
-            const authAsymId = chainId;
-            const residues = [];
-            for (let i = startResidueNumber; i < endResidueNumber; i++) {
-                residues.push({authAsymId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
-            }
-            const query = Query.residues.apply(null, residues)/*.compile()*/;
+            console.log(Query.residues);
+            let query = Query.residues.apply(null, residues);
+            console.log(query);
             // var query = Query.sequence(entityId, chainId, { seqNumber: startResidueNumber }, { seqNumber: endResidueNumber });
+
+            if (onlyBackbone){
+                // query = query.backbone();
+
+            }
 
             let action = Bootstrap.Tree.Transform.build()
                 .add(entity, Transformer.Molecule.CreateSelectionFromQuery, {
@@ -307,12 +337,9 @@ function createPlugin() {
                     name: name
                 }, {ref: selectionId, isBinding: false});
 
-            return controller.applyTransform(action).then(() => Promise.resolve(selectionId));//.then(function () {
-            //     let visual = selectNodes(getVisualId(pdbId)+"sel")[0];
-            //     console.log(visual);
-            //     Command.Visual.UpdateBasicTheme.dispatch(plugin.context, {visual: visual, theme: LiteMol.createSelectionTheme(CoreVis.Color.fromHex(0x38d24b))});
-            // });
+            return controller.applyTransform(action).then(() => Promise.resolve(selectionId));
         };
+
 
         const changeEntityVisibility = function (entityId, visible) {
             controllerAvailability();
@@ -406,12 +433,11 @@ function createPlugin() {
 
         }
 
-        function getSelectionId(entityId, chainId, startResidueNumber, endResidueNumber) {
+        function getSelectionId(entityId, chainId, resConcat) {
             return settings.selectionPrefix +
                 (entityId ? entityId + "-" : "") +
                 (chainId ? chainId + "-" : "") +
-                (startResidueNumber ? startResidueNumber + "-" : "") +
-                (endResidueNumber ? endResidueNumber + "-" : "");
+                (resConcat ? resConcat + "-" : "");
         }
 
         function colorSelections(modelId, selColors) {
@@ -532,7 +558,8 @@ function createPlugin() {
             , registerHighlightCallback: registerHighlightCallback
             , highlightResidue: highlightResidue
             , dehighlightAll: dehighlightAll
-            , createSelection: createSelection
+            , createSelectionFromRange: createSelectionFromRange
+            , createSelectionFromList: createSelectionFromList
             , colorSelections: colorSelections
             , focusSelection: focusSelection
             , hideModelsExcept: hideModelsExcept
@@ -549,6 +576,7 @@ function createPlugin() {
             , getController: getController
             , getLiteMol: getLiteMol
             , getEntity: getEntity
+            , getStyleDefinition: getStyleDefinition
         }
 
     })(LiteMol || (LiteMol = {}));

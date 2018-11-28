@@ -335,7 +335,7 @@ const LmController = function () {
         // create selection corresponding to the PDB record and create visual for it
         const selectionName = rec.getPdbId().toUpperCase() + ':' + rec.getChainId() + ' (' + rec.getPdbStart() + '-' + rec.getPdbEnd() + ')';
 
-        return plugin.createSelection(groupId, selectionName, rec.getChainId(), rec.getPdbStart(), rec.getPdbEnd() + 1);
+        return plugin.createSelectionFromRange(groupId, selectionName, rec.getChainId(), rec.getPdbStart(), rec.getPdbEnd() + 1);
     }
 
     function  extractObservedResidues(rec){
@@ -349,7 +349,7 @@ const LmController = function () {
         rec.setObservedResidues(seqNumbers.filter((seqNumber, ix) => asymIds[ix] === chainId && !isHets[ix]));
     }
 
-    function loadRecord(rec, params = {focus: true, hideOthers: true}) {
+    function loadRecord(rec, extraHighlights = [], params = {focus: true, hideOthers: true}) {
 
         const recId = rec.getId();
 
@@ -368,12 +368,19 @@ const LmController = function () {
         //     featureIdToSelId: {}
         // };
 
+        let groupId, selectionId;
+
         return loadMolecule(rec, params.hideOthers)
             .then(() => {updateHeaderPdbLink(); return Promise.resolve();})
             .then(()=> {extractObservedResidues(rec); return Promise.resolve();})
             .then(() => createUniprotMappingGroup(rec))
-            .then(groupId => createPdbSelections(rec, groupId))
-            .then(selectionId => {
+            .then(_groupId => {
+                groupId = _groupId;
+                return createPdbSelections(rec, groupId)
+            })
+            .then(_selectionId => {
+
+                selectionId = _selectionId;
                 if (plugin.getEntity(selectionId).length == 0){
                   throw Error('Invalid mapping (the structure file does not contain the selection)');
                 }
@@ -383,7 +390,26 @@ const LmController = function () {
                 return plugin.createVisual(selectionId);
                 // return createVisualForSelection(rec, selectionId);
                 // focusAndColorPdb(rec, selectionId, color)
-            });
+            }).then(() => {
+
+                return plugin.createGroup("Selections", 'Selections', selectionId)
+
+            }).then((selectionsGroupId => {
+
+                const promises = extraHighlights.map(h => {
+                    const selName = h.sequenceNumbers.join();
+                    return plugin.createSelectionFromList(selectionsGroupId, selName, rec.getChainId(), h.sequenceNumbers, true);
+                });
+
+                return Promise.all(promises);
+
+            })).then(selectionsIds => {
+
+                const promises = selectionsIds.map((id, i) => plugin.createVisual(id,
+                    params = {style: plugin.getStyleDefinition('BallsAndSticks', extraHighlights[i].color)}));
+                return Promise.all(promises);
+
+            })
             // .then(() => createCategories(rec, pvCategories));
 
 

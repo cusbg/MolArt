@@ -15,12 +15,12 @@ const pdbMapping = require('./pdb.mapping');
 const svgSymbols = require('./svg.symbols');
 
 function loadRecord(rec, globals){
-    let loadedRecord = globals.lm.loadRecord(rec);
+    let loadedRecord = globals.lm.loadRecord(rec, globals.opts.extraHighlights);
     if (globals.settings.loadAllChains) {
         globals.pdbRecords.forEach(recOther => {
             if (recOther.getPdbId() === rec.getPdbId() && recOther.getId() !== rec.getId()){
                 loadedRecord = loadedRecord.then(() => {
-                    return globals.lm.loadRecord(recOther, {focus: false, hideOthers: false})
+                    return globals.lm.loadRecord(recOther, globals.opts.extraHighlights, {focus: false, hideOthers: false})
                 });
             }
         });
@@ -541,6 +541,8 @@ const MolArt = function(opts) {
     // }
 
     function initializePlugins(opts) {
+
+        globals.opts = opts;
 
         let pdbRetrievalError;
 
