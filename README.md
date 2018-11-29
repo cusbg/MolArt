@@ -24,7 +24,8 @@ To cite MolArt use: **MolArt: A molecular structure annotation and visualization
 - Annotation of protein sequence as provided by ProtVista
 - Mapping of structure on corresponding substring in the sequence
 - Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
-- Retrieval of predicted models from [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if no PDB structure is available
+- Retrieval of predicted models from [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
+no PDB structure is available
 - Controlling transparency of the structure to see both cartoon and surface view of the structure
 - Hovering over position in sequence to highlight it in structure and vice versa
 - Color overlay any sequence feature over the structure
@@ -32,7 +33,13 @@ To cite MolArt use: **MolArt: A molecular structure annotation and visualization
 - Color overlay individual variation over the structure
 - Color overlay all mutations to given amino acid over the structure
 - Color overlay mutation frequency of residues over the structure
-- Exports of the structure and annotations to [PyMol](https://pymol.org/2/) for advanced inspection (the export does not include variants)
+- Exports of the structure and annotations to [PyMol](https://pymol.org/2/) for advanced inspection 
+(the export does not include variants)
+- Upload of custom annotations
+- Ability to control which structures will be shown
+- Ability to select and highglight specific residues (not necessarily corresponding to annotations) and specific atoms .
+The selection can be visualized either as a surface, a balls and stick representation or simply van der 
+Waals-based spheres with given color and transparency.
 
 ## Data sources
 

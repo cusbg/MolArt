@@ -1,6 +1,15 @@
 const blender = require('color-blend');
 let LiteMol = require('litemol').default;
 
+const getUniqueId = (function() {
+    let uniqueId = 0;
+
+    return function () {
+        uniqueId++;
+        return uniqueId;
+    }
+})();
+
 const CustomTheme = (function(){
     const Core = LiteMol.Core;
     const Visualization = LiteMol.Visualization;
@@ -125,6 +134,7 @@ function createPlugin() {
         var Bootstrap = LiteMol.Bootstrap;
         // everything same as before, only the namespace changed.
         var Query = LiteMol.Core.Structure.Query;
+        var AQ = Query.Algebraic;
         // You can look at what transforms are available in Bootstrap/Entity/Transformer
         // They are well described there and params are given as interfaces.
         var Transformer = Bootstrap.Entity.Transformer;
@@ -189,11 +199,12 @@ function createPlugin() {
             })
         };
 
-        const resetVisuals = function () {
+        const resetVisuals = function (idRestriction="") {
             controllerAvailability();
 
             for (const visualId in defaultlVisuals) {
                 const visual = selectNodes(visualId)[0];
+                if (visual.ref.search(idRestriction) >= 0) continue;
                 const theme = defaultlVisuals[visualId];
                 if (visual.props.style.type == 'Surface') theme.transparency.alpha = settings.surfaceTransparencyAlpha;
                 controller.command(Bootstrap.Command.Visual.UpdateBasicTheme, {visual: visual, theme: theme});
@@ -231,18 +242,25 @@ function createPlugin() {
             return surfaceVis;
         };
 
-        const getStyleDefinition = function(type, color){
+        const getStyleDefinition = function(type, params, color, alpha){
             return {
-                    type: 'BallsAndSticks', params: { useVDW: true, probeRadius: false, atomRadius: 0.15, bondRadius: 0.07, detail: 'Automatic' },
-                    theme: { template: Visualization.Molecule.Default.UniformThemeTemplate,
-                        colors: Visualization.Molecule.Default.UniformThemeTemplate.colors.set('Uniform', color ),
-                        transparency: { alpha: 1 }
-                    }
-                };
+                type: type,
+                params: params,
+                theme: { template: Visualization.Molecule.Default.UniformThemeTemplate,
+                    colors: Visualization.Molecule.Default.UniformThemeTemplate.colors.set('Uniform', color ),
+                    transparency: { alpha: alpha }
+                }
+            };
         };
 
         const createVisual = function (entityId, params) {
             controllerAvailability();
+
+            //check whether the entity over which the visual is to be applied exists
+            if (selectNodes(entityId).length == 0) {
+                console.warn(`Trying to create visual for non-existing entity ${entityId}`);
+                return Promise.resolve(undefined);
+            }
 
             const surfaceVis = getDefaultSurfaceVis();
 
@@ -292,23 +310,30 @@ function createPlugin() {
           return selectNodes(entityId)
         };
 
-        const createSelectionFromList = function(entityId, name, chainId, resList, onlyBackbone){
+        const createSelectionFromList = function(params){
 
-            const residues = resList.map(r => {return {authAsymId: chainId, seqNumber: r}}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
-            return createSelection(entityId, name, chainId, residues, onlyBackbone);
+            params.residues = params.sequenceNumbers.map(r => {return {authAsymId: params.chainId, seqNumber: r}}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+            return createSelection(params);
 
         };
 
-        const createSelectionFromRange = function (entityId, name, chainId, startResidueNumber, endResidueNumber, onlyBackbone) {
+        const createSelectionFromRange = function (params) {
 
-            const residues = [];
-            for (let i = startResidueNumber; i < endResidueNumber; i++) {
-                residues.push({authAsymId: chainId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+            params.residues = [];
+            for (let i = params.beginIx; i <= params.endIx; i++) {
+                params.residues.push({authAsymId: params.chainId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
             }
-            return createSelection(entityId, name, chainId, residues, onlyBackbone);
+            return createSelection(params);
         };
 
-        const createSelection = function (entityId, name, chainId, residues, onlyBackbone) {
+        const createSelection = function (params) {
+
+            const entityId = params.rootId,
+                name = params.name,
+                chainId = params.chainId,
+                residues = params.residues,
+                atomNames = params.atomNames;
+
             controllerAvailability();
 
             const entity = selectNodes(entityId)[0];
@@ -316,19 +341,22 @@ function createPlugin() {
 
             const resConcat = residues.map(r=> `${r.authAsymId}${r.seqNumber}`).join("");
 
-            let selectionId = getSelectionId(entityId, chainId, resConcat);
+            let selectionId = params.selectionId !== undefined ?  params.selectionId : getSelectionId(entityId, chainId, resConcat);
             if (selectNodes(selectionId).length > 0) {
                 return Promise.resolve(selectionId);
             }
 
-            console.log(Query.residues);
+            // console.log(Query.residues);
             let query = Query.residues.apply(null, residues);
-            console.log(query);
+            // console.log(query);
             // var query = Query.sequence(entityId, chainId, { seqNumber: startResidueNumber }, { seqNumber: endResidueNumber });
 
-            if (onlyBackbone){
-                // query = query.backbone();
-
+            if (atomNames && atomNames.length > 0){
+                let aqPredicate = AQ.equal(AQ.atomName, AQ.value(atomNames[0]));
+                for (let i = 1; i < atomNames.length; i++){
+                    aqPredicate = AQ.or(aqPredicate, AQ.equal(AQ.atomName, AQ.value(atomNames[i])));
+                }
+                query = query.intersectWith(AQ.query(aqPredicate));
             }
 
             let action = Bootstrap.Tree.Transform.build()
@@ -338,8 +366,7 @@ function createPlugin() {
                 }, {ref: selectionId, isBinding: false});
 
             return controller.applyTransform(action).then(() => Promise.resolve(selectionId));
-        };
-
+        }
 
         const changeEntityVisibility = function (entityId, visible) {
             controllerAvailability();
@@ -440,7 +467,7 @@ function createPlugin() {
                 (resConcat ? resConcat + "-" : "");
         }
 
-        function colorSelections(modelId, selColors) {
+        function colorSelections(modelId, selColors, idRestriction = "") {
             controllerAvailability();
 
             if (selColors.length == 0) return;
@@ -481,7 +508,7 @@ function createPlugin() {
             // instead of "polymer-visual", "model" or any valid ref can be used: all "child" visuals will be colored.
             const visuals = controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Molecule.Visual));
             visuals.forEach(visual => {
-                if (visual.ref.search(settings.visualPrefix) == 0) { //apply only on macromolecule visuals (not waters or ligands which have automatically geenrated names)
+                if (visual.ref.search(settings.visualPrefix) == 0 && visual.ref.search(idRestriction) < 0) { //apply only on macromolecule visuals (not waters or ligands which have automatically geenrated names)
                     if (visual.props.style.type === 'Surface') CustomTheme.applyTheme(controller, visual.ref, themeTransparent);
                     else CustomTheme.applyTheme(controller, visual.ref, theme);
 
@@ -526,14 +553,14 @@ function createPlugin() {
             return controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Visual)).length > 0;
         }
 
-        function setSurfaceTransparency(val) {
+        function setSurfaceTransparency(val, idFilter) {
             controllerAvailability();
 
             settings.surfaceTransparencyAlpha = val;
 
             const visuals = controller.selectEntities(Bootstrap.Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Visual));
             visuals.forEach(visual => {
-                if (visual.props.style.type === 'Surface') {
+                if (visual.props.style.type === 'Surface' && visual.ref.search(idFilter)<0) {
                     const theme = Object.assign({}, visual.props.model.theme, {isSticky: true});
                     theme.transparency = {alpha: settings.surfaceTransparencyAlpha};
                     CustomTheme.applyTheme(controller, visual.ref, theme);

@@ -271,11 +271,11 @@ const LmController = function () {
             max: 100,
             start: initialTransparency * 2, //for some reason the initial transparency got set to half of the required value
             onChange: function(val) {
-                globals.lm.setSurfaceTransparency(parseFloat(val) / 100);
+                setSurfaceTransparency(parseFloat(val) / 100);
                 updateSurfaceTransparencyTitle(val);
             }
         });
-        globals.lm.setSurfaceTransparency(initialTransparency / 100)
+        setSurfaceTransparency(initialTransparency / 100)
         updateSurfaceTransparencyTitle(initialTransparency);
 
         activateDropdownsEvents();
@@ -335,7 +335,13 @@ const LmController = function () {
         // create selection corresponding to the PDB record and create visual for it
         const selectionName = rec.getPdbId().toUpperCase() + ':' + rec.getChainId() + ' (' + rec.getPdbStart() + '-' + rec.getPdbEnd() + ')';
 
-        return plugin.createSelectionFromRange(groupId, selectionName, rec.getChainId(), rec.getPdbStart(), rec.getPdbEnd() + 1);
+        return plugin.createSelectionFromRange({
+            rootId: groupId,
+            name: selectionName,
+            chainId: rec.getChainId(),
+            beginIx: rec.getPdbStart(),
+            endIx: rec.getPdbEnd(),
+            selectionId: `${groupId}_${selectionName}` });
     }
 
     function  extractObservedResidues(rec){
@@ -392,21 +398,43 @@ const LmController = function () {
                 // focusAndColorPdb(rec, selectionId, color)
             }).then(() => {
 
+                // Create group covering all selections possibly specified by the user
+
                 return plugin.createGroup("Selections", 'Selections', selectionId)
 
             }).then((selectionsGroupId => {
 
-                const promises = extraHighlights.map(h => {
+                // Create selection for each of the selections
+
+                const promises = extraHighlights.map((h, i) => {
                     const selName = h.sequenceNumbers.join();
-                    return plugin.createSelectionFromList(selectionsGroupId, selName, rec.getChainId(), h.sequenceNumbers, true);
+                    return plugin.createSelectionFromList({
+                        rootId: selectionsGroupId,
+                        name: selName,
+                        chainId: rec.getChainId(),
+                        sequenceNumbers: h.sequenceNumbers.map(n=>rec.mapPosUnpToPdb(n)),
+                        atomNames: h.atomNames,
+                        selectionId: `user_selection_${selectionsGroupId}_sel${i}`
+                    });
                 });
 
                 return Promise.all(promises);
 
             })).then(selectionsIds => {
 
-                const promises = selectionsIds.map((id, i) => plugin.createVisual(id,
-                    params = {style: plugin.getStyleDefinition('BallsAndSticks', extraHighlights[i].color)}));
+                const promises = selectionsIds.map( (id, i) => {
+                        return plugin.createVisual(id,
+                            params = {
+                            style: plugin.getStyleDefinition(
+                                extraHighlights[i].visual.type,
+                                extraHighlights[i].visual.params,
+                                extraHighlights[i].visual.color,
+                                extraHighlights[i].visual.alpha
+
+                            )}
+                        )
+                    });
+
                 return Promise.all(promises);
 
             })
@@ -452,11 +480,11 @@ const LmController = function () {
             modelIdSelections[modelId] = modelIdSelections[modelId].concat(chainSelections);
         }
 
-        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId]));
+        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], "user_selection_"));
     }
 
     function unmapFeature(feature) {
-        plugin.resetVisuals();
+        plugin.resetVisuals("user_selection_");
     }
 
     let lastHighlighted = -1;
@@ -492,7 +520,7 @@ const LmController = function () {
     }
 
     function setSurfaceTransparency(val) {
-        return plugin.setSurfaceTransparency(val);
+        return plugin.setSurfaceTransparency(val, 'user_selection_');
     }
 
     function showErrorMessage(message) {
@@ -516,127 +544,6 @@ const LmController = function () {
     function destroy(){
         plugin.destroyPlugin();
     }
-
-    // function formatSelectionForColoring(selections, colors) {
-    //    const formated = []
-    //    for (let ix = 0; ix < selections.length; ++ix) {
-    //        formated.push({selectionId: selections[ix], color: rgbFromString(colors[ix])});
-    //    }
-    //    return formated;
-    // }
-
-    // function focusSelection(rec, selectionId) {
-    //     mapping[rec.getId()].mainStructSelId = selectionId;
-    //     lmPlugin.focusSelection(selectionId);
-    // }
-
-    // function createVisualForSelection(rec, selectionId) {
-    //     mapping[rec.getId()].mainStructSelId = selectionId;
-    //     return lmPlugin.createVisual(selectionId);
-    // }
-
-    // function focusAndColorPdb(rec, selectionId, color){
-    //     //retrieve IDs of the created selection and visual and focus view on the selection
-    //     mapping[rec.getId()].mainStructSelId = selectionId;
-    //     lmPlugin.focusSelection(selectionId);
-    //     lmPlugin.createVisual(selectionId);
-    //     // lmPlugin.colorSelections(mapping[rec.getId()].modelId, [{selectionId: selectionId, color: rgbFromString(color)}]);
-    //     return Promise.resolve();
-    // }
-
-    // function createCategoryGroup(rec, cat) {
-    //     return lmPlugin.createGroup(cat.header.text(), '', mapping[rec.getId()].mainStructSelId)
-    //         .then( catId => {
-    //         // toggle off the category, so that the tree is not too deep
-    //         lmPlugin.toggleEntity(catId, false);
-    //         return Promise.resolve(catId);
-    //     });
-    // }
-    //
-    // function intersectSeqStruct(begin, end, rec) {
-    //     return (rec.getUnpStart() <= begin && begin <= rec.getUnpEnd()) || (rec.getUnpStart() <= end && end <= rec.getUnpEnd());
-    // }
-
-    // function createTrackData(rec, track, trackId) {
-    //     //for each track create selections which intersect the respective part of the structure
-    //
-    //     const promisesTrackData = [];
-    //     track.data.forEach(function (data, ix) {
-    //         if (data.type == 'VARIANT') {
-    //             if (intersectSeqStruct(data.pos, data.pos, rec)) {
-    //                 data.variants.forEach(variant => {
-    //                     const promise = lmPlugin.createSelection(trackId,
-    //                         data.pos + ' (' + variant.wildType + '->' + variant.alternativeSequence + ')',
-    //                         rec.getChainId(),
-    //                         rec.mapPosUnpToPdb(variant.begin), rec.mapPosUnpToPdb(variant.end) + 1
-    //                     ).then(selectionId => mapping[rec.getId()].featureIdToSelId[variant.internalId] = selectionId);
-    //                     promisesTrackData.push(promise);
-    //                 })
-    //             }
-    //         }
-    //         else {
-    //             if (intersectSeqStruct(data.begin, data.end, rec)) {
-    //                 const promise = lmPlugin.createSelection(trackId,
-    //                     data.begin + '-' + data.end,
-    //                     rec.getChainId(),
-    //                     rec.mapPosUnpToPdb(data.begin), rec.mapPosUnpToPdb(data.end) + 1
-    //                 ).then(
-    //                     selectionId => {
-    //                         mapping[rec.getId()].featureIdToSelId[data.internalId] = selectionId;
-    //                         // lmPlugin.createVisual(selectionId)
-    //                     });
-    //                 promisesTrackData.push(promise);
-    //             }
-    //         }
-    //     });
-    //
-    //     return Promise.all(promisesTrackData);
-    // }
-
-    // function createGroupAndDataForTrack(rec, track, catId){
-    //     return lmPlugin.createGroup(track.label, '', catId).then(trackId => {
-    //         lmPlugin.toggleEntity(trackId, false);
-    //         return Promise.resolve(trackId);
-    //     }).then(trackId => createTrackData(rec, track, trackId));
-    //
-    // }
-
-    // function createTracksFroCategory(rec, cat, catId){
-    //     //for each category create all the tracks inside
-    //
-    //     const promisesTracks = cat.tracks.map(track => createGroupAndDataForTrack(rec, track, catId));
-    //     return Promise.all(promisesTracks).then(function (){
-    //         //if (cntNonEmptyTracks == 0) lmPlugin.removeEntity(catId); //TODO
-    //     })
-    // }
-
-    // function createCategories(rec, pvCategories) {
-    //     //create groups and selections for all the categories and features
-    //     const promisesCats = [];
-    //     pvCategories.forEach( cat => {
-    //         if (cat.name != mappedStructsCat.id) { //if this is not the sequence-structure mapping category
-    //             promisesCats.push(createCategoryGroup(rec, cat).then(catId => createTracksFroCategory(rec, cat, catId)));
-    //         }
-    //     });
-    //     return Promise.all(promisesCats);
-    // }
-
-    // function showModel(modelId) {
-    //     return lmPlugin.hideModels([modelId]);
-    // }
-    //
-    // function showRecord(rec) {
-    //     return lmPlugin.hideMolecules([rec.pdb_id]);
-    // }
-
-    // function createSelectionWithVisual(rec) {
-    //    return lmPlugin.createSelection(rec.chain_id + "( " + rec.start + "-" + rec.end + ") - " + rec.experimental_method,
-    //        rec.pdb_id, rec.chain_id, rec.start, rec.end + 1, true);
-    // }
-
-    // function focusRecord(rec){
-    //     return lmPlugin.focusSelection(rec.pdb_id, rec.chain_id, rec.start, rec.end + 1, true);
-    // }
 
     return {
         initialize: initialize,
