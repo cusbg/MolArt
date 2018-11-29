@@ -216,3 +216,37 @@ not set or the list is empty, no restriction takes place.
 supposed to be shown in the Predicted structures category. 
 Structures in the mapping outside of this list will not be shown. If
 not set or the list is empty, no restriction takes place.
+
+- ```extraHighlights``` (default ```undefined```) - allows to highlight a list of residues and
+even restrict atoms of the residues. Moreover, one can specify the type of highlight. Specifically, 
+on needs to pass na array where each elements defines a selection and how that selection should be viusalized.
+The LiteMol documentation specifies available parameters for the [balls and sticks](https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.ballsandsticksparams.html)
+and [surface](https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.surfaceparams.html)
+visualizations.
+
+    ```
+    extraHighlights: [
+        {
+            sequenceNumbers: [58, 50],
+            atomNames: ['CA', 'CE'],
+            visual: {
+                type: 'BallsAndSticks',
+                params: { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' },
+                color: {r:1, g: 0, b: 0},
+                alpha: 1
+            }
+    
+        }, {
+            sequenceNumbers: [60],
+            //atomNames: ['C'],
+            visual: {
+                type: 'Surface',            
+                params: {isWireframe: true, probeRadius: 0, density: 1.25, smoothing: 3},
+                color: {r: 0, g: 0, b: 1},
+                alpha: 0.8
+            }
+        }
+    ]
+    
+    ```
+ 

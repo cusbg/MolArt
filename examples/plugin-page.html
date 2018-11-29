@@ -41,12 +41,36 @@
                     containerId: 'pv3dContainer',
                     // pdbIds: ['6cu7', '2m55'],
                     // smrIds:['3q27.1','2n0a.1'],
-                     alwaysLoadPredicted: true,
+                     alwaysLoadPredicted: true
                     // highlightByHovering: true
                       // ,enableCategoriesTooltips: false //enables titles for categories when hovering over them as ProtVista does by default
                     // ,categoriesTooltips: [['DOMAINS_AND_SITES', 'Describes various domains and sites'], ['PTM', 'Post-translational modifications']]
                     // ,categoryOrder: ['STRUCTURAL']
                     // , exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']
+                    , extraHighlights: [
+                        {
+                            sequenceNumbers: [58, 50],
+                            atomNames: ['CA', 'CE'],
+                            visual: {
+                                type: 'BallsAndSticks',
+                                //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.ballsandsticksparams.html
+                                params: { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' },
+                                color: {r:1, g: 0, b: 0},
+                                alpha: 1
+                            }
+
+                        }, {
+                            sequenceNumbers: [60, 61, 62],
+                            //atomNames: ['C'],
+                            visual: {
+                                type: 'Surface',
+                                //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.surfaceparams.html
+                                params: {isWireframe: true, probeRadius: 0, density: 1.25, smoothing: 3},
+                                color: {r: 0, g: 0, b: 1},
+                                alpha: 0.8
+                            }
+                        }
+                        ]
                 });
             };
         </script>
