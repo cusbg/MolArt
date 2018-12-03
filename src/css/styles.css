@@ -155,16 +155,16 @@
 }
 
 /* !IMPORTANT needed to overwrite the semantics ui styles*/
-.pv3d-header-lm .lm-list .dropdown input{
+.pv3d-header-lm .dropdown input{
     padding-top: 4px !important;
     padding-bottom: 4px !important;
 }
 
-.pv3d-header-lm .lm-list .dropdown.icon {
+.pv3d-header-lm .dropdown.icon {
     top: 4px !important;
 }
 
-.pv3d-header-lm .lm-list .selection.dropdown{
+.pv3d-header-lm .selection.dropdown{
     min-height: 0;
     min-width: 95px;
     padding-top: 4px;
@@ -172,7 +172,7 @@
     line-height: 13px;
 }
 
-.pv3d-header-lm .lm-list .selection.dropdown .menu>.item {
+.pv3d-header-lm .selection.dropdown .menu>.item {
     font-size: 13px;
 }
 
@@ -276,8 +276,8 @@
     /*padding-top: 2px;*/
     background:rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    width: 28px;
-    height: 28px;
+    width: 23px;
+    height: 23px;
     border-radius: 3px;
     text-align: center;
 }
@@ -286,15 +286,22 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
-.pv3d-download {
+.pv3d-download{
     float: right;
     padding-top:3px;
-    margin-right:5px;
+    margin-right:10px;
+}
+
+.user-highlights {
+    /*float: right;*/
+    padding-top:3px;
+    margin-right:10px;
+    background-color: rgba(50,50,50,0.3);
 }
 
 .pv3d-download>svg{
-    width: 18px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
 }
 
 .pv3d-download>svg path{
@@ -317,3 +324,10 @@
 .pv3d-error-close-button:after {
     content: '✖'; /* UTF-8 symbol */
 }
+
+.pv3d-lm .user-highlights div.item.selected{
+    font-weight: bold;
+}
+
+
+

@@ -15,12 +15,12 @@ const pdbMapping = require('./pdb.mapping');
 const svgSymbols = require('./svg.symbols');
 
 function loadRecord(rec, globals){
-    let loadedRecord = globals.lm.loadRecord(rec, globals.opts.extraHighlights);
+    let loadedRecord = globals.lm.loadRecord(rec);
     if (globals.settings.loadAllChains) {
         globals.pdbRecords.forEach(recOther => {
             if (recOther.getPdbId() === rec.getPdbId() && recOther.getId() !== rec.getId()){
                 loadedRecord = loadedRecord.then(() => {
-                    return globals.lm.loadRecord(recOther, globals.opts.extraHighlights, {focus: false, hideOthers: false})
+                    return globals.lm.loadRecord(recOther, {focus: false, hideOthers: false})
                 });
             }
         });
@@ -208,9 +208,12 @@ const MolArt = function(opts) {
 
         const lmHeader = $(`        
         <div class="pv3d-header pv3d-header-lm">
+        
+        
             <div class="pv3d-button pv3d-download" title="Export to PyMol">
                 ${svgSymbols.download}
-            </div>            
+            </div>
+            
             <a class="ui label pdb-link pv3d-invisible" href="" target="_blank">                    
                 <div class="detail"></div>
             </a>
@@ -224,7 +227,12 @@ const MolArt = function(opts) {
                     <div class="text"></div>
                     <i class="dropdown icon"></i>
                 </div>
-            </div>          
+            </div>
+            <div class="user-highlights ui selection dropdown">
+                    <div class="text"></div>                    
+                    <i class="dropdown icon"></i>
+                </div>            
+                      
         </div>
         `);
 
