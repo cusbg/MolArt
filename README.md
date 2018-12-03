@@ -37,7 +37,7 @@ no PDB structure is available
 (the export does not include variants)
 - Upload of custom annotations
 - Ability to control which structures will be shown
-- Ability to select and highglight specific residues (not necessarily corresponding to annotations) and specific atoms .
+- Ability to select and highlight specific residues (not necessarily corresponding to annotations) and specific atoms .
 The selection can be visualized either as a surface, a balls and stick representation or simply van der 
 Waals-based spheres with given color and transparency.
 
