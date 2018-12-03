@@ -302,7 +302,7 @@ function createPlugin() {
 
             return controller.applyTransform(action).then(() => {
                 defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true});
-                Promise.resolve(visualId)
+                return Promise.resolve(visualId);
             });
         };
 
