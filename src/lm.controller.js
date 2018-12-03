@@ -463,7 +463,7 @@ const LmController = function () {
                 const visualIdsDef = visualIds.filter(id => id !== undefined);
                 mapping[recId].setUserHighlightVisualIds(visualIdsDef);
                 visualIdsDef.forEach((id, i) => {
-                     userHighlightSelected(i) ? plugin.showEntity(id): plugin.hideEntity(id);
+                     userHighlightSelected(i) || !globals.opts.extraHighlights.controlVisibility ? plugin.showEntity(id): plugin.hideEntity(id);
                     if (extraHighlightsContent[i].visualIds === undefined) extraHighlightsContent[i].visualIds = [];
                     extraHighlightsContent[i].visualIds.push(id)
                 });
