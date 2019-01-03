@@ -460,10 +460,27 @@ const MolArt = function(opts) {
         return res;
     }
 
+    function sortPdbRecords(records, opts, settings) {
+        console.log(records, opts);
+        if (opts.sortStructures) {
+            if (opts.sortStructures === settings.sortStructuresOptions.id) {
+                return records.sort( (a,b) => {
+
+                    if (a.getId() < b.getId()) return -1;
+                    else if (a.getId() == b.getId()) return 0;
+                    else return 1;
+
+                } );
+            }
+        }
+        return records;
+
+    }
+
     function retrieveStructureRecords(uniprotId, opts){
 
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
-            console.log('uniprotIdPdbs', uniprotIdPdbs);
+            // console.log('uniprotIdPdbs', uniprotIdPdbs);
             globals.pdbRecords = mergeMappings(uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
@@ -475,6 +492,7 @@ const MolArt = function(opts) {
             return opts.alwaysLoadPredicted ? loadSmr(uniprotId, opts) : Promise.resolve();
         }).then(function () {
             if (globals.pdbRecords.length === 0) delete globals.pdbRecords;
+            else globals.pdbRecords = sortPdbRecords(globals.pdbRecords, opts, globals.settings);
         })
     }
 

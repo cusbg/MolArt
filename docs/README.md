@@ -188,6 +188,10 @@ molart = new MolArt({
 
 #### Other options
 
+- ```sortStructures``` - when set to ```id``` the lists of experimental and predicted
+structures are sorted by their name. This changes the default behavior when the lists
+are sorted by coverage, i.e. how much of the sequence is covered by a structure. 
+
 - ```categoriesTooltips``` - array of arrays of size two containing category code and
 its tooltip text. This option allows to set user-defined titles for categories. An example can be found in the plugin page example (```categoriesTooltips: [['DOMAINS_AND_SITES', 'Describes various domains and sites'], ['PTM', 'Post-translational modifications']]```).
 The tooltips for tracks can be set using the ProtVista [custom config file](http://ebi-uniprot.github.io/ProtVista/developerGuide.html#further-customization) option.
