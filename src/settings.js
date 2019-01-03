@@ -18,5 +18,8 @@ module.exports = {
   }
   ,boundaryFeatureTypes: ['DISULFID']
   ,useCorsForSmr: false
+    ,sortStructuresOptions: {
+      id: 'id'
+    }
   ,corsServer: 'https://dobrman.ms.mff.cuni.cz/'
 };
