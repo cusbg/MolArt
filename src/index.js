@@ -96,14 +96,19 @@ class ActiveStructure {
         const annotations = this.globals.pv.extractAnnotationData();
 
         Object.keys(annotations).forEach(cat => {
-            const featureNames = [];
+            // const featureNames = [];
+            const catSubcats = {};
             annotations[cat].forEach(feature => {
                 const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
-                featureNames.push(featureName);
+                if (!(feature.type in catSubcats)) {
+                    catSubcats[feature.type] = [];
+                }
+                catSubcats[feature.type].push(featureName);
                 const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
             });
-            content += `cmd.group('${cat}', '${featureNames.join(" ")}')\n`;
+            Object.keys(catSubcats).forEach(cs => content += `cmd.group('${cs}', '${catSubcats[cs].join(" ")}')\n`)
+            content += `cmd.group('${cat}', '${Object.keys(catSubcats).join(" ")}')\n`;
         });
 
         download(content, this.pdbId + '.py', "text/plain");
