@@ -2,6 +2,11 @@
 
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##  [Unreleased]
+
+### Fixed
+- Handled situation when category and feature type has the same name when exporting to PyMOL (e.g. ANTIGEN).
+
 ## [1.3.0] - 2019-13-01
 
 ### Added
@@ -15,4 +20,5 @@ e.g. for showing pathogenic mutations on every structure. The format follows Lit
 
 ### Fixed
 - Fixed issue with logo showing out of plugin boundaries in some cases.
+
 

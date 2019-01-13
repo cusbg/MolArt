@@ -81,6 +81,18 @@ class ActiveStructure {
             return name.replace('&', 'and').replace(/[^a-zA-Z0-9_]/g, "_")
         };
 
+        const sanitizeFeatureType = function(catName, subCatName) {
+            let rv = subCatName
+            if (subCatName == 'CHAIN') {
+                //CHAIN is a reserved word in pymol
+                rv =  'CHAIN_';
+            }
+            if (rv == catName) {
+                rv = rv + '_'; //eg. ANTIGEN has both category and subcategory (feature type) called ANTIGEN
+            }
+            return rv;
+        };
+
 
         const source = this.record.getSource();
         if (source === 'PDB'){
@@ -99,13 +111,21 @@ class ActiveStructure {
             // const featureNames = [];
             const catSubcats = {};
             annotations[cat].forEach(feature => {
+
+                const featureType = sanitizeFeatureType(cat, feature.type);
+                const featureTypeCA = featureType + '-CA';
+
                 const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
                 const featureNameCA = featureName + '-CA';
+
+
                 if (!(feature.type in catSubcats)) {
-                    catSubcats[feature.type] = [];
+                    catSubcats[featureType] = [];
+                    catSubcats[featureTypeCA] = [];
                 }
-                catSubcats[feature.type].push(featureName);
-                catSubcats[feature.type].push(featureNameCA);
+                catSubcats[featureType].push(featureName);
+                catSubcats[featureTypeCA].push(featureNameCA);
+                //need to use feature.type and not featureType, because featureType is sanitized
                 const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
                 const selectionCA = `(${selection}) and name CA`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
@@ -470,7 +490,6 @@ const MolArt = function(opts) {
     }
 
     function sortPdbRecords(records, opts, settings) {
-        console.log(records, opts);
         if (opts.sortStructures) {
             if (opts.sortStructures === settings.sortStructuresOptions.id) {
                 return records.sort( (a,b) => {
