@@ -41,6 +41,7 @@ no PDB structure is available
 The selection can be visualized either as a surface, a balls and stick representation or simply van der 
 Waals-based spheres with given color and transparency.
 
+
 ## Data sources
 
 - Sequence and annotation data
