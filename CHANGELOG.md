@@ -15,4 +15,5 @@ e.g. for showing pathogenic mutations on every structure. The format follows Lit
 
 ### Fixed
 - Fixed issue with logo showing out of plugin boundaries in some cases.
+- Handled situation when category and feature type has the same name when exporting to PyMOL (e.g. ANTIGEN).
 
