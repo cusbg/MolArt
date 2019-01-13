@@ -100,12 +100,16 @@ class ActiveStructure {
             const catSubcats = {};
             annotations[cat].forEach(feature => {
                 const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
+                const featureNameCA = featureName + '-CA';
                 if (!(feature.type in catSubcats)) {
                     catSubcats[feature.type] = [];
                 }
                 catSubcats[feature.type].push(featureName);
+                catSubcats[feature.type].push(featureNameCA);
                 const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
+                const selectionCA = `(${selection}) and name CA`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
+                content += `cmd.select('${featureNameCA}', '${selectionCA}')\n`;
             });
             Object.keys(catSubcats).forEach(cs => content += `cmd.group('${cs}', '${catSubcats[cs].join(" ")}')\n`)
             content += `cmd.group('${cat}', '${Object.keys(catSubcats).join(" ")}')\n`;
