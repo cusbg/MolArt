@@ -4,7 +4,9 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
--
+### Fixed
+
+- Export to PyMOL restricted to current chain
 
 ## [1.3.0] - 2019-13-01
 

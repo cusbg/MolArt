@@ -126,7 +126,7 @@ class ActiveStructure {
                 catSubcats[featureType].push(featureName);
                 catSubcats[featureTypeCA].push(featureNameCA);
                 //need to use feature.type and not featureType, because featureType is sanitized
-                const selection = require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`;
+                const selection = `chain ${this.chainId} and ` + (require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`);
                 const selectionCA = `(${selection}) and name CA`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
                 content += `cmd.select('${featureNameCA}', '${selectionCA}')\n`;
@@ -135,7 +135,7 @@ class ActiveStructure {
             content += `cmd.group('${cat}', '${Object.keys(catSubcats).join(" ")}')\n`;
         });
 
-        download(content, this.pdbId + '.py', "text/plain");
+        download(content, `${this.pdbId}_${this.chainId}.py`, "text/plain");
     }
 }
 
