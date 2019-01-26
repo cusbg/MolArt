@@ -118,6 +118,13 @@ class ActiveStructure {
                 const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
                 const featureNameCA = featureName + '-CA';
 
+                let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
+                let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
+
+                let autSeqNumberBegin = this.globals.lm.getAuthSeqNumber(this.record, fBeginStructure);
+                let autSeqNumberEnd = this.globals.lm.getAuthSeqNumber(this.record, fEndStructure);
+
+                if (autSeqNumberBegin === undefined || autSeqNumberEnd === undefined) return;
 
                 if (!(feature.type in catSubcats)) {
                     catSubcats[featureType] = [];
@@ -126,7 +133,7 @@ class ActiveStructure {
                 catSubcats[featureType].push(featureName);
                 catSubcats[featureTypeCA].push(featureNameCA);
                 //need to use feature.type and not featureType, because featureType is sanitized
-                const selection = `chain ${this.chainId} and ` + (require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${feature.begin}-${feature.end}` : `(resi ${feature.begin}) or (resi ${feature.end})`);
+                const selection = `chain ${this.chainId} and ` + (require('./settings').boundaryFeatureTypes.indexOf(feature.type) < 0 ? `resi ${autSeqNumberBegin}-${autSeqNumberEnd}` : `(resi ${autSeqNumberBegin}) or (resi ${autSeqNumberEnd})`);
                 const selectionCA = `(${selection}) and name CA`;
                 content += `cmd.select('${featureName}', '${selection}')\n`;
                 content += `cmd.select('${featureNameCA}', '${selectionCA}')\n`;

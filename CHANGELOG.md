@@ -4,9 +4,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
-### Fixed
+### Added
 
 - Export to PyMOL restricted to current chain
+
+### Fixed
+
+- Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
 
 ## [1.3.0] - 2019-13-01
 

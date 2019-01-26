@@ -570,6 +570,21 @@ function createPlugin() {
             // defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true} );
         }
 
+        function getAuthSeqNumber(modelId, chainId, resNum){
+            let model = selectNodes(modelId);
+
+            if (model.length == 0) return undefined;
+
+            let query = Query.residues({authAsymId: chainId, seqNumber: resNum})
+            let res = LiteMol.Core.Structure.Query.apply(query, model[0].props.model);
+            let frag = res.unionFragment();
+
+            if (frag.residueIndices.length == 0) return undefined;
+
+            return model[0].props.model.data.residues.authSeqNumber[frag.residueIndices[0]]
+
+        }
+
         function getController() {
             return controller;
         }
@@ -604,6 +619,7 @@ function createPlugin() {
             , getLiteMol: getLiteMol
             , getEntity: getEntity
             , getStyleDefinition: getStyleDefinition
+            , getAuthSeqNumber: getAuthSeqNumber
         }
 
     })(LiteMol || (LiteMol = {}));

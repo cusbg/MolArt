@@ -629,6 +629,13 @@ const LmController = function () {
         }
     }
 
+
+    function getAuthSeqNumber(rec, resNum) {
+        // returns https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.core.structure.residue.html
+        let modelId = mapping[rec.getId()].getModelId();
+        return plugin.getAuthSeqNumber(modelId, rec.getChainId(), resNum);
+    }
+
     function initialize(params) {
         globals = params.globals;
         plugin.initializePlugin(globals.lmContainerId);
@@ -665,6 +672,8 @@ const LmController = function () {
         // focusRecord: focusRecord
         showErrorMessage: showErrorMessage,
         hideErrorMessage: hideErrorMessage,
+
+        getAuthSeqNumber: getAuthSeqNumber,
 
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,
