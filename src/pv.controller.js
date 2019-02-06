@@ -59,6 +59,15 @@ const PvController = function () {
                 customDataSources = customDataSources.concat(params.opts.customDataSources);
             }
 
+            if (params.opts.includePredictProtein) {
+                customDataSources.push({
+                    source: 'PREDICT PROTEIN',
+                    useExtension: false,
+                    url: 'https://api.predictprotein.org/v1/results/'
+                })
+
+            }
+
 
             plugin = new ProtVista( Object.assign({}, params.opts,
                 {
