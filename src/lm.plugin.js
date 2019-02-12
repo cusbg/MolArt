@@ -334,6 +334,8 @@ function createPlugin() {
                 residues = params.residues,
                 atomNames = params.atomNames;
 
+            if (residues.length === 0) return Promise.resolve(undefined);
+
             controllerAvailability();
 
             const entity = selectNodes(entityId)[0];
@@ -366,7 +368,7 @@ function createPlugin() {
                 }, {ref: selectionId, isBinding: false});
 
             return controller.applyTransform(action).then(() => Promise.resolve(selectionId));
-        }
+        };
 
         const changeEntityVisibility = function (entityId, visible) {
             controllerAvailability();

@@ -2,6 +2,7 @@
 
 const svgSymbols = require('./svg.symbols');
 const ProtVista = require('ProtVista');
+const getPredictProtein = require('./services').getPredictProtein;
 
 
 const PvController = function () {
@@ -22,6 +23,8 @@ const PvController = function () {
         if (params.opts.highlightByHovering !== undefined) settings.highlightByHovering = params.opts.highlightByHovering;
 
         const sequence = params.fasta.split("\n").slice(1).join("");
+
+        let customDataSources = [];
 
         if ('pdbRecords' in globals) {
 
@@ -47,7 +50,7 @@ const PvController = function () {
                 url: 'data:text/plain,' + encodeURI(JSON.stringify(pvDataSource))
             };
 
-                let customDataSources = [ds];
+            customDataSources = [ds];
 
             if (params.opts.customDataSources){
                 params.opts.customDataSources.forEach(ds => {
@@ -58,16 +61,23 @@ const PvController = function () {
 
                 customDataSources = customDataSources.concat(params.opts.customDataSources);
             }
+        }
 
+        return new Promise(function (resolve, reject) {
             if (params.opts.includePredictProtein) {
-                customDataSources.push({
-                    source: 'PREDICT PROTEIN',
-                    useExtension: false,
-                    url: 'https://api.predictprotein.org/v1/results/'
+                getPredictProtein(globals.uniprotId).then(function (data) {
+                    console.log(data);
+                    customDataSources.push({
+                        source: 'PREDICT PROTEIN',
+                        useExtension: false,
+                        url: 'data:text/plain,' + encodeURI(JSON.stringify(data))
+                    });
+                    resolve();
                 })
-
+            } else {
+                resolve();
             }
-
+        }).then(function () {
 
             plugin = new ProtVista( Object.assign({}, params.opts,
                 {
@@ -76,19 +86,12 @@ const PvController = function () {
                     defaultSources: true,
                     // customDataSource: ds,
                     customDataSources: customDataSources
-                }))
+                }));
 
-        } else {
-            plugin = new ProtVista({
-                el: document.getElementById(globals.pvContainerId),
-                uniprotacc: globals.uniprotId,
-                defaultSources: true
-            });
-        }
+            initializeHeader();
 
 
-
-        initializeHeader();
+        });
     }
 
     function setCategoriesTooltips(enable, toolTips) {

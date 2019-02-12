@@ -445,16 +445,21 @@ const LmController = function () {
             })).then(selectionsIds => {
 
                 const promises = selectionsIds.map( (id, i) => {
+                    if (id !== undefined) {
                         return plugin.createVisual(id,
                             params = {
-                            style: plugin.getStyleDefinition(
-                                extraHighlightsContent[i].visual.type,
-                                extraHighlightsContent[i].visual.params,
-                                extraHighlightsContent[i].visual.color,
-                                extraHighlightsContent[i].visual.alpha
+                                style: plugin.getStyleDefinition(
+                                    extraHighlightsContent[i].visual.type,
+                                    extraHighlightsContent[i].visual.params,
+                                    extraHighlightsContent[i].visual.color,
+                                    extraHighlightsContent[i].visual.alpha
 
-                            )}
+                                )}
                         )
+                    } else {
+                        return Promise.resolve(undefined);
+                    }
+
                     });
 
                 return Promise.all(promises);
@@ -462,7 +467,8 @@ const LmController = function () {
                 //console.log('visualIds',visualIds);
                 const visualIdsDef = visualIds.filter(id => id !== undefined);
                 mapping[recId].setUserHighlightVisualIds(visualIdsDef);
-                visualIdsDef.forEach((id, i) => {
+                visualIds.forEach((id, i) => {
+                    if (id === undefined) return;
                      userHighlightSelected(i) || !globals.opts.extraHighlights.controlVisibility ? plugin.showEntity(id): plugin.hideEntity(id);
                     if (extraHighlightsContent[i].visualIds === undefined) extraHighlightsContent[i].visualIds = [];
                     extraHighlightsContent[i].visualIds.push(id)

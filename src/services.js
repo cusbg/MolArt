@@ -1,5 +1,6 @@
 const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
+const urlPredictProtein = require('./settings').urlPredictProtein;
 
 function ajaxQuery(url, type) {
     if (type === undefined) type = "GET";
@@ -30,8 +31,17 @@ function getUnpToSmrMapping(uniprotId) {
   })
 }
 
+function getPredictProtein(uniprotId) {
+    return ajaxQuery(`${urlPredictProtein+uniprotId}`).then(function (result) {
+
+        return result.data;
+    })
+
+}
+
 module.exports = {
     getFastaByUniprotId: getFastaByUniprotId
-    ,getUnpToPdbMapping: getUnpToPdbMapping
-    ,getUnpToSmrMapping: getUnpToSmrMapping
+    , getUnpToPdbMapping: getUnpToPdbMapping
+    , getUnpToSmrMapping: getUnpToSmrMapping
+    , getPredictProtein: getPredictProtein
 };
