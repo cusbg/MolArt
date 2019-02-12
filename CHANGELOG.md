@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Fixed
 
 - Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
+- Fix of issue when a user selection is empty or non-empty but does not intersect with current structure
 
 ## [1.3.0] - 2019-13-01
 
