@@ -3,6 +3,7 @@
 const svgSymbols = require('./svg.symbols');
 const ProtVista = require('ProtVista');
 const getPredictProtein = require('./services').getPredictProtein;
+const predictProteinId = require('./settings').pvPredictProteinCat.id;
 
 
 const PvController = function () {
@@ -63,17 +64,16 @@ const PvController = function () {
             }
         }
 
-        return new Promise(function (resolve, reject) {
-            if (params.opts.includePredictProtein) {
-                getPredictProtein(globals.uniprotId).then(function (data) {
-                    console.log(data);
+        return new Promise(function (resolve) {
+            if (params.opts.exclusions === undefined ||  params.opts.exclusions.indexOf(predictProteinId) < 0) {
+                getPredictProtein(globals.uniprotId).then(function (response) {
                     customDataSources.push({
                         source: 'PREDICT PROTEIN',
                         useExtension: false,
-                        url: 'data:text/plain,' + encodeURI(JSON.stringify(data))
+                        url: 'data:text/plain,' + encodeURI(JSON.stringify(response.data))
                     });
                     resolve();
-                })
+                }, () => resolve());
             } else {
                 resolve();
             }
@@ -81,11 +81,10 @@ const PvController = function () {
 
             plugin = new ProtVista( Object.assign({}, params.opts,
                 {
-                    el: document.getElementById(globals.pvContainerId),
-                    uniprotacc: globals.uniprotId,
-                    defaultSources: true,
-                    // customDataSource: ds,
-                    customDataSources: customDataSources
+                    el: document.getElementById(globals.pvContainerId)
+                    , uniprotacc: globals.uniprotId
+                    , defaultSources: true
+                    , customDataSources: customDataSources
                 }));
 
             initializeHeader();
@@ -102,6 +101,56 @@ const PvController = function () {
                 toolTips.forEach(keyVal => {
                     globals.pvContainer.find(`div.up_pftv_category_${keyVal[0]} a.up_pftv_category-name`).attr('title', keyVal[1])
                 })
+            }
+        }
+    }
+
+
+    /*
+    Extension of the the ProtVista's category sorting which does not take
+    into account categories from custom data sources.
+
+    PredictProtein is a user-created category (from the ProtVista's point of view)
+    so it is always in the up_pftv_category_on_the_fly DIV which is always the
+    first child of the DIV holding all the ProtVista's default categories.
+    In order to position it, we need to remove it from its position and put it where
+    we need. I.e. before variation category, if present and is on the last position, or to the end.
+
+     */
+    function reorderCategories() {
+
+        const ppContainer = globals.pvContainer.find(`.${globals.settings.pvPredictProteinCat.clazz}`);
+        const varContainer = globals.pvContainer.find(`.${globals.settings.pvVariationCat.clazz}`);
+        const categoriesContainer = globals.pvContainer.find(`.${globals.settings.pvCategories.clazz}`);
+        const categoriesContainers = globals.pvContainer.find(`div[class*="${globals.settings.pvCategoryPrefix}"]`).toArray();
+
+        if (ppContainer.length > 0) {
+            ppContainer.detach();
+            if (varContainer.length > 0 && categoriesContainers.slice(-1).pop() === varContainer[0]) {
+                ppContainer.insertBefore(varContainer);
+            } else {
+                categoriesContainer.append(ppContainer);
+            }
+        }
+
+        let categoryOrder = globals.opts.categoryOrder;
+        let customCategoryContainer = globals.pvContainer.find(`.${globals.settings.pvCustomCategoryContainer.clazz}`);
+
+        if (categoryOrder) {
+            for (let i = categoryOrder.length - 1; i >= 0; --i) {
+                let idCategory = categoryOrder[i];
+                let categoryContainer = globals.pvContainer.find($(`.${globals.settings.pvCategoryPrefix}${idCategory}`));
+                if (categoryContainer.length > 0) {
+                    categoryContainer.detach();
+                    if (customCategoryContainer.length > 0) {
+                        //if there are custom categories, put the category right after it
+                        // the only situation when there is no custom categories container is when there are no
+                        // custom categories and no structures (which are also put into custom categories container)
+                        categoryContainer.insertAfter(customCategoryContainer)
+                    } else {
+                        categoriesContainer.prepend(categoryContainer);
+                    }
+                }
             }
         }
 
@@ -569,6 +618,7 @@ const PvController = function () {
         ,resized: resized
         ,extractAnnotationData: extractAnnotationData
         ,setCategoriesTooltips: setCategoriesTooltips
+        ,reorderCategories: reorderCategories
 
         //Exposed for testing purposes
         ,getHeaderLinkContainer: getHeaderLinkContainer

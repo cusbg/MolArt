@@ -9,9 +9,22 @@ module.exports = {
         , clazz: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
         , clazzPred: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
     }
+    , pvPredictProteinCat: {
+        id: 'PREDICT_PROTEIN'
+        , clazz: 'up_pftv_category_PREDICT_PROTEIN'
+    }
     , pvVariationCat: {
         clazz: 'up_pftv_category_VARIATION'
     }
+    , pvCategories: {
+        clazz: 'up_pftv_category-container'
+    }
+    ,pvCategoryPrefix: 'up_pftv_category_'
+
+    , pvCustomCategoryContainer: {
+        clazz: 'up_pftv_category_on_the_fly'
+    }
+
     , variationColors: {
         min: [200, 200, 200]
         , max: [50, 50, 50]

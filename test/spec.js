@@ -4,6 +4,8 @@
 it('should test the enableTooltips option');
 it('should test the highlightByHovering option');
 it('should test the highlightByHovering option disregards experimental and predicted structures');
+it('predictprotein test');
+it('order of categories when predictprotein present');
 
 let lmController;
 let pvController;

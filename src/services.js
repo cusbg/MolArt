@@ -8,7 +8,7 @@ function ajaxQuery(url, type) {
     return $.ajax({
         type: type,
         url: url
-    });
+    });//.then(data => Promise.resolve(data), () => Promise.resolve(undefined));
 }
 
 function getFastaByUniprotId(uniprotId) {
@@ -32,10 +32,7 @@ function getUnpToSmrMapping(uniprotId) {
 }
 
 function getPredictProtein(uniprotId) {
-    return ajaxQuery(`${urlPredictProtein+uniprotId}`).then(function (result) {
-
-        return result.data;
-    })
+    return ajaxQuery(`${urlPredictProtein+uniprotId}`);
 
 }
 

@@ -661,6 +661,7 @@ const MolArt = function(opts) {
                         globals.pv.resized();
                         globals.pv.registerCallbacksAndEvents();
                         globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
+                        globals.pv.reorderCategories(opts);
 
                         eventEmitter.emit('pvReady');
                         pvReady = true;
