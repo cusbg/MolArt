@@ -32,7 +32,7 @@ function getUnpToSmrMapping(uniprotId) {
 }
 
 function getPredictProtein(uniprotId) {
-    return ajaxQuery(`${urlPredictProtein+uniprotId}`);
+    return ajaxQuery(`${urlPredictProtein}${uniprotId}?format=molart`);
 
 }
 

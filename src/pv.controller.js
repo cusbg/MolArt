@@ -2,8 +2,9 @@
 
 const svgSymbols = require('./svg.symbols');
 const ProtVista = require('ProtVista');
-const getPredictProtein = require('./services').getPredictProtein;
+// const getPredictProtein = require('./services').getPredictProtein;
 const predictProteinId = require('./settings').pvPredictProteinCat.id;
+const predictProteinUrl = require('./settings').urlPredictProtein;
 
 
 const PvController = function () {
@@ -64,33 +65,51 @@ const PvController = function () {
             }
         }
 
-        return new Promise(function (resolve) {
-            if (params.opts.exclusions === undefined ||  params.opts.exclusions.indexOf(predictProteinId) < 0) {
-                getPredictProtein(globals.uniprotId).then(function (response) {
-                    customDataSources.push({
-                        source: 'PREDICT PROTEIN',
-                        useExtension: false,
-                        url: 'data:text/plain,' + encodeURI(JSON.stringify(response.data))
-                    });
-                    resolve();
-                }, () => resolve());
-            } else {
-                resolve();
-            }
-        }).then(function () {
+        if (params.opts.exclusions === undefined || params.opts.exclusions.indexOf(predictProteinId) < 0) {
+            customDataSources.push({
+                source: 'PREDICT PROTEIN',
+                useExtension: false,
+                url: 'https://api.predictprotein.org/v1/results/molart/'
+            });
 
-            plugin = new ProtVista( Object.assign({}, params.opts,
-                {
-                    el: document.getElementById(globals.pvContainerId)
-                    , uniprotacc: globals.uniprotId
-                    , defaultSources: true
-                    , customDataSources: customDataSources
-                }));
+        }
+        plugin = new ProtVista( Object.assign({}, params.opts,
+            {
+                el: document.getElementById(globals.pvContainerId)
+                , uniprotacc: globals.uniprotId
+                , defaultSources: true
+                , customDataSources: customDataSources
+            }));
 
-            initializeHeader();
+        initializeHeader();
 
-
-        });
+        // return new Promise(function (resolve) {
+        //     if (params.opts.exclusions === undefined ||  params.opts.exclusions.indexOf(predictProteinId) < 0) {
+        //         getPredictProtein(globals.uniprotId).then(function (response) {
+        //             customDataSources.push({
+        //                 source: 'PREDICT PROTEIN',
+        //                 useExtension: false,
+        //                 url: 'data:text/plain,' + encodeURI(JSON.stringify(response.data))
+        //             });
+        //             resolve();
+        //         }, () => resolve());
+        //     } else {
+        //         resolve();
+        //     }
+        // }).then(function () {
+        //
+        //     plugin = new ProtVista( Object.assign({}, params.opts,
+        //         {
+        //             el: document.getElementById(globals.pvContainerId)
+        //             , uniprotacc: globals.uniprotId
+        //             , defaultSources: true
+        //             , customDataSources: customDataSources
+        //         }));
+        //
+        //     initializeHeader();
+        //
+        //
+        // });
     }
 
     function setCategoriesTooltips(enable, toolTips) {

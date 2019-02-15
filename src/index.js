@@ -642,34 +642,35 @@ const MolArt = function(opts) {
                 globals: globals
                 ,fasta: fasta
                 ,opts
-            }).then(function(){
-                globals.lm.initialize({
-                    globals: globals,
-                });
+            });
+                // .then(function(){
+            globals.lm.initialize({
+                globals: globals,
+            });
 
-                if (!('pdbRecords' in globals)) {
-                    globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
+            if (!('pdbRecords' in globals)) {
+                globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
+                eventEmitter.emit('pvReady');
+                pvReady = true;
+                resize();
+            }
+
+            if ('pdbRecords' in globals) {
+                initializeActiveStructure();
+                globals.pv.getPlugin().getDispatcher().on('ready', () => {
+                    globals.pv.modifyHtmlStructure();
+                    globals.pv.resized();
+                    globals.pv.registerCallbacksAndEvents();
+                    globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
+                    globals.pv.reorderCategories(opts);
+
                     eventEmitter.emit('pvReady');
                     pvReady = true;
                     resize();
-                }
+                });
+            }
 
-                if ('pdbRecords' in globals) {
-                    initializeActiveStructure();
-                    globals.pv.getPlugin().getDispatcher().on('ready', () => {
-                        globals.pv.modifyHtmlStructure();
-                        globals.pv.resized();
-                        globals.pv.registerCallbacksAndEvents();
-                        globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
-                        globals.pv.reorderCategories(opts);
-
-                        eventEmitter.emit('pvReady');
-                        pvReady = true;
-                        resize();
-                    });
-                }
-
-            })
+            // })
 
 
         }, function (error) {
