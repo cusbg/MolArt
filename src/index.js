@@ -70,6 +70,7 @@ class ActiveStructure {
     }
 
     exportToPymol(){
+        let globals = this.globals;
         let content = "import __main__\n" +
             "__main__.pymol_argv = ['pymol', '-qei']\n" +
             "import pymol\n" +
@@ -77,12 +78,20 @@ class ActiveStructure {
             "from pymol import cmd\n" +
             "cmd.delete('all')\n";
 
+        function replaceNamesWithCustom(name){
+            if (name in globals.opts.pyMolCategoriesLabels) {
+                return globals.opts.pyMolCategoriesLabels[name];
+            } else {
+                return name;
+            }
+        }
+
         const sanitizeFeatureName = function(name) {
-            return name.replace('&', 'and').replace(/[^a-zA-Z0-9_]/g, "_")
+            return replaceNamesWithCustom(name).replace('&', 'and').replace(/[^a-zA-Z0-9_]/g, "_")
         };
 
         const sanitizeFeatureType = function(catName, subCatName) {
-            let rv = subCatName;
+            let rv = replaceNamesWithCustom(subCatName);
             if (subCatName == 'CHAIN') {
                 //CHAIN is a reserved word in pymol
                 rv =  'CHAIN_';
@@ -107,11 +116,15 @@ class ActiveStructure {
         }
 
         const annotations = this.globals.pv.extractAnnotationData();
+        const annotationsSanitized = {};
+        for (const cat in annotations) {
+            annotationsSanitized[sanitizeFeatureName(cat)] = annotations[cat];
+        }
 
-        Object.keys(annotations).forEach(cat => {
+        Object.keys(annotationsSanitized).forEach(cat => {
             // const featureNames = [];
             const catSubcats = {};
-            annotations[cat].forEach(feature => {
+            annotationsSanitized[cat].forEach(feature => {
 
                 const featureType = sanitizeFeatureType(cat, feature.type);
                 const featureTypeCA = featureType + '-Calpha';
@@ -122,8 +135,19 @@ class ActiveStructure {
                 let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
                 let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
 
-                let autSeqNumberBegin = this.globals.lm.getAuthSeqNumber(this.record, fBeginStructure);
-                let autSeqNumberEnd = this.globals.lm.getAuthSeqNumber(this.record, fEndStructure);
+                let range = this.globals.lm.getAuthSeqNumberRange(this.record, fBeginStructure, fEndStructure);
+                // let autSeqNumberBegin = this.globals.lm.getAuthSeqNumber(this.record, fBeginStructure);
+                // let autSeqNumberEnd = this.globals.lm.getAuthSeqNumber(this.record, fEndStructure);
+
+                let autSeqNumberBegin = undefined;
+                let autSeqNumberEnd = undefined;
+                if (range.length === 1) {
+                    autSeqNumberBegin = range[0];
+                    autSeqNumberEnd = range[0];
+                } else if (range.length > 1) {
+                    autSeqNumberBegin = range[0];
+                    autSeqNumberEnd = range[range.length - 1];
+                }
 
                 if (autSeqNumberBegin === undefined || autSeqNumberEnd === undefined) return;
 

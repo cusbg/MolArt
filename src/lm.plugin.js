@@ -575,15 +575,43 @@ function createPlugin() {
         function getAuthSeqNumber(modelId, chainId, resNum){
             let model = selectNodes(modelId);
 
-            if (model.length == 0) return undefined;
+            if (model.length === 0) return undefined;
 
-            let query = Query.residues({authAsymId: chainId, seqNumber: resNum})
-            let res = LiteMol.Core.Structure.Query.apply(query, model[0].props.model);
+            let query = Query.residues({authAsymId: chainId, seqNumber: resNum});
+            let res = Query.apply(query, model[0].props.model);
             let frag = res.unionFragment();
 
-            if (frag.residueIndices.length == 0) return undefined;
+            if (frag.residueIndices.length === 0) return undefined;
 
             return model[0].props.model.data.residues.authSeqNumber[frag.residueIndices[0]]
+
+        }
+
+        function getAuthSeqNumberRange(modelId, chainId, resNumBegin, resNumEnd){
+            let model = selectNodes(modelId);
+
+            if (model.length === 0) return [];
+
+            const residues = [];
+            let query = undefined;
+            for (let i = resNumBegin; i <= resNumEnd; i++) {
+                const r = {authAsymId: chainId, seqNumber: i};
+                if (!query) {
+                    query = Query.residues(r);
+                } else {
+                    query = Query.or(query, Query.residues(r))
+                }
+            }
+            // let query = Query.residues([residues[0]);
+            let res = Query.apply(query, model[0].props.model);
+            let frag = res.unionFragment();
+
+            if (frag.residueIndices.length === 0) return [];
+
+            let authSeqNumbers = frag.residueIndices.map(ri => model[0].props.model.data.residues.authSeqNumber[ri]);
+            return authSeqNumbers;
+
+            // return model[0].props.model.data.residues.authSeqNumber[frag.residueIndices[0]]
 
         }
 
@@ -622,6 +650,7 @@ function createPlugin() {
             , getEntity: getEntity
             , getStyleDefinition: getStyleDefinition
             , getAuthSeqNumber: getAuthSeqNumber
+            , getAuthSeqNumberRange: getAuthSeqNumberRange
         }
 
     })(LiteMol || (LiteMol = {}));

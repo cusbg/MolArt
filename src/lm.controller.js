@@ -642,6 +642,12 @@ const LmController = function () {
         return plugin.getAuthSeqNumber(modelId, rec.getChainId(), resNum);
     }
 
+    function getAuthSeqNumberRange(rec, resNumBegin, resNumEnd) {
+        let modelId = mapping[rec.getId()].getModelId();
+        return plugin.getAuthSeqNumberRange(modelId, rec.getChainId(), resNumBegin, resNumEnd);
+
+    }
+
     function initialize(params) {
         globals = params.globals;
         plugin.initializePlugin(globals.lmContainerId);
@@ -680,6 +686,7 @@ const LmController = function () {
         hideErrorMessage: hideErrorMessage,
 
         getAuthSeqNumber: getAuthSeqNumber,
+        getAuthSeqNumberRange: getAuthSeqNumberRange,
 
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,
