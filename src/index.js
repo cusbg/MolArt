@@ -82,7 +82,7 @@ class ActiveStructure {
         };
 
         const sanitizeFeatureType = function(catName, subCatName) {
-            let rv = subCatName
+            let rv = subCatName;
             if (subCatName == 'CHAIN') {
                 //CHAIN is a reserved word in pymol
                 rv =  'CHAIN_';
@@ -90,7 +90,7 @@ class ActiveStructure {
             if (rv == catName) {
                 rv = rv + '_'; //eg. ANTIGEN has both category and subcategory (feature type) called ANTIGEN
             }
-            return rv;
+            return sanitizeFeatureName(rv);
         };
 
 
@@ -101,6 +101,7 @@ class ActiveStructure {
             const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
             const name = `${this.globals.uniprotId}.${this.record.getPdbId()}.${this.record.getChainId()}.${this.record.getPdbStart()}-${this.record.getPdbEnd()}`;
             content += `cmd.load('${url}', '${name}', 0, 'pdb')\n`;
+            content += `cmd.set("orthoscopic", "on")\n`;
         } else {
             throw Error('Unknown structure source');
         }
@@ -113,10 +114,10 @@ class ActiveStructure {
             annotations[cat].forEach(feature => {
 
                 const featureType = sanitizeFeatureType(cat, feature.type);
-                const featureTypeCA = featureType + '-CA';
+                const featureTypeCA = featureType + '-Calpha';
 
                 const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
-                const featureNameCA = featureName + '-CA';
+                const featureNameCA = featureName + '-Calpha';
 
                 let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
                 let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
@@ -126,7 +127,7 @@ class ActiveStructure {
 
                 if (autSeqNumberBegin === undefined || autSeqNumberEnd === undefined) return;
 
-                if (!(feature.type in catSubcats)) {
+                if (!(featureType in catSubcats)) {
                     catSubcats[featureType] = [];
                     catSubcats[featureTypeCA] = [];
                 }
@@ -138,7 +139,7 @@ class ActiveStructure {
                 content += `cmd.select('${featureName}', '${selection}')\n`;
                 content += `cmd.select('${featureNameCA}', '${selectionCA}')\n`;
             });
-            Object.keys(catSubcats).forEach(cs => content += `cmd.group('${cs}', '${catSubcats[cs].join(" ")}')\n`)
+            Object.keys(catSubcats).forEach(cs => content += `cmd.group('${cs}', '${catSubcats[cs].join(" ")}')\n`);
             content += `cmd.group('${cat}', '${Object.keys(catSubcats).join(" ")}')\n`;
         });
 
