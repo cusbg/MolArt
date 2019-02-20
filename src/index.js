@@ -79,7 +79,7 @@ class ActiveStructure {
             "cmd.delete('all')\n";
 
         function replaceNamesWithCustom(name){
-            if (name in globals.opts.pyMolCategoriesLabels) {
+            if (globals.opts.pyMolCategoriesLabels && name in globals.opts.pyMolCategoriesLabels) {
                 return globals.opts.pyMolCategoriesLabels[name];
             } else {
                 return name;
@@ -110,10 +110,11 @@ class ActiveStructure {
             const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
             const name = `${this.globals.uniprotId}.${this.record.getPdbId()}.${this.record.getChainId()}.${this.record.getPdbStart()}-${this.record.getPdbEnd()}`;
             content += `cmd.load('${url}', '${name}', 0, 'pdb')\n`;
-            content += `cmd.set("orthoscopic", "on")\n`;
         } else {
             throw Error('Unknown structure source');
         }
+
+        content += `cmd.set("orthoscopic", "on")\n`;
 
         const annotations = this.globals.pv.extractAnnotationData();
         const annotationsSanitized = {};
@@ -126,11 +127,13 @@ class ActiveStructure {
             const catSubcats = {};
             annotationsSanitized[cat].forEach(feature => {
 
-                const featureType = sanitizeFeatureType(cat, feature.type);
-                const featureTypeCA = featureType + '-Calpha';
+                const featureTypeRoot =  sanitizeFeatureType(cat, feature.type);
+                const featureType =  featureTypeRoot + '_full_residues';
+                const featureTypeCA = featureTypeRoot + '_c-alpha';
 
-                const featureName = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
-                const featureNameCA = featureName + '-Calpha';
+                const featureNameRoot = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
+                const featureName = featureNameRoot + '_full_residues';
+                const featureNameCA = featureNameRoot`` + '_c-alpha';
 
                 let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
                 let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
