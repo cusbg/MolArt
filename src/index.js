@@ -133,7 +133,7 @@ class ActiveStructure {
 
                 const featureNameRoot = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
                 const featureName = featureNameRoot + '_full_residues';
-                const featureNameCA = featureNameRoot`` + '_c-alpha';
+                const featureNameCA = featureNameRoot + '_c-alpha';
 
                 let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
                 let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
