@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Fixed
 
 - Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
+- Fixed moving MolArt logo when scrolling 
 
 ## [1.3.0] - 2019-13-01
 
