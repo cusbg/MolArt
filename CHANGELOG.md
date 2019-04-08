@@ -6,6 +6,14 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+
+### Fixed
+
+
+## [1.3.1] - 2019-04-08
+
+### Added
+
 - Export to PyMOL restricted to current chain
 
 ### Fixed
@@ -13,7 +21,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
 - Fixed moving MolArt logo when scrolling 
 
-## [1.3.0] - 2019-13-01
+
+## [1.3.0] - 2019-01-13
 
 ### Added
 - PyMOL export now contains CA selection.
