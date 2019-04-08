@@ -1,0 +1,820 @@
+svg {
+    overflow: hidden;
+}
+
+.up_pftv_buttons {
+    display: table-cell;
+    padding: 0 .5em 0 .5em;
+    width: 198px;
+    text-align: right;
+    vertical-align: bottom;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.bottom-aa-container {
+    display: table;
+    width: 100%;
+}
+
+.up_pftv_credit_container {
+  display: table-cell;
+  vertical-align: top;
+  width: 198px;
+  padding: 0 0.5em;
+    box-sizing: border-box;
+}
+
+.up_pftv_credit {
+  font-size: .9em;
+  color: grey;
+}
+
+.up_pftv_credit:after {
+  content: "";
+  background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22 standalone%3D%22no%22%3F%3E%0D%3C!-- Created with Inkscape (http%3A%2F%2Fwww.inkscape.org%2F) --%3E%0D%0D%3Csvg%0D   xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D   xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D   xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0D   xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0D   width%3D%2264px%22%0D   height%3D%2264px%22%0D   id%3D%22svg2985%22%0D   version%3D%221.1%22%0D   inkscape%3Aversion%3D%220.48.4 r9939%22%3E%0D  %3Cg%0D     id%3D%22layer1%22%0D     inkscape%3Alabel%3D%22Layer 1%22%0D     inkscape%3Agroupmode%3D%22layer%22%3E%0D    %3Ctext%0D       xml%3Aspace%3D%22preserve%22%0D       style%3D%22font-size%3A77.17918396000000300px%3Bfont-style%3Anormal%3Bfont-weight%3Anormal%3Bline-height%3A125%25%3Bletter-spacing%3A0px%3Bword-spacing%3A0px%3Bfill%3A%2397a2ae%3Bfill-opacity%3A1%3Bstroke%3Anone%3Bfont-family%3AScript MT Bold%3B-inkscape-font-specification%3AScript MT Bold%22%0D       x%3D%2223.582533%22%0D       y%3D%2255.973633%22%0D       id%3D%22text3763%22%0D       sodipodi%3Alinespacing%3D%22125%25%22%0D       transform%3D%22scale(0.93289386%2C1.0719333)%22%3E%3Ctspan%0D         sodipodi%3Arole%3D%22line%22%0D         id%3D%22tspan3765%22%0D         x%3D%2223.582533%22%0D         y%3D%2255.973633%22%0D         style%3D%22font-style%3Anormal%3Bfont-variant%3Anormal%3Bfont-weight%3Abold%3Bfont-stretch%3Anormal%3Bfont-family%3ASerif%3B-inkscape-font-specification%3ASerif Bold%3Bfill%3A%2397a2ae%3Bfill-opacity%3A1%22%3Ei%3C%2Ftspan%3E%3C%2Ftext%3E%0D  %3C%2Fg%3E%0D%3C%2Fsvg%3E%0D");
+  background-size: .9em .9em;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.up_pftv_category-container {
+    position: relative;
+    border-right: 2px solid #b2f5ff;
+    border-top: 1px solid #b2f5ff;
+}
+
+.up_pftv_category-container svg {
+    cursor: move;
+}
+
+.up_pftv_container {
+    position: relative;
+    /*width: 960px;*/
+    color:#557071 !important;
+    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+.up_pftv_container a,
+.up_pftv_container a:link,
+.up_pftv_container a:hover,
+.up_pftv_container a:active,
+.up_pftv_container a:visited {
+  color:#557071 !important;
+  border:none;
+  text-decoration: none !important;
+}
+
+.up_pftv_container h4 {
+  font-size: 1em !important;
+  font-weight: 500 !important;
+  border-bottom: 1px solid #cacaca;
+  margin-bottom: .7em;
+}
+
+.up_pftv_keepWithPrevious {
+    margin-top: 0px;
+}
+
+.up_ptfv_pp-container {
+    display: inline-block;
+    margin: 5em 0 0 0.5em;
+    vertical-align: top;
+}
+
+.up_pftv_navruler {
+    margin-left: 195px;
+}
+
+.up_pftv_navruler svg {
+    vertical-align: bottom;
+    font-size: 14px;
+}
+
+.up_pftv_navruler svg {
+    /*background-color: #FDF7EF;*/
+}
+
+/*Category and type tracks*/
+.up_pftv_category {
+    margin-bottom: .1em;
+    border-bottom: .1em solid #b2f5ff;
+    display: table;
+    width: 100%;
+}
+
+.up_pftv_category-name, .up_pftv_track-header {
+    font-weight: 400;
+    line-height: 2.1em;
+    width: 198px;
+    max-width: 198px;
+    vertical-align: bottom;
+    padding: .5em;
+    border: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.up_pftv_category-name {
+    background-color: #b2f5ff;
+    display: table-cell;
+    box-sizing: border-box;
+}
+
+.up_pftv_category a:hover {
+    background-color: #80EEFF;
+    border-bottom: none;
+    text-decoration: none;
+}
+
+.up_pftv_track-header {
+    display: table-cell;
+    background-color: #d9faff;
+    box-sizing: border-box;
+    /*line-height: 1.6em;
+    margin: .05em 0;*/
+}
+
+.up_pftv_category-viewer, .up_pftv_track, .up_pftv_aaviewer {
+    position: relative;
+    vertical-align: bottom;
+    /*width: 760px;*/
+}
+.up_pftv_track {
+    display: table-cell;
+}
+
+.up_pftv_aaviewer {
+    display: table-cell;
+}
+
+.up_pftv_category-viewer {
+    display: table-cell;
+}
+
+.up_pftv_category-viewer svg, .up_pftv_track svg, .up_pftv_aaviewer svg {
+    vertical-align: bottom;
+}
+
+.up_pftv_category-name {
+    cursor: pointer;
+}
+
+.up_pftv_track-header-container {
+    vertical-align: top;
+    margin-top: 1px;
+    background-color: #D9FAFF;
+}
+
+.up_pftv_category-tracks {
+    display: table-row;
+}
+
+.up_pftv_track {
+    border-top: 1px #b2f5ff solid;
+}
+
+.up_pftv_category-name.up_pftv_arrow-right:before {
+    content: ' ';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #333;
+    margin-right: 5px;
+}
+
+.up_pftv_category-name.up_pftv_arrow-down:before {
+    content: ' ';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+    margin-right: 5px;
+}
+
+.up_pftv_category-disabled {
+    opacity: 0;
+    display: none;
+}
+
+/* Ruler */
+.up_pftv_navruler .axis {
+    font-size: 12px;
+}
+
+.up_pftv_navruler line, .up_pftv_navruler path {
+    fill: none;
+    stroke: black;
+}
+
+.up_pftv_aaviewer path {
+    display: no;
+}
+
+.up_pftv_navruler .up_pftv_viewport {
+    fill: #D7DCE0;
+    fill-opacity: 0.4;
+}
+
+.up_pftv_navruler path.up_pftv_trapezoid {
+    fill: #D7DCE0;
+    stroke: none;
+    fill-opacity: 0.4;
+    stroke: none;
+}
+
+.up_pftv_highlight, .up_pftv_amino_acid_selector {
+    fill: #FFE999;
+    fill-opacity: 1;
+}
+
+.up_pftv_navruler .handle {
+    fill: #D7DCE0;
+    fill-opacity: 1;
+    stroke: #000;
+    stroke-width: 1px;
+}
+
+.up_pftv_navruler .handle:hover {
+    fill-opacity: 1;
+}
+
+.up_pftv_aaviewer text {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 12px;
+}
+
+.up_pftv_feature {
+    cursor: pointer;
+    fill-opacity: .6;
+}
+
+.up_pftv_feature:hover {
+    fill-opacity: .9;
+}
+
+.up_pftv_activeFeature {
+    fill-opacity: .9 !important;
+}
+
+.up_pftv_variation-chart .up_pftv_block-area {
+    fill: lightgrey;
+    stroke: none;
+}
+
+.up_pftv_variation-chart .up_pftv_block-area:hover {
+    fill: darkslategrey;
+    cursor: pointer;
+}
+
+.up_pftv_variation-chart .up_pftv_line {
+    fill: none;
+    stroke: darkgrey;
+    stroke-width: 1px;
+}
+
+.up_pftv_variation-chart .up_pftv_line:hover,  .up_pftv_variation-chart .up_pftv_line:hover + .up_pftv_block-area {
+    stroke: darkslategrey;
+    cursor: pointer;
+}
+
+/* Dialogs */
+
+.up_pftv_dialog-container {
+  margin:0;padding:0;
+}
+
+.up_pftv_dialog-container li a {
+  display: block;
+  line-height: 2em;
+  padding: 0 .2em;
+  cursor: pointer;
+}
+
+.up_pftv_legend {
+    vertical-align: sub;
+    width: 1.5em;
+    display: inline-block;
+    height: 1em;
+    border-radius: .4em;
+    border: 2px solid #ABABAB;
+    margin-right: .5em;
+}
+
+.up_pftv_legend_double {
+    height: 3em !important;
+}
+
+.up_pftv_legend_text {
+    line-height: 2em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Close button */
+.up_pftv_tooltip-close {
+    color: #FFF;
+    background-color: #333333;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px !important;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+/* Tooltip */
+.up_pftv_tooltip-pin-container {
+    display: inline-block;
+    float: left;
+    padding: 4px 10px 0 0;
+}
+
+/*.up_pftv_icon-frame {
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid;
+    margin: .2em;
+}*/
+
+.up_pftv_iconContainer-unpinned {
+    background-color: lightgrey !important;
+    color: black !important;
+}
+
+.up_pftv_iconContainer-unpinned:hover {
+    background-color: grey !important;
+}
+
+.up_pftv_iconContainer-pinned {
+    background-color: black !important;
+    color: white !important;
+}
+
+.up_pftv_tooltip-container, .up_pftv_popupDialog-container {
+    z-index: 50000;
+    position: absolute;
+    opacity: 0;
+    display: none;
+}
+
+.up_pftv_tooltip-container {
+    min-width: 220px;
+}
+
+.up_pftv_popupDialog-container {
+    border: 1px solid #557071;
+    background-color: #ffffff;
+    padding: 0.5em;
+    min-width: 210px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.up_pftv_popupDialog-container table {
+    border: 0px;
+    background-color: #FFF;
+    width: 100%;
+}
+
+.up_pftv_popupDialog-container td {
+    padding: .2em;
+    margin: 0;
+}
+
+.up_pftv_popupDialog-container td:first-child {
+    font-size: small;
+}
+
+.up_pftv_popupDialog-warning {
+
+}
+
+.up_pftv_tooltip-container table {
+    font-size: 13px;
+    border: 2px solid #CCC;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: #FFF;
+    -webkit-box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.up_pftv_tooltip-container table th {
+    text-transform: capitalize;
+    font-weight: 400;
+    white-space: nowrap;
+    letter-spacing: .05em;
+    font-size: 1.1em;
+    background-color: #595959;
+    line-height: 2em;
+    padding: 0 .7em;
+    color: #FFF;
+    text-align: center;
+}
+
+.up_pftv_tooltip-container table a {
+    text-decoration: underline !important;
+}
+
+.up_pftv_tooltip-container table td {
+    padding: .4em;
+    margin: 0;
+    border: 1px solid #CCC;
+}
+
+.up_pftv_tooltip-container td:first-child {
+    font-weight: bold;
+}
+
+.up_pftv_tooltip-container .up_pftv_evidence-col {
+    background-color: #FFF;
+}
+
+.up_pftv_tooltip-container .up_pftv_evidence-source {
+    background-color: #FFF;
+}
+
+.up_pftv_tooltip-container .up_pftv_section {
+    background-color: #B3B3B3;
+    text-align: center;
+}
+
+.up_pftv_tooltip-container .up_pftv_subsection {
+    color: black;
+}
+
+/* Features */
+svg .up_pftv_chain {
+    stroke: #CC9933;
+    fill: #CC9933;
+}
+
+svg .up_pftv_transit {
+    stroke: #009966;
+    fill: #009966;
+}
+
+svg .up_pftv_init_met {
+    stroke: #996633;
+    fill: #996633;
+}
+
+svg .up_pftv_propep {
+    stroke: #99CCCC;
+    fill: #99CCCC;
+}
+
+svg .up_pftv_peptide {
+    stroke: #006699;
+    fill: #006699;
+}
+
+svg .up_pftv_signal {
+    stroke: #CC0033;
+    fill: #CC0033;
+}
+
+svg .up_pftv_turn {
+    stroke: #0571AF;
+    fill: #0571AF;
+}
+
+svg .up_pftv_strand {
+    stroke: #FFCC00;
+    fill: #FFCC00;
+}
+
+svg .up_pftv_helix {
+    stroke: #FF0066;
+    fill: #FF0066;
+}
+
+svg .up_pftv_crosslnk {
+    stroke: #FF6600;
+    fill: #FF6600;
+}
+
+svg .up_pftv_disulfid {
+    stroke: #23B14D;
+    fill: #23B14D;
+}
+
+svg .up_pftv_region {
+    stroke: #B33E00;
+    fill: #B33E00;
+}
+
+svg .up_pftv_coiled {
+    stroke: #006699;
+    fill: #006699;
+}
+
+svg .up_pftv_motif {
+    stroke: #402060;
+    fill: #402060;
+}
+
+svg .up_pftv_repeat {
+    stroke: #9900FF;
+    fill: #9900FF;
+}
+
+svg .up_pftv_ca_bind {
+    stroke: #FF3399;
+    fill: #FF3399;
+}
+
+svg .up_pftv_dna_bind {
+    stroke: #009933;
+    fill: #009933;
+}
+
+svg .up_pftv_domain {
+    stroke: #9999FF;
+    fill: #9999FF;
+}
+
+svg .up_pftv_zn_fing {
+    stroke: #990066;
+    fill: #990066;
+}
+
+svg .up_pftv_np_bind {
+    stroke: #FF9900;
+    fill: #FF9900;
+}
+
+svg .up_pftv_metal {
+    stroke: #009900;
+    fill: #009900;
+}
+
+svg .up_pftv_site {
+    stroke: #660033;
+    fill: #660033;
+}
+
+svg .up_pftv_binding {
+    stroke: #006699;
+    fill: #006699;
+}
+
+svg .up_pftv_act_site {
+    stroke: #FF6666;
+    fill: #FF6666;
+}
+
+svg .up_pftv_mod_res {
+    stroke: #000066;
+    fill: #000066;
+}
+
+svg .up_pftv_lipid {
+    stroke: #99CC33;
+    fill: #99CC33;
+}
+
+svg .up_pftv_carbohyd {
+    stroke: #CC3366;
+    fill: #CC3366;
+}
+
+svg .up_pftv_variant {
+    stroke-width: 2;
+}
+
+svg .up_pftv_compbias {
+    stroke: #FF3366;
+    fill: #FF3366;
+}
+
+svg .up_pftv_mutagen {
+    stroke: #FF9900;
+    fill: #FF9900;
+}
+
+svg .up_pftv_conflict {
+    stroke: #6633CC;
+    fill: #6633CC;
+}
+
+svg .up_pftv_non_cons {
+    stroke: #FF0033;
+    fill: #FF0033;
+}
+
+svg .up_pftv_non_ter {
+    stroke: #339933;
+    fill: #339933;
+}
+
+svg .up_pftv_unsure {
+    stroke: #33FF00;
+    fill: #33FF00;
+}
+
+svg .up_pftv_non_std {
+    stroke: #330066;
+    fill: #330066;
+}
+
+svg .up_pftv_topo_dom {
+    stroke: #CC0000;
+    fill: #CC0000;
+}
+
+svg .up_pftv_transmem {
+    stroke: #CC00CC;
+    fill: #CC00CC;
+}
+
+svg .up_pftv_intramem {
+    stroke: #0000CC;
+    fill: #0000CC;
+}
+
+svg .up_pftv_unique {
+    stroke: #fc3133;
+    fill: #fd5a5d;
+}
+
+svg .up_pftv_non_unique {
+    stroke: #8585fc;
+    fill: #5a60fb;
+}
+
+svg .up_pftv_antigen {
+   stroke: #996699;
+   fill: #996699;
+}
+
+/* Variation */
+.up_pftv_variants-svg .axis path {
+    display: none;
+}
+
+.up_pftv_variants-svg .axis text {
+    font-size: 10px;
+    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+}
+
+.up_pftv_variants-svg .variation-y.axis line {
+    stroke: #ccc;
+    opacity: .4;
+}
+
+.up_pftv_variants-svg .variation-x.axis line {
+    stroke: #000;
+}
+
+.up_pftv_variants-svg circle.main-seq {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+    /*display: none;*/
+}
+
+.up_pftv_variants-svg .main-sequence {
+    fill: green;
+}
+
+.up_pftv_variants-svg circle {
+    cursor: pointer;
+    fill-opacity: .6;
+}
+
+.up_pftv_variants-svg .up_pftv_variant_hidden {
+    cursor: default;
+    opacity: 0;
+}
+
+.up_pftv_variants-svg circle:hover {
+    fill-opacity: 0.9;
+}
+
+.up_pftv_dialog_checkboxLabel {
+    opacity: 0.9;
+}
+
+.up_pftv_dialog_checkboxLabel:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.up_pftv_message_wrapper {
+    margin: .7em;
+}
+
+/*Taken from http://www.karimnassar.com/code/web/css-icons/*/
+.up_pftv_icon, .up_pftv_icon::before, .up_pftv_icon::after
+{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.up_pftv_icon {
+    font-size: 20px;
+    color: transparent;
+}
+.up_pftv_icon.up_pftv_warning {
+    display: inline-block;
+    top: 0.225em;
+    width: 1.15em;
+    height: 1.15em;
+    overflow: hidden;
+    border: none;
+    background-color: transparent;
+    border-radius: 0.625em;
+}
+
+.up_pftv_icon.up_pftv_warning::before {
+    content: "";
+    display: block;
+    top: -0.08em;
+    left: 0.0em;
+    position: absolute;
+    border: transparent 0.6em solid;
+    border-bottom-color: #fd3;
+    border-bottom-width: 1em;
+    border-top-width: 0;
+    box-shadow: #999 0 1px 1px;
+}
+
+.up_pftv_icon.up_pftv_warning::after {
+    display: block;
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    width: 100%;
+    padding: 0 1px;
+    text-align: center;
+    content: "!";
+    font-size: 0.65em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ICONS */
+a.up_pftv_icon-button:hover {
+    border: 1px solid #9CA8B4 !important;
+}
+
+.up_pftv_icon-button {
+  border: 1px solid #D7DCE0 !important;
+  border-radius: 2.5em;
+  display: inline-block;
+  text-indent: -9999px;
+  width: 2.5em;
+  height: 2.5em;
+  background-size: 1.3em 1.3em !important;
+  background-repeat: no-repeat !important;
+  background-position: .6em .6em !important;
+  margin: .2em;
+}
+
+.up_pftv_icon-download {
+  background: url("data:image/svg+xml,%0D%3Csvg width%3D%2260px%22 height%3D%2255px%22 viewBox%3D%2220 13 60 55%22 version%3D%221.1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0D    %3C!-- Generator%3A Sketch 41.1 (35376) - http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch --%3E%0D    %3Cdesc%3ECreated with Sketch.%3C%2Fdesc%3E%0D    %3Cdefs%3E%3C%2Fdefs%3E%0D    %3Cpath d%3D%22M65.7143402%2C61.142849 C65.7143402%2C62.3928505 64.6786247%2C63.428566 63.4286232%2C63.428566 C62.1786217%2C63.428566 61.1429062%2C62.3928505 61.1429062%2C61.142849 C61.1429062%2C59.8928475 62.1786217%2C58.857132 63.4286232%2C58.857132 C64.6786247%2C58.857132 65.7143402%2C59.8928475 65.7143402%2C61.142849 Z M74.8572083%2C61.142849 C74.8572083%2C62.3928505 73.8214927%2C63.428566 72.5714912%2C63.428566 C71.3214898%2C63.428566 70.2857742%2C62.3928505 70.2857742%2C61.142849 C70.2857742%2C59.8928475 71.3214898%2C58.857132 72.5714912%2C58.857132 C73.8214927%2C58.857132 74.8572083%2C59.8928475 74.8572083%2C61.142849 Z M79.4286423%2C53.1428394 C79.4286423%2C51.24998 77.8929262%2C49.7142639 76.0000668%2C49.7142639 L59.4286184%2C49.7142639 L54.5714698%2C54.5714126 C53.2500396%2C55.8571284 51.5357519%2C56.5714149 49.7143211%2C56.5714149 C47.8928904%2C56.5714149 46.1786026%2C55.8571284 44.8571725%2C54.5714126 L40.0357382%2C49.7142639 L23.4285755%2C49.7142639 C21.5357161%2C49.7142639 20%2C51.24998 20%2C53.1428394 L20%2C64.5714245 C20%2C66.4642839 21.5357161%2C68 23.4285755%2C68 L76.0000668%2C68 C77.8929262%2C68 79.4286423%2C66.4642839 79.4286423%2C64.5714245 L79.4286423%2C53.1428394 Z M67.8214856%2C32.8213866 C67.4643423%2C31.9999571 66.6429127%2C31.4285278 65.7143402%2C31.4285278 L56.5714722%2C31.4285278 L56.5714722%2C15.4285088 C56.5714722%2C14.1785073 55.5357566%2C13.1427917 54.2857552%2C13.1427917 L45.1428871%2C13.1427917 C43.8928856%2C13.1427917 42.8571701%2C14.1785073 42.8571701%2C15.4285088 L42.8571701%2C31.4285278 L33.7143021%2C31.4285278 C32.7857295%2C31.4285278 31.9643%2C31.9999571 31.6071567%2C32.8213866 C31.2500134%2C33.6785305 31.4285851%2C34.6785317 32.1071573%2C35.3213896 L48.1071764%2C51.3214087 C48.5357483%2C51.785695 49.1428919%2C51.9999809 49.7143211%2C51.9999809 C50.2857504%2C51.9999809 50.892894%2C51.785695 51.3214659%2C51.3214087 L67.321485%2C35.3213896 C68.0000572%2C34.6785317 68.1786289%2C33.6785305 67.8214856%2C32.8213866 Z%22 id%3D%22%EF%80%99%22 stroke%3D%22none%22 fill%3D%22%2397A2AE%22 fill-rule%3D%22evenodd%22%3E%3C%2Fpath%3E%0D%3C%2Fsvg%3E%0D");
+}
+
+.up_pftv_icon-location {
+  background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22%3F%3E%0D%3Csvg width%3D%2237px%22 height%3D%2256px%22 viewBox%3D%220 0 37 56%22 version%3D%221.1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0D    %3C!-- Generator%3A Sketch 41.1 (35376) - http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch --%3E%0D    %3Ctitle%3E%EF%81%81%3C%2Ftitle%3E%0D    %3Cdesc%3ECreated with Sketch.%3C%2Fdesc%3E%0D    %3Cdefs%3E%3C%2Fdefs%3E%0D    %3Cg id%3D%22Page-1%22 stroke%3D%22none%22 stroke-width%3D%221%22 fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%0D        %3Cg id%3D%22Artboard-2-Copy%22 transform%3D%22translate(-32.000000%2C -17.000000)%22 fill%3D%22%2397A2AE%22%3E%0D            %3Cpath d%3D%22M59.4286041%2C35.9999619 C59.4286041%2C41.0356821 55.3214564%2C45.1428299 50.2857361%2C45.1428299 C45.2500158%2C45.1428299 41.142868%2C41.0356821 41.142868%2C35.9999619 C41.142868%2C30.9642416 45.2500158%2C26.8570938 50.2857361%2C26.8570938 C55.3214564%2C26.8570938 59.4286041%2C30.9642416 59.4286041%2C35.9999619 Z M68.5714722%2C35.9999619 C68.5714722%2C25.8928069 60.392891%2C17.7142258 50.2857361%2C17.7142258 C40.1785812%2C17.7142258 32%2C25.8928069 32%2C35.9999619 C32%2C38.1785359 32.2500003%2C40.4285386 33.1785728%2C42.3928266 L46.2143027%2C70.0357167 C46.9285892%2C71.6071472 48.5714483%2C72.571434 50.2857361%2C72.571434 C52.0000238%2C72.571434 53.6428829%2C71.6071472 54.3928838%2C70.0357167 L67.3928993%2C42.3928266 C68.3214719%2C40.4285386 68.5714722%2C38.1785359 68.5714722%2C35.9999619 Z%22 id%3D%22%EF%81%81%22%3E%3C%2Fpath%3E%0D        %3C%2Fg%3E%0D    %3C%2Fg%3E%0D%3C%2Fsvg%3E");
+}
+
+.up_pftv_icon-zoom-in {
+  background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22%3F%3E%0D%3Csvg width%3D%2260px%22 height%3D%2261px%22 viewBox%3D%220 0 60 61%22 version%3D%221.1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0D    %3C!-- Generator%3A Sketch 41.1 (35376) - http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch --%3E%0D    %3Ctitle%3E%EF%80%8E%3C%2Ftitle%3E%0D    %3Cdesc%3ECreated with Sketch.%3C%2Fdesc%3E%0D    %3Cdefs%3E%3C%2Fdefs%3E%0D    %3Cg id%3D%22Page-1%22 stroke%3D%22none%22 stroke-width%3D%221%22 fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%0D        %3Cg id%3D%22Artboard-2-Copy-2%22 transform%3D%22translate(-20.000000%2C -17.000000)%22 fill%3D%22%2397A2AE%22%3E%0D            %3Cpath d%3D%22M56.5714722%2C41.7142544 C56.5714722%2C41.1071108 56.0357572%2C40.5713959 55.4286137%2C40.5713959 L47.4286041%2C40.5713959 L47.4286041%2C32.5713863 C47.4286041%2C31.9642428 46.8928892%2C31.4285278 46.2857456%2C31.4285278 L44.0000286%2C31.4285278 C43.392885%2C31.4285278 42.8571701%2C31.9642428 42.8571701%2C32.5713863 L42.8571701%2C40.5713959 L34.8571606%2C40.5713959 C34.250017%2C40.5713959 33.7143021%2C41.1071108 33.7143021%2C41.7142544 L33.7143021%2C43.9999714 C33.7143021%2C44.607115 34.250017%2C45.1428299 34.8571606%2C45.1428299 L42.8571701%2C45.1428299 L42.8571701%2C53.1428394 C42.8571701%2C53.749983 43.392885%2C54.2856979 44.0000286%2C54.2856979 L46.2857456%2C54.2856979 C46.8928892%2C54.2856979 47.4286041%2C53.749983 47.4286041%2C53.1428394 L47.4286041%2C45.1428299 L55.4286137%2C45.1428299 C56.0357572%2C45.1428299 56.5714722%2C44.607115 56.5714722%2C43.9999714 L56.5714722%2C41.7142544 Z M61.1429062%2C42.8571129 C61.1429062%2C51.678552 53.9643262%2C58.857132 45.1428871%2C58.857132 C36.321448%2C58.857132 29.142868%2C51.678552 29.142868%2C42.8571129 C29.142868%2C34.0356738 36.321448%2C26.8570938 45.1428871%2C26.8570938 C53.9643262%2C26.8570938 61.1429062%2C34.0356738 61.1429062%2C42.8571129 Z M79.4286423%2C72.571434 C79.4286423%2C71.3571469 78.9286417%2C70.178574 78.1072121%2C69.3571445 L65.8571975%2C57.1071299 C68.7500581%2C52.9285535 70.2857742%2C47.9285475 70.2857742%2C42.8571129 C70.2857742%2C28.9642392 59.0357608%2C17.7142258 45.1428871%2C17.7142258 C31.2500134%2C17.7142258 20%2C28.9642392 20%2C42.8571129 C20%2C56.7499866 31.2500134%2C68 45.1428871%2C68 C50.2143217%2C68 55.2143277%2C66.4642839 59.3929041%2C63.5714233 L71.6429187%2C75.7857236 C72.4643483%2C76.6428674 73.6429211%2C77.142868 74.8572083%2C77.142868 C77.3929256%2C77.142868 79.4286423%2C75.1071513 79.4286423%2C72.571434 Z%22 id%3D%22%EF%80%8E%22%3E%3C%2Fpath%3E%0D        %3C%2Fg%3E%0D    %3C%2Fg%3E%0D%3C%2Fsvg%3E");
+}
+
+.up_pftv_icon-zoom-out {
+  background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22%3F%3E%0D%3Csvg width%3D%2260px%22 height%3D%2261px%22 viewBox%3D%220 0 60 61%22 version%3D%221.1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0D    %3C!-- Generator%3A Sketch 41.1 (35376) - http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch --%3E%0D    %3Ctitle%3E%EF%80%90%3C%2Ftitle%3E%0D    %3Cdesc%3ECreated with Sketch.%3C%2Fdesc%3E%0D    %3Cdefs%3E%3C%2Fdefs%3E%0D    %3Cg id%3D%22Page-1%22 stroke%3D%22none%22 stroke-width%3D%221%22 fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%0D        %3Cg id%3D%22Artboard-2-Copy-3%22 transform%3D%22translate(-20.000000%2C -17.000000)%22 fill%3D%22%2397A2AE%22%3E%0D            %3Cpath d%3D%22M56.5714722%2C41.7142544 C56.5714722%2C41.1071108 56.0357572%2C40.5713959 55.4286137%2C40.5713959 L34.8571606%2C40.5713959 C34.250017%2C40.5713959 33.7143021%2C41.1071108 33.7143021%2C41.7142544 L33.7143021%2C43.9999714 C33.7143021%2C44.607115 34.250017%2C45.1428299 34.8571606%2C45.1428299 L55.4286137%2C45.1428299 C56.0357572%2C45.1428299 56.5714722%2C44.607115 56.5714722%2C43.9999714 L56.5714722%2C41.7142544 Z M61.1429062%2C42.8571129 C61.1429062%2C51.678552 53.9643262%2C58.857132 45.1428871%2C58.857132 C36.321448%2C58.857132 29.142868%2C51.678552 29.142868%2C42.8571129 C29.142868%2C34.0356738 36.321448%2C26.8570938 45.1428871%2C26.8570938 C53.9643262%2C26.8570938 61.1429062%2C34.0356738 61.1429062%2C42.8571129 Z M79.4286423%2C72.571434 C79.4286423%2C71.3571469 78.9286417%2C70.178574 78.1072121%2C69.3571445 L65.8571975%2C57.1071299 C68.7500581%2C52.9285535 70.2857742%2C47.9285475 70.2857742%2C42.8571129 C70.2857742%2C28.9642392 59.0357608%2C17.7142258 45.1428871%2C17.7142258 C31.2500134%2C17.7142258 20%2C28.9642392 20%2C42.8571129 C20%2C56.7499866 31.2500134%2C68 45.1428871%2C68 C50.2143217%2C68 55.2143277%2C66.4642839 59.3929041%2C63.5714233 L71.6429187%2C75.7857236 C72.4643483%2C76.6428674 73.6429211%2C77.142868 74.8572083%2C77.142868 C77.3929256%2C77.142868 79.4286423%2C75.1071513 79.4286423%2C72.571434 Z%22 id%3D%22%EF%80%90%22%3E%3C%2Fpath%3E%0D        %3C%2Fg%3E%0D    %3C%2Fg%3E%0D%3C%2Fsvg%3E");
+}
+
+.up_pftv_icon-reset {
+    background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22 standalone%3D%22no%22%3F%3E%0D%3C!-- Created with Inkscape (http%3A%2F%2Fwww.inkscape.org%2F) --%3E%0D%0D%3Csvg%0D        xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D        xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D        xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%0D        xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0D        width%3D%2264px%22%0D        height%3D%2264px%22%0D        id%3D%22svg3813%22%0D        version%3D%221.1%22%0D        inkscape%3Aversion%3D%220.48.4 r9939%22%3E%0D  %3Cg%0D          id%3D%22layer1%22%0D          inkscape%3Alabel%3D%22Layer 1%22%0D          inkscape%3Agroupmode%3D%22layer%22%3E%0D    %3Cpath%0D            style%3D%22fill%3A%2397a2ae%3Bfill-opacity%3A1%3Bstroke%3A%23000000%3Bstroke-width%3A0%3Bstroke-miterlimit%3A4%3Bstroke-opacity%3A0%3Bstroke-dasharray%3Anone%22%0D            d%3D%22M 32 1 C 23.252069 1 15.354939 4.6110155 9.71875 10.4375 L 0.5 7.84375 L 11.03125 31.1875 L 31.15625 16.5 L 21.53125 13.78125 C 24.616678 12.019026 28.18814 11 32 11 C 43.648187 11 53.09375 20.40202 53.09375 32 C 53.09375 43.59798 43.648187 53 32 53 C 27.960153 53 24.207801 51.836233 21 49.875 L 21 50 L 6.75 50 C 12.371455 57.87486 21.587074 63 32 63 C 49.120827 63 63 49.120827 63 32 C 63 14.879173 49.120827 1 32 1 z %22%0D            id%3D%22path4899%22 %2F%3E%0D  %3C%2Fg%3E%0D%3C%2Fsvg%3E%0D");
+}
+
+.up_pftv_icon-info {
+    background: url("data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22UTF-8%22 standalone%3D%22no%22%3F%3E%0D%3C!-- Created with Inkscape (http%3A%2F%2Fwww.inkscape.org%2F) --%3E%0D%0D%3Csvg%0D   xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D   xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0D   xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0D   xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0D   width%3D%2264px%22%0D   height%3D%2264px%22%0D   id%3D%22svg2985%22%0D   version%3D%221.1%22%0D   inkscape%3Aversion%3D%220.48.4 r9939%22%3E%0D  %3Cg%0D     id%3D%22layer1%22%0D     inkscape%3Alabel%3D%22Layer 1%22%0D     inkscape%3Agroupmode%3D%22layer%22%3E%0D    %3Ctext%0D       xml%3Aspace%3D%22preserve%22%0D       style%3D%22font-size%3A77.17918396000000300px%3Bfont-style%3Anormal%3Bfont-weight%3Anormal%3Bline-height%3A125%25%3Bletter-spacing%3A0px%3Bword-spacing%3A0px%3Bfill%3A%2397a2ae%3Bfill-opacity%3A1%3Bstroke%3Anone%3Bfont-family%3AScript MT Bold%3B-inkscape-font-specification%3AScript MT Bold%22%0D       x%3D%2223.582533%22%0D       y%3D%2255.973633%22%0D       id%3D%22text3763%22%0D       sodipodi%3Alinespacing%3D%22125%25%22%0D       transform%3D%22scale(0.93289386%2C1.0719333)%22%3E%3Ctspan%0D         sodipodi%3Arole%3D%22line%22%0D         id%3D%22tspan3765%22%0D         x%3D%2223.582533%22%0D         y%3D%2255.973633%22%0D         style%3D%22font-style%3Anormal%3Bfont-variant%3Anormal%3Bfont-weight%3Abold%3Bfont-stretch%3Anormal%3Bfont-family%3ASerif%3B-inkscape-font-specification%3ASerif Bold%3Bfill%3A%2397a2ae%3Bfill-opacity%3A1%22%3Ei%3C%2Ftspan%3E%3C%2Ftext%3E%0D  %3C%2Fg%3E%0D%3C%2Fsvg%3E%0D");
+}
+
+.up_pftv-clear {
+    clear:both;
+}

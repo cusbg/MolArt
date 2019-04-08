@@ -1,0 +1,2509 @@
+{
+
+    "features": [
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 2,
+        "begin": 1,
+        "description": "Turn",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 7,
+        "begin": 3,
+        "description": "Helix",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 8,
+        "begin": 8,
+        "description": "Turn",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 43,
+        "begin": 9,
+        "description": "Helix",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 45,
+        "begin": 44,
+        "description": "Strand",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 54,
+        "begin": 46,
+        "description": "Turn",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 57,
+        "begin": 55,
+        "description": "Strand",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 59,
+        "begin": 58,
+        "description": "Turn",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 90,
+        "begin": 60,
+        "description": "Helix",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_SEC",
+        "end": 140,
+        "begin": 91,
+        "description": "Turn",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 3,
+        "begin": 1,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 4,
+        "begin": 4,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 6,
+        "begin": 5,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 8,
+        "begin": 7,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 10,
+        "begin": 9,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 11,
+        "begin": 11,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 13,
+        "begin": 12,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 15,
+        "begin": 14,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 17,
+        "begin": 16,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 18,
+        "begin": 18,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 25,
+        "begin": 19,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 26,
+        "begin": 26,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 35,
+        "begin": 27,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 37,
+        "begin": 36,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 39,
+        "begin": 38,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 40,
+        "begin": 40,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 54,
+        "begin": 41,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 55,
+        "begin": 55,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 62,
+        "begin": 56,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 63,
+        "begin": 63,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 65,
+        "begin": 64,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 66,
+        "begin": 66,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 69,
+        "begin": 67,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 70,
+        "begin": 70,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 73,
+        "begin": 71,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 74,
+        "begin": 74,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 76,
+        "begin": 75,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 77,
+        "begin": 77,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 80,
+        "begin": 78,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 81,
+        "begin": 81,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 84,
+        "begin": 82,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 85,
+        "begin": 85,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 87,
+        "begin": 86,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 88,
+        "begin": 88,
+        "description": "Buried",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "REPROF_ACC",
+        "end": 140,
+        "begin": 89,
+        "description": "Exposed",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "META_DISORDER",
+        "end": 140,
+        "begin": 1,
+        "description": "Disordered Region",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 1,
+        "begin": 1,
+        "description": "Relative B-Value: 91-100 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 2,
+        "begin": 2,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 23,
+        "begin": 3,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 24,
+        "begin": 24,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 30,
+        "begin": 25,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 31,
+        "begin": 31,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 45,
+        "begin": 32,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 46,
+        "begin": 46,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 95,
+        "begin": 47,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 111,
+        "begin": 96,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 114,
+        "begin": 112,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 124,
+        "begin": 115,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 125,
+        "begin": 125,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 131,
+        "begin": 126,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 133,
+        "begin": 132,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 135,
+        "begin": 134,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 136,
+        "begin": 136,
+        "description": "Relative B-Value: 31-70 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 138,
+        "begin": 137,
+        "description": "Relative B-Value: 71-90 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "PROF_BVAL",
+        "end": 140,
+        "begin": 139,
+        "description": "Relative B-Value: 91-100 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 2,
+        "begin": 1,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 3,
+        "begin": 3,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 5,
+        "begin": 4,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 6,
+        "begin": 6,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 7,
+        "begin": 7,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 8,
+        "begin": 8,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 9,
+        "begin": 9,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 10,
+        "begin": 10,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 11,
+        "begin": 11,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 13,
+        "begin": 12,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 14,
+        "begin": 14,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 16,
+        "begin": 15,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 17,
+        "begin": 17,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 21,
+        "begin": 18,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 22,
+        "begin": 22,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 24,
+        "begin": 23,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 25,
+        "begin": 25,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 26,
+        "begin": 26,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 28,
+        "begin": 27,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 30,
+        "begin": 29,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 31,
+        "begin": 31,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 32,
+        "begin": 32,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 34,
+        "begin": 33,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 35,
+        "begin": 35,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 37,
+        "begin": 36,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 39,
+        "begin": 38,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 40,
+        "begin": 40,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 42,
+        "begin": 41,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 46,
+        "begin": 43,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 47,
+        "begin": 47,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 48,
+        "begin": 48,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 50,
+        "begin": 49,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 52,
+        "begin": 51,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 54,
+        "begin": 53,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 55,
+        "begin": 55,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 59,
+        "begin": 56,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 60,
+        "begin": 60,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 64,
+        "begin": 61,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 65,
+        "begin": 65,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 66,
+        "begin": 66,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 68,
+        "begin": 67,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 70,
+        "begin": 69,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 72,
+        "begin": 71,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 75,
+        "begin": 73,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 76,
+        "begin": 76,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 77,
+        "begin": 77,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 78,
+        "begin": 78,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 79,
+        "begin": 79,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 81,
+        "begin": 80,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 82,
+        "begin": 82,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 85,
+        "begin": 83,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 86,
+        "begin": 86,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 89,
+        "begin": 87,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 90,
+        "begin": 90,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 91,
+        "begin": 91,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 93,
+        "begin": 92,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 94,
+        "begin": 94,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 95,
+        "begin": 95,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 99,
+        "begin": 96,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 109,
+        "begin": 100,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 110,
+        "begin": 110,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 121,
+        "begin": 111,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 122,
+        "begin": 122,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 125,
+        "begin": 123,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 126,
+        "begin": 126,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 128,
+        "begin": 127,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 129,
+        "begin": 129,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 130,
+        "begin": 130,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 131,
+        "begin": 131,
+        "description": "Conservation Score: 2-3 (Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FFFF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 134,
+        "begin": 132,
+        "description": "Conservation Score: 1 (Very Low)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#0000FF"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 136,
+        "begin": 135,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 138,
+        "begin": 137,
+        "description": "Conservation Score: 3-6 (Intermediate)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#00FF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 139,
+        "begin": 139,
+        "description": "Conservation Score: 7-8 (High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FFFF00"
+      },
+      {
+        "category": "PREDICT_PROTEIN",
+        "type": "CONSEQ",
+        "end": 140,
+        "begin": 140,
+        "description": "Conservation Score: 9 (Very High)",
+        "evidences": [
+          {
+            "code": "ECO:0007669",
+            "source": {
+              "url": "https://www.predictprotein.org/",
+              "name": "PredictProtein",
+              "id": "9a9d21ae593add41e09f5cfc993b8df4e8c03ad3"
+            }
+          }
+        ],
+        "color": "#FF0000"
+      }
+    ],
+    "sequence": "MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA"
+
+}

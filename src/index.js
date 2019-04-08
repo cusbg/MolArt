@@ -428,6 +428,7 @@ const MolArt = function(opts) {
         const newHeaderTop = containerTop - pvContainerTop + headerHeight;
 
         globals.container.find('.pv3d-header').css('top', newHeaderTop + 'px');
+        globals.container.find('.logo').css('top', `${newHeaderTop + 4}px`);
         globals.container.find('.pv3d-lm .error-message-container').css('top', newHeaderTop + 'px');
 
         globals.lmContainer.css('top', (newHeaderTop + headerHeight) + 'px');

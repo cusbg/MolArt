@@ -6,18 +6,34 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
-- Export to PyMOL restricted to current chain
 - PredictProtein as a default category 
 - Possibility to specify different categories and features labels for PyMol export
 
 ### Fixed
 
-- Export to PyMOL was giving wrong selections if sequence and structure numbering did not match
 - Fix of issue when a user selection is empty or non-empty but does not intersect with current structure
-- Fixed issue with fetures being out of categories in PyMol export when special characters were present
+- Fixed issue with features being out of categories in PyMol export when special characters were present
 - Fixing of PyMOL export issue when beginning or end of selection falls into an unobserved region
+- Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
 
-## [1.3.0] - 2019-13-01
+## [1.3.2] - 2019-04-08
+
+### Added
+
+- Export to PyMOL restricted to current chain
+
+### Fixed
+
+- Fixed moving MolArt logo when scrolling 
+
+## [1.3.1] - 2019-01-26
+
+### Fixed
+
+- Fix PyMol export selections when sequence and structure numbering does not match
+
+
+## [1.3.0] - 2019-01-13
 
 ### Added
 - PyMOL export now contains CA selection.

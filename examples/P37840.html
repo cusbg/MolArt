@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../dist/molart.js"></script>
+</head>
+<body style="padding: 0; margin: 0;">
+
+
+<div id="pluginContainer"></div>
+
+<script>
+
+  window.onload = function() {
+
+    const molart = new MolArt({
+      uniprotId: 'P37840',
+      containerId: 'pluginContainer',
+      customDataSources: [{
+          source: 'RANDOM',
+          useExtension: true,
+          url: 'http://localhost:8090/examples/pp_'
+      }]
+    });
+  };
+
+  function getDataSource() {
+
+
+
+  }
+
+</script>
+</body>
+</html>
