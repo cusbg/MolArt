@@ -406,8 +406,8 @@ const MolArt = function(opts) {
         globals.lmContainer.css('top', (newHeaderTop + headerHeight) + 'px');
     }
 
-    function resize(){
-        if (!pvReady) return;
+    function resize(checkPvReady = true){
+        if (checkPvReady && !pvReady) return;
 
         const pvWidth = globals.container.find('.pv3d-pv').width();
         const lmWidth = globals.container.find('.pv3d-lm').width();
@@ -426,9 +426,10 @@ const MolArt = function(opts) {
         globals.lmContainer.find('.lm-component-container').height(lmPluginHeight);
         globals.lmContainer.height(lmContentHeight);
 
-        globals.pv.resized();
+        if (checkPvReady){
+            globals.pv.resized();
+        }
     }
-
 
     /***
      * Size of some components might change after the data are loaded, so some sizes (which can't be set as ratio)
@@ -645,6 +646,19 @@ const MolArt = function(opts) {
                 ,opts
             });
 
+            resize(false);
+
+            globals.pv.getPlugin().getDispatcher().on('ready', () => {
+                globals.pv.modifyHtmlStructure();
+                globals.pv.resized();
+                globals.pv.registerCallbacksAndEvents();
+                globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
+
+                eventEmitter.emit('pvReady');
+                pvReady = true;
+                // resize();
+            });
+
             globals.lm.initialize({
                 globals: globals,
             });
@@ -653,21 +667,12 @@ const MolArt = function(opts) {
                 globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
                 eventEmitter.emit('pvReady');
                 pvReady = true;
-                resize();
+                // resize();
             }
 
             if ('pdbRecords' in globals) {
                 initializeActiveStructure();
-                globals.pv.getPlugin().getDispatcher().on('ready', () => {
-                    globals.pv.modifyHtmlStructure();
-                    globals.pv.resized();
-                    globals.pv.registerCallbacksAndEvents();
-                    globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
 
-                    eventEmitter.emit('pvReady');
-                    pvReady = true;
-                    resize();
-                });
             }
         }, function (error) {
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
