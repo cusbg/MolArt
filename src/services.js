@@ -19,11 +19,11 @@ function getUnpToPdbMapping(uniprotId) {
 }
 
 function getUnpToSmrMapping(uniprotId) {
-  let spUrl;
-  if (useCorsForSmr)
-    spUrl = corsServer + 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
-  else
-    spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
+  let spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel'
+  if (useCorsForSmr) {
+      spUrl = corsServer + 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
+  }
+
   return ajaxQuery(spUrl).then(function (result) {
 
     return result.result;

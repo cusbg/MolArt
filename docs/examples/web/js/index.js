@@ -13,7 +13,8 @@ function queryUniprot(query) {
 
 function querySwissprot(uniprotId) {
     const spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel';
-    return ajaxQuery('https://dobrman.ms.mff.cuni.cz/' + spUrl).then(function (result) {
+    // return ajaxQuery('https://dobrman.ms.mff.cuni.cz/' + spUrl).then(function (result) {
+    return ajaxQuery(spUrl).then(function (result) {
         return result.result;
     });
 }
