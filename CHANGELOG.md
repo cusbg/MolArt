@@ -8,7 +8,6 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - PredictProtein as a default category 
 - Possibility to specify different categories and features labels for PyMol export
-- Dependencies update
 
 ### Fixed
 
@@ -16,6 +15,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Fixed issue with features being out of categories in PyMol export when special characters were present
 - Fixing of PyMOL export issue when beginning or end of selection falls into an unobserved region
 - Export to PyMOL was giving wrong selections if sequence and structure numbering did not match.
+- Dependencies update
+
+## [1.3.3] - 2019-05-09
+
+### Fixed
+
+- Fixed issue with positioning of the components when ProteinAPI takes too long to load.
 
 ## [1.3.2] - 2019-04-08
 
