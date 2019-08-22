@@ -103,12 +103,16 @@ In order to exclude categories or customize their order, simply pass additional
 parameters to the `MolArt` object as you would when using ProtVista only. The list 
 of all categories available in ProtVista can be found [here](https://github.com/davidhoksza/ProtVista/blob/90000af6e11131d138faab050d89e30f27e03e19/src/config.json#L2).
 
+Additionally, MolArt adds [PredictProtein](https://en.wikipedia.org/wiki/Predictprotein) annotations category with ID 
+`PREDICT_PROTEIN` and this category is treated the same way as the ProtVista annotations. Therefore, it can be 
+turned off using the ``exclusion`` parameter. 
+
 ```javascript
 molart = new MolArt({
     uniprotId: 'P37840',
     containerId: 'pluginContainer',
     categoryOrder: ['PTM'],
-    exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']
+    exclusions: ['PREDICT_PROTEIN', 'SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING']
 });
 ```
 

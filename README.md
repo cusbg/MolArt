@@ -4,9 +4,16 @@ MolArt is a responsive, easy-to-use JavaScript plugin which enables users to
 view annotated protein sequence (including variation data from large scale
 studies) and overlay the annotations over a corresponding experimental
 or predicted protein structure.
-It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista) (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) implemented when developing MolArt) with structure visualization capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). Since it does not have any software dependencies and all the data are obtained on the fly, it is easy to integrate it to any web page.
+It couples protein sequence annotation capabilities provided by [ProtVista](https://github.com/ebi-uniprot/ProtVista)
+ (or more precisely its [modified responsive version](https://github.com/davidhoksza/protvista) 
+ implemented when developing MolArt) with structure visualization 
+ capabilities provided by [LiteMol](https://github.com/dsehnal/LiteMol). 
+ Since it does not have any software dependencies and all the data are obtained on the fly,
+  it is easy to integrate it to any web page.
 
 Examples of MolArt's use can be found at https://davidhoksza.github.io/MolArt/ .
+
+[Documentation](https://github.com/davidhoksza/MolArt/tree/master/docs) shows usage of the plugin.
 
 The plugin is being developed at the Luxembourg Center for Systems Biomedicine, University of Luxembourg.
 
@@ -22,6 +29,7 @@ To cite MolArt use: **MolArt: A molecular structure annotation and visualization
 
 - Visualization of protein structure as provided by LiteMol
 - Annotation of protein sequence as provided by ProtVista
+- Annotations of protein sequence from [PredictProtein](https://en.wikipedia.org/wiki/Predictprotein) 
 - Mapping of structure on corresponding substring in the sequence
 - Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
 - Retrieval of predicted models from [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
@@ -42,11 +50,25 @@ The selection can be visualized either as a surface, a balls and stick represent
 Waals-based spheres with given color and transparency.
 
 
+
 ## Data sources
 
 - Sequence and annotation data
   - Sequence information comes from [UniProt website REST API](https://www.uniprot.org/help/api)
-  - Sequence annotations are provided by the ProtVista plugin which utilizes the EBI's [Proteins REST API](https://www.ebi.ac.uk/proteins/api/doc/). Proteins API includes access to variation, proteomics and antigen services containing "annotations imported and mapped from large scale data sources, such as 1000 Genomes, ExAC (Exome Aggregation Consortium), COSMIC (Catalogue Of Somatic Mutations In Cancer), PeptideAtlas, MaxQB (MaxQuant DataBase), EPD (Encyclopedia of Proteome Dynamics) and HPA, along with UniProtKB annotations for these feature types".
+  - Sequence annotations are provided by 
+    - ProtVista plugin which utilizes the EBI's 
+  [Proteins REST API](https://www.ebi.ac.uk/proteins/api/doc/). 
+  Proteins API includes access to variation, proteomics and antigen services containing 
+  "annotations imported and mapped from large scale data sources, such as 1000 Genomes, 
+  ExAC (Exome Aggregation Consortium), COSMIC (Catalogue Of Somatic Mutations In Cancer), 
+  PeptideAtlas, MaxQB (MaxQuant DataBase), EPD (Encyclopedia of Proteome Dynamics) and HPA, 
+  along with UniProtKB annotations for these feature types".
+    - [PredictProtein API](https://en.wikipedia.org/wiki/Predictprotein) which gives access to a range
+    of integrated sequence-based [prediction methods](https://www.predictprotein.org/about) such as
+    conservation or prediction of functional changes. If the user prefers only experimental data, 
+    the PredictProtein annotations can be easily turned off with the exclusion parameter as 
+    described in the [documentation](https://github.com/davidhoksza/MolArt/tree/master/docs) 
+  
 - Structure mapping
     - To obtain the mapping between UniProt and PDB, MolArt is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
     - In case the SIFTS mapping yields no PDB structures, SMR is queried using its [API](https://swissmodel.expasy.org/docs/repository_help#smr_api) for available models.
