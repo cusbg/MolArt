@@ -8,6 +8,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - PredictProtein as a default category 
 - Possibility to specify different categories and features labels for PyMol export
+- Dependencies update
 
 ### Fixed
 

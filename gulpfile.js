@@ -36,40 +36,25 @@ function impute(sourceCss, targetCss){
     postcss([url({url:'inline'})])
       .process(css, { from: sourceCss, to: targetCss })
       .then(result => {
-        fs.writeFile(targetCss, result.css);
-        if ( result.map ) fs.writeFile(targetCss + '.map', result.map);
+        fs.writeFile(targetCss, result.css, function(err, result) {
+            if(err) console.log('error', err);
+        });
+        if ( result.map ) fs.writeFile(targetCss + '.map', result.map, function(err, result) {
+            if(err) console.log('error', err);
+        });
       });
   });
 
 }
 
-gulp.task('css-impute', function () {
+gulp.task('css-impute', function (done) {
   impute('node_modules/ProtVista/style/main.css', 'src/css/protvista-imputed.css');
   impute('node_modules/litemol/dist/css/LiteMol-plugin-light.css', 'src/css/LiteMol-plugin-light-imputed.css');
+  done();
 
 });
 
-gulp.task('build', ['build-js-css'], function () {
-    gulp.start('build-doc');
-});
-
-gulp.task('build-doc', function () {
-
-    gulp.src(['examples/web/css/**/*']).pipe(gulp.dest('docs/examples/web/css'));
-    gulp.src(['examples/web/img/**/*']).pipe(gulp.dest('docs/examples/web/img'));
-    gulp.src(['examples/web/js/**/*']).pipe(gulp.dest('docs/examples/web/js'));
-
-    gulp.src(['examples/web/index.html'])
-        .pipe(replace('src="lib/molart/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
-        .pipe(gulp.dest('docs/examples/web/'));
-
-    gulp.src(['examples/plugin-page.html'])
-        .pipe(replace('src="../dist/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
-        .pipe(gulp.dest('docs/examples/'));
-
-});
-
-gulp.task('build-js-css', ['css-impute'], function () {
+gulp.task('build-js-css', gulp.series(['css-impute'], function (done) {
     const appBundler = browserify({
         entries: ['./src/index.js'],
         transform: [
@@ -83,7 +68,7 @@ gulp.task('build-js-css', ['css-impute'], function () {
         standalone: 'MolArt',
         debug: true
     })
-      .require("./src/index.js", {expose: "MolArt"});
+        .require("./src/index.js", {expose: "MolArt"});
 
     var bundle = appBundler.bundle().on('error', function(e){console.log(e)})
         .pipe(source('molart.js'));
@@ -95,46 +80,68 @@ gulp.task('build-js-css', ['css-impute'], function () {
     }
 
     return bundle
+    // bundle
         .pipe(gulp.dest('dist'))
         .pipe(gulp.dest('examples/web/lib/molart'))
         .pipe(gulp.dest('docs/examples/web/lib/molart'));
+
+    // done();
+}));
+
+gulp.task('build-doc', function (done) {
+
+    gulp.src(['examples/web/css/**/*']).pipe(gulp.dest('docs/examples/web/css'));
+    gulp.src(['examples/web/img/**/*']).pipe(gulp.dest('docs/examples/web/img'));
+    gulp.src(['examples/web/js/**/*']).pipe(gulp.dest('docs/examples/web/js'));
+
+    gulp.src(['examples/web/index.html'])
+        .pipe(replace('src="lib/molart/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
+        .pipe(gulp.dest('docs/examples/web/'));
+
+    gulp.src(['examples/plugin-page.html'])
+        .pipe(replace('src="../dist/molart.js"', 'src="https://rawgithub.com/davidhoksza/MolArt/master/dist/molart.js">'))
+        .pipe(gulp.dest('docs/examples/'));
+
+    done();
+
 });
 
-gulp.task('bs-reload-build', ['build'], function () {
+gulp.task('build', gulp.series(['build-js-css', 'build-doc']));
+
+gulp.task('bs-reload-build', gulp.series(['build'], function (done) {
     bs_reload();
-});
+    done();
+}));
 
-gulp.task('default', ['build']);
+gulp.task('default', gulp.series(['build']));
 
-gulp.task('debug', function(){
+gulp.task('debug', function(done){
     production = false;
+    done();
 });
 
-gulp.task('bs-watch', ['browser-sync'], function () {
+gulp.task('bs-watch', gulp.series(['browser-sync'], function (done) {
     gulp.watch("src/**/*.css", ['bs-reload-build']);
     gulp.watch("src/**/*.js", ['bs-reload-build']);
     gulp.watch("examples/**/*.html", ['bs-reload-build']);
     // gulp.watch("*.html", ['bs-reload']);
+    done();
+}));
+
+gulp.task('build-debug', gulp.series(['debug', 'build']));
+
+gulp.task('watch', gulp.series(['build-debug', 'bs-watch']));
+
+gulp.task('prepare-mock-data', function(done) {
+    const b = browserify('test/data/template.mock.data.js', {debug: true});
+    return b
+        .bundle().on('error', function(e){console.log(e)})
+        .pipe(source('mock.data.js'))
+        .pipe(gulp.dest('test/data/'))
 });
 
-gulp.task('watch', ['build-debug'], function () {
-    gulp.start('bs-watch');
-});
-
-gulp.task('build-debug', ['debug'], function () {
-    gulp.start('build');
-
-});
-
-gulp.task('test', ['prepare-mock-data'], function() {
+gulp.task('test', gulp.series(['prepare-mock-data'], function(done) {
   open('test/test.html');
+  done();
 
-});
-
-gulp.task('prepare-mock-data', function() {
-  const b = browserify('test/data/template.mock.data.js', {debug: true});
-  return b
-    .bundle().on('error', function(e){console.log(e)})
-    .pipe(source('mock.data.js'))
-    .pipe(gulp.dest('test/data/'))
-});
+}));
