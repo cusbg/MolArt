@@ -4,6 +4,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
+## [1.4.0] - 2019-08-22
+
 ### Added
 
 - PredictProtein as a default category 
