@@ -11,7 +11,7 @@ const PvController = require('./pv.controller.js');
 
 const services = require('./services');
 
-const pdbMapping = require('./pdb.mapping');
+const pdbMapping = require('./pdb.mapping')
 const svgSymbols = require('./svg.symbols');
 
 function loadRecord(rec, globals){
@@ -492,7 +492,7 @@ const MolArt = function(opts) {
     function loadSmr(uniprotId, opts) {
         return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
             if (!globals.pdbRecords) globals.pdbRecords = [];
-            if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = globals.pdbRecords.concat(uniprotIdSmrs.structures.map(rec => pdbMapping(rec, 'SMR')));
+            if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = globals.pdbRecords.concat(uniprotIdSmrs.structures.map(rec => pdbMapping.pdbMapping(rec, 'SMR')));
 
             if (opts.smrIds && opts.smrIds.length > 0) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => rec.isPDB() || opts.smrIds.indexOf(rec.getPdbId()) >= 0);
@@ -546,11 +546,19 @@ const MolArt = function(opts) {
 
         return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
             // console.log('uniprotIdPdbs', uniprotIdPdbs);
-            globals.pdbRecords = mergeMappings(uniprotIdPdbs[uniprotId].map(rec => pdbMapping(rec, 'PDB')));
+            globals.pdbRecords = mergeMappings(uniprotIdPdbs[uniprotId].map(rec => pdbMapping.pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
             }
-            return Promise.resolve();
+            
+            const promises = globals.pdbRecords.map(rec => services.getObservedRanges(rec.getPdbId(), rec.getChainId()));
+            return Promise.all(promises).then(function (or) {
+                for (let i =0; i < or.length; i++){
+                    const ranges = or[i][globals.pdbRecords[i].getPdbId()].molecules[0].chains[0].observed;
+                    const ors = ranges.map(r => new pdbMapping.ObservedRange(r));
+                    globals.pdbRecords[i].setObservedRanges(ors);
+                }
+            })
         }, function(error){
             return loadSmr(uniprotId, opts);
         }).then(function(){
@@ -563,7 +571,7 @@ const MolArt = function(opts) {
 
     function initializeActiveStructure(){
         const rec = globals.pdbRecords[0];
-        globals.activeStructure.set(rec.getPdbId(), rec.getChainId());
+            globals.activeStructure.set(rec.getPdbId(), rec.getChainId());
     }
 
     // function initializeTestDataSet(sequence, catName, variant=false){

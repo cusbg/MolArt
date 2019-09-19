@@ -296,7 +296,7 @@ const LmController = function () {
                 updateSurfaceTransparencyTitle(val);
             }
         });
-        setSurfaceTransparency(initialTransparency / 100)
+        setSurfaceTransparency(initialTransparency / 100);
         updateSurfaceTransparencyTitle(initialTransparency);
 
         activateDropdownsEvents();

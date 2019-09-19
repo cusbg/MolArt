@@ -19,6 +19,58 @@ function getUnpToPdbMapping(uniprotId) {
     return ajaxQuery('https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/' + uniprotId);
 }
 
+function getObservedRanges(pdbId, chainId) {
+    return ajaxQuery(`https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/${pdbId}/chain/${chainId}`);
+
+    // {
+    //   "5wf5": {
+    //     "molecules": [
+    //       {
+    //         "entity_id": 1,
+    //         "chains": [
+    //           {
+    //             "observed": [
+    //               {
+    //                 "start": {
+    //                   "author_residue_number": 3,     --- number of residue in the structure
+    //                   "author_insertion_code": null,
+    //                   "struct_asym_id": "A",
+    //                   "residue_number": 34            --- number of residue in the sequence
+    //                 },
+    //                 "end": {
+    //                   "author_residue_number": 148,
+    //                   "author_insertion_code": null,
+    //                   "struct_asym_id": "A",
+    //                   "residue_number": 179
+    //                 }
+    //               },
+    //               {
+    //                 "start": {
+    //                   "author_residue_number": 157,
+    //                   "author_insertion_code": null,
+    //                   "struct_asym_id": "A",
+    //                   "residue_number": 188
+    //                 },
+    //                 "end": {
+    //                   "author_residue_number": 307,
+    //                   "author_insertion_code": null,
+    //                   "struct_asym_id": "A",
+    //                   "residue_number": 485
+    //                 }
+    //               }
+    //             ],
+    //             "chain_id": "A",
+    //             "struct_asym_id": "A"
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // }
+    //
+
+}
+
 function getUnpToSmrMapping(uniprotId) {
   let spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel'
   if (useCorsForSmr) {
@@ -41,4 +93,5 @@ module.exports = {
     , getUnpToPdbMapping: getUnpToPdbMapping
     , getUnpToSmrMapping: getUnpToSmrMapping
     , getPredictProtein: getPredictProtein
+    , getObservedRanges: getObservedRanges
 };

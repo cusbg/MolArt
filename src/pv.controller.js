@@ -35,15 +35,37 @@ const PvController = function () {
                 features: []
             };
 
+            // In the following code, when determining ranges, we need to contrast border of the observed and unobserved
+            // regions with uniprot start and end, because it can happen that the regions, which come from the polymer_coverage API endpoint
+            // are larger then the PDB-UNIPROT mapping range which comes from the best_structures API endpoint. Since the highliting
+            // of the structure range (gray bar) in the sequence view is based on the uniprot range it would then not correctly match
+            // the bars representing the structures in the sequence view which are based on the (un)observed ranges
+
             globals.pdbRecords.forEach(function (rec, ix) {
-                pvDataSource.features.push({
-                    category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
-                    type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
-                    description: rec.getDescription(),
-                    ftId: ix,
-                    begin: rec.getUnpStart(),
-                    end: rec.getUnpEnd()
+                rec.getObservedRanges().forEach(range => {
+                    pvDataSource.features.push({
+                        category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
+                        type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
+                        description: `observed residues\n${rec.getDescription()}`,
+                        color: "#778899",
+                        ftId: ix,
+                        begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start.posSequence)), //rec.getUnpStart(),
+                        end: Math.min(rec.mapPosSeqToUnp(range.end.posSequence), rec.getUnpEnd()) //rec.getUnpEnd()
+                    })
+                });
+                rec.getUnobservedRanges().forEach(range => {
+                    pvDataSource.features.push({
+                        category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
+                        type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
+                        description: rec.getDescription(),
+                        color: "#DCDCDC",
+                        ftId: ix,
+                        begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start)), //rec.getUnpStart(),
+                        end: Math.min(rec.mapPosSeqToUnp(range.end), rec.getUnpEnd()) //rec.getUnpEnd()
+                    })
+
                 })
+
             });
 
             const ds = {
@@ -385,6 +407,11 @@ const PvController = function () {
 
     function featureSelectedCallback(){
         globals.pv.registerCallback("featureSelected", function(f) {
+
+            // if (f.feature.ftId == -1){
+            //     getPlugin().deselectFeature();
+            //     return;
+            // }
 
             if (f.feature.category === globals.settings.pvMappedStructuresCat.id || f.feature.category === globals.settings.pvMappedStructuresCat.idPredicted){
                 const rec = globals.pdbRecords[f.feature.ftId];
