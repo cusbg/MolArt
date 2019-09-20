@@ -47,7 +47,7 @@ const PvController = function () {
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: `observed residues\n${rec.getDescription()}`,
-                        color: "#778899",
+                        color: "#2E86C1",
                         ftId: ix,
                         begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start.posSequence)), //rec.getUnpStart(),
                         end: Math.min(rec.mapPosSeqToUnp(range.end.posSequence), rec.getUnpEnd()) //rec.getUnpEnd()
@@ -58,7 +58,7 @@ const PvController = function () {
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: rec.getDescription(),
-                        color: "#DCDCDC",
+                        color: "#E5E7E9",
                         ftId: ix,
                         begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start)), //rec.getUnpStart(),
                         end: Math.min(rec.mapPosSeqToUnp(range.end), rec.getUnpEnd()) //rec.getUnpEnd()

@@ -66,14 +66,14 @@ const pdbMapping = function (record, _source = 'PDB') {
 
     let observedRanges = [new ObservedRange({
         start: {
-            author_residue_number: uniprotStart,
+            author_residue_number: pdbStart,
             author_insertion_code: undefined,
-            residue_number: pdbStart
+            residue_number: 1
         },
         end: {
-            author_residue_number: uniprotEnd,
+            author_residue_number: pdbEnd,
             author_insertion_code: undefined,
-            residue_number: pdbEnd
+            residue_number: uniprotEnd-uniprotStart
         }
     })];
     let unobservedRanges = [];
