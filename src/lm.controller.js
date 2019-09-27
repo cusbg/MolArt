@@ -561,18 +561,26 @@ const LmController = function () {
     let lastHighlighted = -1;
     function highlightResidue(resNum) {
 
-        if (lastHighlighted === resNum) return;
-        lastHighlighted = resNum;
+        // The following test had to be commented out since when moving across categories the dehighlightAll is called and
+        // then when entering another category at the same position, the active residue would remain dehighlighted
+
+        // if (lastHighlighted === resNum) return;
+        // lastHighlighted = resNum;
 
         dehighlightAll();
         for (const id in mapping) {
             if (mapping[id].getPdbRecord()) { // the structure might still be loading and pdbRecord might not have been added yet
                 const pdbRec = mapping[id].getPdbRecord();
-                const pdbPos = pdbRec.mapPosUnpToPdb(resNum);
 
-                if (pdbRec.isValidPdbPos(pdbPos)) {
-                    plugin.highlightResidue(mapping[id].getModelId(), pdbRec.getChainId(), pdbPos);
+                if (pdbRec.isInObservedRanges(resNum)) {
+                    plugin.highlightResidue(mapping[id].getModelId(), pdbRec.getChainId(), pdbRec.mapPosUnpToPdb(resNum));
                 }
+
+                // const pdbPos = pdbRec.mapPosUnpToPdb(resNum);
+                //
+                // if (pdbRec.isValidPdbPos(pdbPos)) {
+                //     plugin.highlightResidue(mapping[id].getModelId(), pdbRec.getChainId(), pdbPos);
+                // }
             }
         }
     }

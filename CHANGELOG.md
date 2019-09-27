@@ -8,6 +8,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - Ability to show unobserved structure regions in the sequence view
 
+### Fixed
+
+- Keeping highlighted first or last residue in the structure when mouse moves past the end of sequence 
+in the sequence view
+- When clicking an overlay arrow icon in the sequence view and a feature was selected, i.e. the yellow bar was 
+acive, the bar did not get hidden
+
 ## [1.4.0] - 2019-08-22
 
 ### Added

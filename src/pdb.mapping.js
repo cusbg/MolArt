@@ -5,7 +5,7 @@ class ObservedRangePoint {
     constructor(data){
         this.posStructure = data.author_residue_number;
         this.insertionCode = data.author_insertion_code;
-        this.posSequence = data.residue_number;
+        this.posSequence = data.residue_number; //position which starts at 1 on the first observed or unobserved residues, i.e. to get the position on uniprot sequence, one needs to add uniprot start position
     }
 }
 class ObservedRange {
@@ -127,6 +127,17 @@ const pdbMapping = function (record, _source = 'PDB') {
         return getUnpStart() + parseInt(pos) - getPdbStart();
     };
 
+    const isInObservedRanges = function (pos) {
+        let ors = getObservedRanges();
+        for (let i = 0; i< ors.length; ++i){
+            let or = ors[i];
+            if (pos >= mapPosSeqToUnp(or.start.posSequence) && pos <= mapPosSeqToUnp(or.end.posSequence)) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     const isValidPdbPos = function(pos) {
         return getPdbStart() <= pos && pos <= getPdbEnd();
     };
@@ -136,6 +147,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     };
 
     const isValidPdbRegion = function(begin, end) {
+
         return ( getPdbStart() <= begin  && begin <= getPdbEnd() )
             || ( getPdbStart() <= end && end <= getPdbEnd()
             || ( begin <= getPdbStart() && getPdbEnd()  <= end )
@@ -195,6 +207,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,setTaxId: setTaxId
         ,isValidPdbPos: isValidPdbPos
         ,isValidPdbRegion: isValidPdbRegion
+        ,isInObservedRanges: isInObservedRanges
         ,idMatch: idMatch
         ,isPDB: isPDB
         ,content: {

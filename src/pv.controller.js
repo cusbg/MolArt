@@ -515,6 +515,7 @@ const PvController = function () {
 
                 let target = $(e.target); //clicked element
                 target =  getClosestSvgElement(target);
+                getPlugin().deselectFeature()
                 if (!isSelected(target)){
                     const tracks = {trackData: [], trackColors: []};
                     if (isTrackIcon(target)) { //track icon was clicked
