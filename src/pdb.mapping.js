@@ -225,8 +225,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         const source = getSource();
         if (source === 'PDB') {
             return `Experimental method: ${getExperimentalMethod()},
-                Coverage : ${getCoverage()},
-                TaxId : ${getTaxId()},
+                Coverage : ${getCoverage()},                
                 PDB begin: ${getPdbStart()},
                 PDB end: ${getPdbEnd()}`;
 

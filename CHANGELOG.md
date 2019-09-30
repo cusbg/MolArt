@@ -8,6 +8,10 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - Ability to show unobserved structure regions in the sequence view
 
+### Removed
+
+- Showing TaxId in the structure description in the sequence view
+
 ### Fixed
 
 - Keeping highlighted first or last residue in the structure when mouse moves past the end of sequence 

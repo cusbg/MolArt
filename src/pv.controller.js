@@ -46,7 +46,7 @@ const PvController = function () {
                     pvDataSource.features.push({
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
-                        description: `observed residues\n${rec.getDescription()}`,
+                        description: `\n${rec.getDescription()}`,
                         color: "#2E86C1",
                         ftId: ix,
                         begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start.posStructure)), //rec.getUnpStart(),
