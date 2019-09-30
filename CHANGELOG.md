@@ -6,6 +6,18 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+
+### Removed
+
+
+### Fixed
+
+
+
+##  [1.5.0] - 2019-09-30
+
+### Added
+
 - Ability to show unobserved structure regions in the sequence view
 
 ### Removed
