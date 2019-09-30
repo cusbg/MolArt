@@ -1,11 +1,13 @@
+const _ = require('lodash');
+
 const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
 
 class ObservedRangePoint {
     constructor(data){
-        this.posStructure = data.author_residue_number;
+        this.posStructurePdb = data.author_residue_number; //PDB residue number
         this.insertionCode = data.author_insertion_code;
-        this.posSequence = data.residue_number; //position which starts at 1 on the first observed or unobserved residues, i.e. to get the position on uniprot sequence, one needs to add uniprot start position
+        this.posStructure = data.residue_number; // CIF residue number
     }
 }
 class ObservedRange {
@@ -64,7 +66,7 @@ const pdbMapping = function (record, _source = 'PDB') {
 
     let observedResidues = [];
 
-    let observedRanges = [new ObservedRange({
+    let observedRanges = [shiftObservedRangeToFitMapping(new ObservedRange({
         start: {
             author_residue_number: pdbStart,
             author_insertion_code: undefined,
@@ -75,7 +77,7 @@ const pdbMapping = function (record, _source = 'PDB') {
             author_insertion_code: undefined,
             residue_number: uniprotEnd-uniprotStart
         }
-    })];
+    }))];
     let unobservedRanges = [];
 
     const getId = function(){return getPdbId() + getChainId();};
@@ -95,28 +97,89 @@ const pdbMapping = function (record, _source = 'PDB') {
     const getSource = function(){return source};
     const getCoordinatesFile = function () {return coordinatesFile; };
 
+    const isPDB = function () {
+        return getSource() === 'PDB';
+    };
+
     const setUnobservedRanges = function(){
-        const ors = getObservedRanges().sort( (a,b) => a.start.posSequence - b.start.posSequence);
+        const ors = getObservedRanges().sort( (a,b) => a.start.posStructure - b.start.posStructure);
+        if (ors.length === 0) {
+            console.warn(`Structure ${pdbId}:${chain} has no observed range in the mapped region.`);
+            return;
+        }
         unobservedRanges = [];
 
-        if (1 < ors[0].start.posSequence){
-            unobservedRanges.push(new UnobservedRange(1, ors[0].start.posSequence-1));
+        if (1 < ors[0].start.posStructure){
+            unobservedRanges.push(new UnobservedRange(1, ors[0].start.posStructure-1));
         }
 
         for (let i = 1; i < ors.length; i++) {
-            unobservedRanges.push(new UnobservedRange(ors[i-1].end.posSequence+1, ors[i].start.posSequence-1))
+            unobservedRanges.push(new UnobservedRange(ors[i-1].end.posStructure+1, ors[i].start.posStructure-1))
         }
 
-        if (getLength() > ors[ors.length - 1].end.posSequence){
-            unobservedRanges.push(new UnobservedRange(ors[ors.length - 1].end.posSequence+1, getLength()));
+        if (getLength()  >= ors[ors.length - 1].end.posStructure){ //+1 because length
+            unobservedRanges.push(new UnobservedRange(ors[ors.length - 1].end.posStructure+1, getLength()+1));
         }
     };
 
     const setTaxId = function (tId) {taxId = tId};
 
     const setObservedResidues = function(or){observedResidues = or};
-    const setObservedRanges = function(or){
-        observedRanges = or;
+
+    function shiftObservedRangeToFitMapping(or) {
+        /*
+        The observed ranges API endpoint does not need to match the best_structures API and thus range which starts
+        at position 1 can actually start before the beginning of the mapped region. This is, e.g. the case of 2dnc,
+        where observed range is
+        "observed": [
+              {
+                "start": {
+                  "author_residue_number": 1,
+                  "author_insertion_code": null,
+                  "struct_asym_id": "A",
+                  "residue_number": 1
+                },
+                "end": {
+                  "author_residue_number": 98,
+                  "author_insertion_code": null,
+                  "struct_asym_id": "A",
+                  "residue_number": 98
+                }
+              }
+            ],
+           and best mapping is
+           {
+              "end": 92,
+              "chain_id": "A",
+              "pdb_id": "2dnc",
+              "start": 8,
+              "unp_end": 141,
+              "coverage": 0.17,
+              "unp_start": 57,
+              "resolution": null,
+              "experimental_method": "Solution NMR",
+              "tax_id": 9606
+            }
+           Thus the mapping actually does not cover the full available structure.
+         */
+
+        const orc = _.cloneDeep(or);
+        if (source === 'SMR'){
+            orc.end.posStructure +=1;
+        } else {
+            orc.start.posStructure -= pdbStart;
+            orc.end.posStructure -= pdbStart - 1;
+        }
+
+        return orc;
+
+    }
+
+    const setObservedRanges = function(ors){
+        observedRanges = ors.filter(or => {
+            // return true;
+            return or.start.posStructure <= pdbEnd && or.end.posStructure >= pdbStart;
+        }).map(or => shiftObservedRangeToFitMapping(or));
         setUnobservedRanges();
     };
 
@@ -131,7 +194,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         let ors = getObservedRanges();
         for (let i = 0; i< ors.length; ++i){
             let or = ors[i];
-            if (pos >= mapPosSeqToUnp(or.start.posSequence) && pos <= mapPosSeqToUnp(or.end.posSequence)) {
+            if (pos >= mapPosStructToUnp(or.start.posStructure) && pos <= mapPosStructToUnp(or.end.posStructure)) {
                 return true;
             }
         }
@@ -142,7 +205,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         return getPdbStart() <= pos && pos <= getPdbEnd();
     };
 
-    const mapPosSeqToUnp = function (pos) {
+    const mapPosStructToUnp = function (pos) {
         return getUnpStart() + pos-1;
     };
 
@@ -177,9 +240,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         }
     };
 
-    const isPDB = function () {
-        return getSource() === 'PDB';
-    };
+
 
     return  {
         getId: getId
@@ -194,7 +255,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,getUnpEnd: getUnpEnd
         ,mapPosUnpToPdb: mapPosUnpToPdb
         ,mapPosPdbToUnp: mapPosPdbToUnp
-        ,mapPosSeqToUnp: mapPosSeqToUnp
+        ,mapPosStructToUnp: mapPosStructToUnp
         ,getTaxId: getTaxId
         ,getSource: getSource
         ,getCoordinatesFile: getCoordinatesFile

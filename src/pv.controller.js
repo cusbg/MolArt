@@ -49,8 +49,8 @@ const PvController = function () {
                         description: `observed residues\n${rec.getDescription()}`,
                         color: "#2E86C1",
                         ftId: ix,
-                        begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start.posSequence)), //rec.getUnpStart(),
-                        end: Math.min(rec.mapPosSeqToUnp(range.end.posSequence), rec.getUnpEnd()) //rec.getUnpEnd()
+                        begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start.posStructure)), //rec.getUnpStart(),
+                        end: Math.min(rec.mapPosStructToUnp(range.end.posStructure), rec.getUnpEnd()) //rec.getUnpEnd()
                     })
                 });
                 rec.getUnobservedRanges().forEach(range => {
@@ -58,10 +58,10 @@ const PvController = function () {
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: rec.getDescription(),
-                        color: "#E5E7E9",
+                        color: "#BDBFC1",
                         ftId: ix,
-                        begin: Math.max(rec.getUnpStart(), rec.mapPosSeqToUnp(range.start)), //rec.getUnpStart(),
-                        end: Math.min(rec.mapPosSeqToUnp(range.end), rec.getUnpEnd()) //rec.getUnpEnd()
+                        begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start)), //rec.getUnpStart(),
+                        end: Math.min(rec.mapPosStructToUnp(range.end), rec.getUnpEnd()) //rec.getUnpEnd()
                     })
 
                 })

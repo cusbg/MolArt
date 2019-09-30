@@ -44,6 +44,7 @@
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.4.1",
     "litemol": "github:dsehnal/LiteMol",
+    "lodash": "^4.17.15",
     "mocha": "^4.0.1",
     "open": "^6.4.0",
     "postcss": "^6.0.19",

@@ -6,6 +6,7 @@ require('../node_modules/semantic-ui-dropdown/dropdown.min');
 
 require('./lib/semantic-ui-range/range');
 
+
 function capitalize(s) {
     return s && s[0].toUpperCase() + s.slice(1).toLowerCase();
 }
@@ -498,17 +499,27 @@ const LmController = function () {
                 const boundaryOnly = globals.settings.boundaryFeatureTypes.indexOf(f.type) >= 0; // whether only begin and end residues should be selected
 
                 if ((boundaryOnly && (rec.isValidPdbPos(begin) || rec.isValidPdbPos(end))) ||
-                    (!boundaryOnly && rec.isValidPdbRegion(begin, end))
+                    //(!boundaryOnly && rec.isValidPdbRegion(begin, end))
+                    !boundaryOnly
                 ) {
                     //Trim the selction to valid PDB region otherwise Litemol sometimes fail to color it
                     if (!boundaryOnly) {
                         const observedResidues = rec.getObservedResidues();
-
-                        begin = Math.max(begin, rec.getPdbStart(), observedResidues.length > 0 ? Math.min(...observedResidues) : 0);
-                        end = Math.min(end, rec.getPdbEnd(), observedResidues.length > 0 ? Math.max(...observedResidues) : 0);
+                        // begin = Math.max(begin, rec.getPdbStart(), observedResidues.length > 0 ? Math.min(...observedResidues) : 0);
+                        // end = Math.min(end, rec.getPdbEnd(), observedResidues.length > 0 ? Math.max(...observedResidues) : 0);
+                        rec.getObservedRanges().forEach(or => {
+                            const seqStart = rec.mapPosStructToUnp(or.start.posStructure);
+                            const seqEnd = rec.mapPosStructToUnp(or.end.posStructure);
+                            if (f.end < seqStart || f.begin > seqEnd) {
+                                return;
+                            }
+                            begin = Math.max(rec.mapPosUnpToPdb(Math.max(f.begin, seqStart)), 0);
+                            end = Math.min(rec.mapPosUnpToPdb(Math.min(f.end, seqEnd)), rec.getPdbEnd());
+                            modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: rgbFromString(colors[i]), boundaryOnly: boundaryOnly});
+                        })
+                    } else {
+                        modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: rgbFromString(colors[i]), boundaryOnly: boundaryOnly});
                     }
-
-                    modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: rgbFromString(colors[i]), boundaryOnly: boundaryOnly});
                 }
             });
             modelIdSelections[modelId] = modelIdSelections[modelId].concat(chainSelections);
@@ -527,7 +538,7 @@ const LmController = function () {
         // const recordVisuals = recMapping ? recMapping.getUserHighlightVisualIds() : undefined;
         let recordVisuals = [];
         for (const id in mapping) {
-            if (mapping[id].getPdbRecord().getPdbId() == pdbId) {
+            if (mapping[id].getPdbRecord().getPdbId() === pdbId) {
                 recordVisuals = recordVisuals.concat(mapping[id].getUserHighlightVisualIds());
             }
         }
