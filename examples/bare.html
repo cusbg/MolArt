@@ -22,15 +22,77 @@ html, body { height:100%; }
 
 <script>
   const molstar = new MolArt({
-    uniprotId: 'P37840',
+    // uniprotId: 'Q13936',
     // uniprotId: 'P23639',
     //  uniprotId: 'Q13158',
-    //   uniprotId: 'P29274',
-    //   uniprotId: 'O00330',
+      uniprotId: 'P29274',
+      // uniprotId: 'O00330',
+      // sequence:
+      //     'MAASWRLGCDPRLLRYLVGFPGRRSVGLVKGALGWSVSRGANWRWFHSTQWLRGDPIKIL\n' +
+      //     'MPSLSPTMEEGNIVKWLKKEGEAVSAGDALCEIETDKAVVTLDASDDGILAKIVVEEGSK\n' +
+      //     'NIRLGSLIGLIVEEGEDWKHVEIPKDVGPPPPVSKPSEPRPSPEPQISIPVKKEHIPGTL\n' +
+      //     'RFRLSPAARNILEKHSLDASQGTATGPRGIFTKEDALKLVQLKQTGKITESRPTPAPTAT\n' +
+      //     'PTAPSPLQATAGPSYPRPVIPPVSTPGQPNAVGTFTEIPASNIRRVIAKRLTESKSTVPH\n' +
+      //     'AYATADCDLGAVLKVRQDLVKDDIKVSVNDFIIKAAAVTLKQMPDVNVSWDGEGPKQLPF\n' +
+      //     'IDISVAVATDKGLLTPIIKDAAAKGIQEIADSVKALSKKARDGKLLPEEYQGGSFSISNL\n' +
+      //     'GMFGIDEFTAVINPPQACILAVGRFRPVLKLTEDEEGNAKLQQRQLITVTMSSDSRVVDD\n' +
+      //     'ELATRFLKSFKANLENPIRLA',
+      sequenceStructureMapping: [
+          {
+              pdbId: '5uig',
+              chainId: 'A',
+              start: 27, // where the structure begins with respect to the full molecule sequence
+              end: 438, // where the structure ends with respect to the full molecule sequence
+              seqStart: 1, // where the structure begins with respect to the sequence (the sequence does not have to covert the full molecule, therefore start and seqStart can differ)
+              seqEnd: 316, // where the structure ends with respect to the sequence
+              coverage: [
+                  {
+                      start: {
+                          residue_number: 30, // position of the region with respect to the full molecule sequence
+                          author_residue_number: 4, // position with respect to the beginning of the structure (in this case first three residues are not observed, i.e. residues 27, 28, 29 with respect to the full molecule)
+                          author_insertion_code: undefined,
+                      },
+                      end: {
+                          residue_number: 148,
+                          author_residue_number: 174,
+                          author_insertion_code: undefined,
+
+                      }
+                  },
+                  {
+                      start: {
+                          author_residue_number: 159,
+                          author_insertion_code: undefined,
+                          residue_number: 185
+                      },
+                      end: {
+                          author_residue_number: 1048,
+                          author_insertion_code: undefined,
+                          residue_number: 282
+                      }
+                  },
+                  {
+                      start: {
+                          author_residue_number: 1056,
+                          author_insertion_code: undefined,
+                          residue_number: 290
+                      },
+                      end: {
+                          author_residue_number: 311,
+                          author_insertion_code: undefined,
+                          residue_number: 433
+                      }
+                  }
+              ]
+
+
+          }
+      ],
     alwaysLoadPredicted: true,
     containerId: 'pluginContainer',
     //categoryOrder: ['PTM'],
     // exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING', 'PREDICT_PROTEIN']
+      exclusions: ['PREDICT_PROTEIN']
 });
 </script>
   

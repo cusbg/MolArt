@@ -32,10 +32,10 @@ function getObservedRanges(pdbId, chainId) {
     //             "observed": [
     //               {
     //                 "start": {
-    //                   "author_residue_number": 3,     --- number of residue in the structure
+    //                   "author_residue_number": 3,     --- number of residue in the PDB structure
     //                   "author_insertion_code": null,
     //                   "struct_asym_id": "A",
-    //                   "residue_number": 34            --- number of residue in the sequence
+    //                   "residue_number": 34            --- number of residue in the PDB sequence (the structure does not need to cover the full sequence [even when considering unobserved resiues])
     //                 },
     //                 "end": {
     //                   "author_residue_number": 148,

@@ -504,12 +504,12 @@ const LmController = function () {
                 ) {
                     //Trim the selction to valid PDB region otherwise Litemol sometimes fail to color it
                     if (!boundaryOnly) {
-                        const observedResidues = rec.getObservedResidues();
+                        // const observedResidues = rec.getObservedResidues();
                         // begin = Math.max(begin, rec.getPdbStart(), observedResidues.length > 0 ? Math.min(...observedResidues) : 0);
                         // end = Math.min(end, rec.getPdbEnd(), observedResidues.length > 0 ? Math.max(...observedResidues) : 0);
                         rec.getObservedRanges().forEach(or => {
-                            const seqStart = rec.mapPosStructToUnp(or.start.posStructure);
-                            const seqEnd = rec.mapPosStructToUnp(or.end.posStructure);
+                            const seqStart = rec.mapPosStructToUnp(or.start.posPDBSequence);
+                            const seqEnd = rec.mapPosStructToUnp(or.end.posPDBSequence);
                             if (f.end < seqStart || f.begin > seqEnd) {
                                 return;
                             }

@@ -5,9 +5,9 @@ const corsServer = require('./settings').corsServer;
 
 class ObservedRangePoint {
     constructor(data){
-        this.posStructurePdb = data.author_residue_number; //PDB residue number
+        this.posPDBStructure = data.author_residue_number; //number of the residue in the PDB structure
         this.insertionCode = data.author_insertion_code;
-        this.posStructure = data.residue_number; // CIF residue number
+        this.posPDBSequence = data.residue_number; // number of the residue in the PDB sequence
     }
 }
 class ObservedRange {
@@ -102,23 +102,23 @@ const pdbMapping = function (record, _source = 'PDB') {
     };
 
     const setUnobservedRanges = function(){
-        const ors = getObservedRanges().sort( (a,b) => a.start.posStructure - b.start.posStructure);
+        const ors = getObservedRanges().sort( (a,b) => a.start.posPDBSequence - b.start.posPDBSequence);
         if (ors.length === 0) {
             console.warn(`Structure ${pdbId}:${chain} has no observed range in the mapped region.`);
             return;
         }
         unobservedRanges = [];
 
-        if (1 < ors[0].start.posStructure){
-            unobservedRanges.push(new UnobservedRange(1, ors[0].start.posStructure-1));
+        if (1 < ors[0].start.posPDBSequence){
+            unobservedRanges.push(new UnobservedRange(1, ors[0].start.posPDBSequence-1));
         }
 
         for (let i = 1; i < ors.length; i++) {
-            unobservedRanges.push(new UnobservedRange(ors[i-1].end.posStructure+1, ors[i].start.posStructure-1))
+            unobservedRanges.push(new UnobservedRange(ors[i-1].end.posPDBSequence+1, ors[i].start.posPDBSequence-1))
         }
 
-        if (getLength()  >= ors[ors.length - 1].end.posStructure){ //+1 because length
-            unobservedRanges.push(new UnobservedRange(ors[ors.length - 1].end.posStructure+1, getLength()+1));
+        if (getLength()  >= ors[ors.length - 1].end.posPDBSequence){ //+1 because length
+            unobservedRanges.push(new UnobservedRange(ors[ors.length - 1].end.posPDBSequence+1, getLength()+1));
         }
     };
 
@@ -165,10 +165,10 @@ const pdbMapping = function (record, _source = 'PDB') {
 
         const orc = _.cloneDeep(or);
         if (source === 'SMR'){
-            orc.end.posStructure +=1;
+            orc.end.posPDBSequence +=1;
         } else {
-            orc.start.posStructure -= pdbStart;
-            orc.end.posStructure -= pdbStart - 1;
+            orc.start.posPDBSequence -= pdbStart;
+            orc.end.posPDBSequence -= pdbStart - 1;
         }
 
         return orc;
@@ -178,7 +178,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     const setObservedRanges = function(ors){
         observedRanges = ors.filter(or => {
             // return true;
-            return or.start.posStructure <= pdbEnd && or.end.posStructure >= pdbStart;
+            return or.start.posPDBSequence <= pdbEnd && or.end.posPDBSequence >= pdbStart;
         }).map(or => shiftObservedRangeToFitMapping(or));
         setUnobservedRanges();
     };
@@ -194,7 +194,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         let ors = getObservedRanges();
         for (let i = 0; i< ors.length; ++i){
             let or = ors[i];
-            if (pos >= mapPosStructToUnp(or.start.posStructure) && pos <= mapPosStructToUnp(or.end.posStructure)) {
+            if (pos >= mapPosStructToUnp(or.start.posPDBSequence) && pos <= mapPosStructToUnp(or.end.posPDBSequence)) {
                 return true;
             }
         }

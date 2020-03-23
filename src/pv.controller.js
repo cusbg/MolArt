@@ -9,7 +9,6 @@ const predictProteinUrl = require('./settings').urlPredictProtein;
 
 const PvController = function () {
 
-    // const ProtVista = use('ProtVista');
     let plugin;
     let globals;
 
@@ -35,8 +34,8 @@ const PvController = function () {
                 features: []
             };
 
-            // In the following code, when determining ranges, we need to contrast border of the observed and unobserved
-            // regions with uniprot start and end, because it can happen that the regions, which come from the polymer_coverage API endpoint
+            // In the following code, when determining ranges, we need to contrast the border of the observed and unobserved
+            // regions with uniprot start and end, because it can happen that the regions that come from the polymer_coverage API endpoint
             // are larger then the PDB-UNIPROT mapping range which comes from the best_structures API endpoint. Since the highliting
             // of the structure range (gray bar) in the sequence view is based on the uniprot range it would then not correctly match
             // the bars representing the structures in the sequence view which are based on the (un)observed ranges
@@ -47,10 +46,10 @@ const PvController = function () {
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: `\n${rec.getDescription()}`,
-                        color: "#2E86C1",
+                        color: globals.settings.colors.pvStructureObserved,
                         ftId: ix,
-                        begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start.posStructure)), //rec.getUnpStart(),
-                        end: Math.min(rec.mapPosStructToUnp(range.end.posStructure), rec.getUnpEnd()) //rec.getUnpEnd()
+                        begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start.posPDBSequence)), //rec.getUnpStart(),
+                        end: Math.min(rec.mapPosStructToUnp(range.end.posPDBSequence), rec.getUnpEnd()) //rec.getUnpEnd()
                     })
                 });
                 rec.getUnobservedRanges().forEach(range => {
@@ -58,7 +57,7 @@ const PvController = function () {
                         category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: rec.getDescription(),
-                        color: "#BDBFC1",
+                        color: globals.settings.colors.pvStructureUnobserved,
                         ftId: ix,
                         begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start)), //rec.getUnpStart(),
                         end: Math.min(rec.mapPosStructToUnp(range.end), rec.getUnpEnd()) //rec.getUnpEnd()

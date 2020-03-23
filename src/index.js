@@ -211,8 +211,8 @@ const MolArt = function(opts) {
     const globals = {
         lmCallbackRegistered: false
 
-        ,lm: LmController()
         ,pv: PvController()
+        ,lm: LmController()
 
         ,settings: require('./settings')
     };
@@ -221,6 +221,12 @@ const MolArt = function(opts) {
     globals.activeFeature =  new ActiveFeature(globals);
 
     globals.uniprotId = opts.uniprotId;
+    globals.sequence = opts.sequence;
+
+    if (globals.uniprotId !== undefined && globals.sequence !== undefined) {
+        throw new Error("UniProt ID and sequence are mutually exclusive!")
+    }
+
     globals.containerId = opts.containerId;
     globals.pvContainerId = globals.containerId + 'ProtVista';
     globals.lmContainerId = globals.containerId + 'LiteMol';
@@ -542,15 +548,14 @@ const MolArt = function(opts) {
 
     }
 
-    function retrieveStructureRecords(uniprotId, opts){
+    function retrieveStructureRecordsOnline(opts) {
 
-        return services.getUnpToPdbMapping(uniprotId).then(function(uniprotIdPdbs) {
-            // console.log('uniprotIdPdbs', uniprotIdPdbs);
-            globals.pdbRecords = mergeMappings(uniprotIdPdbs[uniprotId].map(rec => pdbMapping.pdbMapping(rec, 'PDB')));
+        return services.getUnpToPdbMapping(opts.uniprotId).then(function(uniprotIdPdbs) {
+            globals.pdbRecords = mergeMappings(uniprotIdPdbs[opts.uniprotId].map(rec => pdbMapping.pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
             }
-            
+
             const promises = globals.pdbRecords.map(rec => services.getObservedRanges(rec.getPdbId(), rec.getChainId()));
             return Promise.all(promises).then(function (or) {
                 for (let i =0; i < or.length; i++){
@@ -560,13 +565,45 @@ const MolArt = function(opts) {
                 }
             })
         }, function(error){
-            return loadSmr(uniprotId, opts);
+            return loadSmr(opts.uniprotId, opts);
         }).then(function(){
-            return opts.alwaysLoadPredicted ? loadSmr(uniprotId, opts) : Promise.resolve();
+            return opts.alwaysLoadPredicted ? loadSmr(opts.uniprotId, opts) : Promise.resolve();
         }).then(function () {
             if (globals.pdbRecords.length === 0) delete globals.pdbRecords;
             else globals.pdbRecords = sortPdbRecords(globals.pdbRecords, opts, globals.settings);
-        })
+        });
+    }
+
+    function convertPassedRec(rec) {
+        return {
+            pdb_id: rec.pdbId,
+            chain_id: rec.chainId,
+            start: rec.start,
+            end: rec.end,
+            unp_start: rec.seqStart,
+            unp_end: rec.seqEnd,
+            coverage: (parseInt(rec.end) - parseInt(rec.start)) / (parseInt(rec.seqEnd) - parseInt(rec.seqStart))
+        }
+
+    }
+    function retrievePassedStructureRecords(opts) {
+
+        globals.pdbRecords = opts.sequenceStructureMapping.map(rec => {
+            const pdbRec = pdbMapping.pdbMapping(convertPassedRec(rec), 'PDB');
+            const ors = rec.coverage.map(rng => new pdbMapping.ObservedRange(rng));
+            pdbRec.setObservedRanges(ors);
+            return pdbRec;
+        });
+
+        return Promise.resolve();
+    }
+
+    function retrieveStructureRecords(uniprotId, opts){
+        if (opts.sequenceStructureMapping) {
+            return retrievePassedStructureRecords(opts);
+        } else {
+            return retrieveStructureRecordsOnline(opts);
+        }
     }
 
     function initializeActiveStructure(){
