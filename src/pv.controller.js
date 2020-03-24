@@ -98,6 +98,7 @@ const PvController = function () {
             {
                 el: document.getElementById(globals.pvContainerId)
                 , uniprotacc: globals.uniprotId
+                , sequence: globals.opts.sequence
                 , defaultSources: true
                 , customDataSources: customDataSources
             }));
@@ -437,7 +438,10 @@ const PvController = function () {
     }
 
     function removeClass(elements, className) {
-        elements.attr('class', elements.attr('class').replace(' ' + className, ''));
+        if (elements.length > 0){
+            elements.attr('class', elements.attr('class').replace(' ' + className, ''));
+        }
+
     }
 
     function deselectAllOverlayIcons(){

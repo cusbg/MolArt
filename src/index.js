@@ -683,7 +683,7 @@ const MolArt = function(opts) {
         let pdbRetrievalError;
 
         return retrieveStructureRecords(globals.uniprotId, opts).then(() => {
-            return services.getFastaByUniprotId(globals.uniprotId);
+            return getFasta();
         }).then(function(fasta) {
 
             // simulating user-provided data source
@@ -753,6 +753,17 @@ const MolArt = function(opts) {
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
             eventEmitter.emit('pvReady');
         });
+
+        function getFasta(opts) {
+            if (globals.opts.uniprotId) {
+                return services.getFastaByUniprotId(globals.opts.uniprotId);
+            } else {
+                if (!globals.opts.sequence) throw Error("Either 'uniprotId' or 'sequence' parameter needs to be provided.");
+                return Promise.resolve(`\n${globals.opts.sequence}`)
+
+            }
+
+        }
     }
 };
 
