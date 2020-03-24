@@ -733,17 +733,12 @@ const MolArt = function(opts) {
             if ('pdbRecords' in globals) {
                 initializeActiveStructure();
 
-                globals.pv.getPlugin().getDispatcher().on('ready', () => {
-                    globals.pv.modifyHtmlStructure();
-                    globals.pv.resized();
-                    globals.pv.registerCallbacksAndEvents();
-                    globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
-                    globals.pv.reorderCategories(opts);
-
-                    eventEmitter.emit('pvReady');
-                    pvReady = true;
-                    resize();
-                });
+                globals.pv.getPlugin().getDispatcher().on('ready', () => onPvReady());
+                if (globals.pv.getPlugin().categories.length > 0) {
+                    // It might happen that the callback was registered only after a category was created and other
+                    // categories won't be created. In such case, the onready event would be never called
+                    onPvReady();
+                }
             }
 
             // })
@@ -753,6 +748,18 @@ const MolArt = function(opts) {
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
             eventEmitter.emit('pvReady');
         });
+
+        function onPvReady() {
+            globals.pv.modifyHtmlStructure();
+            globals.pv.resized();
+            globals.pv.registerCallbacksAndEvents();
+            globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
+            globals.pv.reorderCategories(opts);
+
+            eventEmitter.emit('pvReady');
+            pvReady = true;
+            resize();
+        }
 
         function getFasta(opts) {
             if (globals.opts.uniprotId) {
