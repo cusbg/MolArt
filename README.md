@@ -48,13 +48,14 @@ no PDB structure is available
 - Ability to select and highlight specific residues (not necessarily corresponding to annotations) and specific atoms .
 The selection can be visualized either as a surface, a balls and stick representation or simply van der 
 Waals-based spheres with given color and transparency.
+- Ability to provide custom sequence and mapping
 
 
 
 ## Data sources
 
 - Sequence and annotation data
-  - Sequence information comes from [UniProt website REST API](https://www.uniprot.org/help/api)
+  - Sequence information comes from [UniProt website REST API](https://www.uniprot.org/help/api) or can be provided by the user
   - Sequence annotations are provided by 
     - ProtVista plugin which utilizes the EBI's 
   [Proteins REST API](https://www.ebi.ac.uk/proteins/api/doc/). 
@@ -70,8 +71,15 @@ Waals-based spheres with given color and transparency.
     described in the [documentation](https://github.com/davidhoksza/MolArt/tree/master/docs) 
   
 - Structure mapping
-    - To obtain the mapping between UniProt and PDB, MolArt is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
-    - In case the SIFTS mapping yields no PDB structures, SMR is queried using its [API](https://swissmodel.expasy.org/docs/repository_help#smr_api) for available models.
+    - Automatic
+        - To obtain the mapping between UniProt and PDB, MolArt is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
+        - In case the SIFTS mapping yields no PDB structures, SMR is queried using its [API](https://swissmodel.expasy.org/docs/repository_help#smr_api) for available models.
+    - Custom
+        - When working with sequence which is not in UniProt or when the mapping is not known, 
+        sequence-structure mapping can be provided. This includes
+            - Molecule-level mapping, i.e. which PDB structures correspond to the sequence
+            - Residue-level mapping, i.e. which regions in sequence correspond to which regions in the structure
+
 - Structure data
   - In case an experimental structure is available in PDB for given UniProt ID, this structure is downloaded by LiteMol. In this case, MolArt instructs LiteMol to use the mmCIF format.
   - In case there is no experimental structure in PDB, but a model exists in SMR, MolArt instructs LiteMol to use the PDB-format structure data from SMR.

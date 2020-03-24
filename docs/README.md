@@ -190,6 +190,145 @@ molart = new MolArt({
 });
 ```
 
+#### Custom sequence and sequence-structure mapping
+
+MolArt is able to handle situations when a user wants to visualize a sequence which is not available in UniProt 
+or wants to visualize structures where the sequence-structure mapping is not available in Protein API.
+
+###### User-provided sequence-structure mapping
+
+To provided a custom sequence-structure mapping, one needs to provide in the MolArt constructor the information 
+which structures map to given sequence and which regions in sequence map to which sequence in structure. This
+is basically the information which MolArt automatically gets from the `https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/` 
+and `https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/` PDBe REST API endpoints. Also the format is 
+somewhat similar to what these endpoints provide.
+
+```javascript
+
+const MolArt = require('MolArt');
+molart = new MolArt({
+    uniprotId: 'P29274',
+    containerId: 'pluginContainer',
+    sequenceStructureMapping: [
+        {
+          pdbId: '5uig',
+          chainId: 'A',
+          start: 27, // where the structure begins with respect to the full molecule sequence
+          end: 438, // where the structure ends with respect to the full molecule sequence
+          seqStart: 1, // where the structure begins with respect to the sequence (the sequence does not have to covert the full molecule, therefore seqStart does not have to be 1)
+          seqEnd: 316, // where the structure ends with respect to the sequence
+          coverage: [
+              {
+                  start: {
+                      residue_number: 30, // position of the region with respect to the full molecule sequence
+                      author_residue_number: 4, // position with respect to the beginning of the structure (in this case first three residues are not observed, i.e. residues 27, 28, 29 with respect to the full molecule)
+                      author_insertion_code: undefined,
+                  },
+                  end: {
+                      residue_number: 148,
+                      author_residue_number: 174,
+                      author_insertion_code: undefined,        
+                  }
+              },
+              {
+                  start: {
+                      author_residue_number: 159,
+                      author_insertion_code: undefined,
+                      residue_number: 185
+                  },
+                  end: {
+                      author_residue_number: 1048,
+                      author_insertion_code: undefined,
+                      residue_number: 282
+                  }
+              },
+              {
+                  start: {
+                      author_residue_number: 1056,
+                      author_insertion_code: undefined,
+                      residue_number: 290
+                  },
+                  end: {
+                      author_residue_number: 311,
+                      author_insertion_code: undefined,
+                      residue_number: 433
+                  }
+              }
+            ]
+        }
+    ]
+});
+```
+
+###### User-provided sequence
+
+To provide custom sequence, one simply needs to do so in the MolArt constructor. Obviously, in such a case
+the sequence must be accompanied by a sequence-structure mapping as there is not UniProtID which could be 
+used to obtain the mapping. Moreover, it is not possible to provide both sequence and UniProt ID at the
+same time.
+
+```javascript
+const molstar = new MolArt({
+      containerId: 'pluginContainer',
+      sequence:
+          'MPIMGSSVYITVELAIAVLAILGNVLVCWAVWLNSNLQNVTNYFVVSLAAADIAVGVLAI\n' +
+          'PFAITISTGFCAACHGCLFIACFVLVLTQSSIFSLLAIAIDRYIAIRIPLRYNGLVTGTR\n' +
+          'AKGIIAICWVLSFAIGLTPMLGWNNCGQPKEGKNHSQGCGEGQVACLFEDVVPMNYMVYF\n' +
+          'NFFACVLVPLLLMLGVYLRIFLAARRQLKQMESQPLPGERARSTLQKEVHAAKSLAIIVG\n' +
+          'LFALCWLPLHIINCFTFFCPDCSHAPLWLMYLAIVLSHTNSVVNPFIYAYRIREFRQTFR\n' +
+          'KIIRSHVLRQQEPFKAAGTSARVLAAHGSDGEQVSLRLNGHPPGVWANGSAPHPERRPNG\n' +
+          'YALGLVSGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAGVS',
+      sequenceStructureMapping: [
+          {
+              pdbId: '5uig',
+              chainId: 'A',
+              start: 27, // where the structure begins with respect to the full molecule sequence
+              end: 438, // where the structure ends with respect to the full molecule sequence
+              seqStart: 1, // where the structure begins with respect to the sequence (the sequence does not have to covert the full molecule, therefore seqStart does not have to be 1)
+              seqEnd: 316, // where the structure ends with respect to the sequence
+              coverage: [
+                  {
+                      start: {
+                          residue_number: 30, // position of the region with respect to the full molecule sequence
+                          author_residue_number: 4, // position with respect to the beginning of the structure (in this case first three residues are not observed, i.e. residues 27, 28, 29 with respect to the full molecule)
+                          author_insertion_code: undefined,
+                      },
+                      end: {
+                          residue_number: 148,
+                          author_residue_number: 174,
+                          author_insertion_code: undefined,
+                      }
+                  },
+                  {
+                      start: {
+                          author_residue_number: 159,
+                          author_insertion_code: undefined,
+                          residue_number: 185
+                      },
+                      end: {
+                          author_residue_number: 1048,
+                          author_insertion_code: undefined,
+                          residue_number: 282
+                      }
+                  },
+                  {
+                      start: {
+                          author_residue_number: 1056,
+                          author_insertion_code: undefined,
+                          residue_number: 290
+                      },
+                      end: {
+                          author_residue_number: 311,
+                          author_insertion_code: undefined,
+                          residue_number: 433
+                      }
+                  }
+              ]
+          }
+      ]    
+});
+```
+
 #### Other options
 
 - ```sortStructures``` - when set to ```id``` the lists of experimental and predicted
