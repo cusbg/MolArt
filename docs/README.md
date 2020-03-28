@@ -192,8 +192,10 @@ molart = new MolArt({
 
 #### Custom sequence and sequence-structure mapping
 
-MolArt is able to handle situations when a user wants to visualize a sequence which is not available in UniProt 
-or wants to visualize structures where the sequence-structure mapping is not available in Protein API.
+MolArt is able to handle situations when a user wants to visualize 
+- a sequence which is not available in UniProt 
+- PDB structures where the sequence-structure mapping is not available in Protein API
+- structures which are not in PDB
 
 ###### User-provided sequence-structure mapping
 
@@ -203,6 +205,10 @@ is basically the information which MolArt automatically gets from the `https://w
 and `https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/` PDBe REST API endpoints. Also the format is 
 somewhat similar to what these endpoints provide.
 
+The format also allows to define custom source of data which can be either a valid URI (`structure.uri`) or simply
+a string with the structure data (`structure.data`). In any case, the user needs to pass in information about the
+format of the data (`structure.format`) which can be either `mmCIF` or `PDB`.
+
 ```javascript
 
 const MolArt = require('MolArt');
@@ -211,8 +217,13 @@ molart = new MolArt({
     containerId: 'pluginContainer',
     sequenceStructureMapping: [
         {
-          pdbId: '5uig',
+          id: '5uig',
           chainId: 'A',
+          structure: {
+            format: 'mmCIF', //valid parameters are PDB and mmCIF
+            data: window.uig_a, //the structure in the PDB or mmCIF format
+            uri: 'https://www.ebi.ac.uk/pdbe/static/entry/5uig_updated.cif' //data and uri parameters are mutually exclusive
+          },
           start: 27, // where the structure begins with respect to the full molecule sequence
           end: 438, // where the structure ends with respect to the full molecule sequence
           seqStart: 1, // where the structure begins with respect to the sequence (the sequence does not have to covert the full molecule, therefore seqStart does not have to be 1)
@@ -280,8 +291,13 @@ const molstar = new MolArt({
           'YALGLVSGGSAQESQGNTGLPDVELLSHELKGVCPEPPGLDDPLAQDGAGVS',
       sequenceStructureMapping: [
           {
-              pdbId: '5uig',
+              id: '5uig',
               chainId: 'A',
+              structure: {
+                    format: 'mmCIF', //valid parameters are PDB and mmCIF
+                    data: window.uig_a, //the structure in the PDB or mmCIF format
+                    uri: 'https://www.ebi.ac.uk/pdbe/static/entry/5uig_updated.cif' //data and uri parameters are mutually exclusive
+              },
               start: 27, // where the structure begins with respect to the full molecule sequence
               end: 438, // where the structure ends with respect to the full molecule sequence
               seqStart: 1, // where the structure begins with respect to the sequence (the sequence does not have to covert the full molecule, therefore seqStart does not have to be 1)
