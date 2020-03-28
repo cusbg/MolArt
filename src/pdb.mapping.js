@@ -78,7 +78,13 @@ const pdbMapping = function (record, _source = 'PDB') {
         pdbEnd = parseInt(record.end);
         uniprotStart = parseInt(record.seqStart);
         uniprotEnd = parseInt(record.seqEnd);
-        coordinatesFile = record.structure.uri;
+        if (record.structure.uri !== undefined){
+            coordinatesFile = record.structure.uri;
+        } else if (record.structure.data !== undefined){
+            coordinatesFile = 'data:text/plain;base64,' + btoa(record.structure.data)
+        } else {
+            throw Error('Structure information parameter requires information about uri or data.')
+        }
     }
     else {
         throw Error('Unknown source of PDB mapping data');
