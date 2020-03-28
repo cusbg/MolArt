@@ -41,9 +41,17 @@ const PvController = function () {
             // the bars representing the structures in the sequence view which are based on the (un)observed ranges
 
             globals.pdbRecords.forEach(function (rec, ix) {
+                let catId;
+                if (rec.getSource() === 'PDB') {
+                    catId = globals.settings.pvMappedStructuresCat.id;
+                } else if (rec.getSource() === 'SMR') {
+                    catId = globals.settings.pvMappedStructuresCat.idPredicted;
+                } else {
+                    catId = globals.settings.pvMappedStructuresCat.idProvided;
+                }
                 rec.getObservedRanges().forEach(range => {
                     pvDataSource.features.push({
-                        category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
+                        category: catId,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: `\n${rec.getDescription()}`,
                         color: globals.settings.colors.pvStructureObserved,
@@ -54,7 +62,7 @@ const PvController = function () {
                 });
                 rec.getUnobservedRanges().forEach(range => {
                     pvDataSource.features.push({
-                        category: rec.getSource() === 'PDB' ? globals.settings.pvMappedStructuresCat.id: globals.settings.pvMappedStructuresCat.idPredicted,
+                        category: catId,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: rec.getDescription(),
                         color: globals.settings.colors.pvStructureUnobserved,
@@ -247,6 +255,7 @@ const PvController = function () {
             if (
                 (el.parents(`div[class="up_pftv_category_${globals.settings.pvMappedStructuresCat.id}"]`).length > 0)
                 || (el.parents(`div[class="up_pftv_category_${globals.settings.pvMappedStructuresCat.idPredicted}"]`).length > 0)
+                || (el.parents(`div[class="up_pftv_category_${globals.settings.pvMappedStructuresCat.idProvided}"]`).length > 0)
                 || (el.hasClass('up_pftv_track-header') && el.parents(`div[class="${globals.settings.pvVariationCat.clazz}"]`).length > 0)
             ) return;
 
@@ -413,7 +422,9 @@ const PvController = function () {
             //     return;
             // }
 
-            if (f.feature.category === globals.settings.pvMappedStructuresCat.id || f.feature.category === globals.settings.pvMappedStructuresCat.idPredicted){
+            if (f.feature.category === globals.settings.pvMappedStructuresCat.id ||
+                f.feature.category === globals.settings.pvMappedStructuresCat.idPredicted ||
+                f.feature.category === globals.settings.pvMappedStructuresCat.idProvided){
                 const rec = globals.pdbRecords[f.feature.ftId];
                 // loadRecord(rec);
                 globals.activeStructure.set(rec.getPdbId(), rec.getChainId());
@@ -472,7 +483,9 @@ const PvController = function () {
         categories.forEach(cat => {
             if ('features' in cat.categoryViewer ||
                 cat.name === globals.settings.pvMappedStructuresCat.id ||
-                cat.name === globals.settings.pvMappedStructuresCat.idPredicted) return;
+                cat.name === globals.settings.pvMappedStructuresCat.idPredicted ||
+                cat.name === globals.settings.pvMappedStructuresCat.idProvided
+            ) return;
             data[cat.name] = [];
 
             cat.data.forEach(feature => {
@@ -613,7 +626,9 @@ const PvController = function () {
                     const featureEl = e.target;
                     const featureId = featureEl.getAttribute('name');
 
-                    if (featureId.indexOf(globals.settings.pvMappedStructuresCat.id) == 0 || featureId.indexOf(globals.settings.pvMappedStructuresCat.idPredicted) == 0)
+                    if (featureId.indexOf(globals.settings.pvMappedStructuresCat.id) == 0 ||
+                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idPredicted) == 0 ||
+                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idProvided) == 0)
                         return;
 
                     const featureCategoryEl = featureEl.closest('div.up_pftv_category');

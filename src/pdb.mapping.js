@@ -3,6 +3,11 @@ const _ = require('lodash');
 const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
 
+const STRUCTURE_FORMAT = {
+    PDB: 0,
+    mmCIF: 1
+};
+
 class ObservedRangePoint {
     constructor(data){
         this.posPDBStructure = data.author_residue_number; //number of the residue in the PDB structure
@@ -28,6 +33,7 @@ const pdbMapping = function (record, _source = 'PDB') {
 
     let pdbId = undefined,
         chain = undefined,
+        format = undefined,
         experimentalMethod = undefined,
         coverage = undefined,
         pdbStart = undefined,
@@ -40,6 +46,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     if (source === 'PDB') {
         pdbId = record.pdb_id;
         chain = record.chain_id;
+        format = STRUCTURE_FORMAT.mmCIF;
         experimentalMethod = record.experimental_method;
         coverage = record.coverage;
         pdbStart = parseInt(record.start);
@@ -52,6 +59,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         const sTemplate = record.template.match(/(.+)\.(.+)+\.(.+)/);
         pdbId = sTemplate[1] + '.' + sTemplate[2];
         chain = sTemplate[3];
+        format = STRUCTURE_FORMAT.PDB;
         experimentalMethod = `${record.provider} (${record.method})`;
         coverage = record.coverage;
         pdbStart = parseInt(record.from);
@@ -60,7 +68,19 @@ const pdbMapping = function (record, _source = 'PDB') {
         uniprotEnd = parseInt(record.to);
         coordinatesFile = record.coordinates;
         if (useCorsForSmr) coordinatesFile = corsServer + coordinatesFile
-    } else {
+    } else if (source === 'USER'){
+        pdbId = record.id;
+        chain = record.chainId;
+        format = record.structure.format.toUpperCase() === 'PDB' ? STRUCTURE_FORMAT.PDB : STRUCTURE_FORMAT.mmCIF;
+        experimentalMethod = 'unknown';
+        coverage = (parseInt(record.end) - parseInt(record.start)) / (parseInt(record.seqEnd) - parseInt(record.seqStart));
+        pdbStart = parseInt(record.start);
+        pdbEnd = parseInt(record.end);
+        uniprotStart = parseInt(record.seqStart);
+        uniprotEnd = parseInt(record.seqEnd);
+        coordinatesFile = record.structure.uri;
+    }
+    else {
         throw Error('Unknown source of PDB mapping data');
     }
 
@@ -83,6 +103,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     const getId = function(){return getPdbId() + getChainId();};
     const getPdbId = function(){return pdbId;};
     const getChainId = function(){return chain;};
+    const getFormat = function () {return format;};
     const getExperimentalMethod = function(){return experimentalMethod;};
     const getCoverage = function(){return coverage;};
     const getLength = function () {return getUnpEnd() - getUnpStart();};
@@ -222,21 +243,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     };
 
     const getDescription = function(){
-        const source = getSource();
-        if (source === 'PDB') {
-            return `Experimental method: ${getExperimentalMethod()},
-                Coverage : ${getCoverage()},                
-                PDB begin: ${getPdbStart()},
-                PDB end: ${getPdbEnd()}`;
-
-        } else if (source === 'SMR') {
-            return `Experimental method: ${getExperimentalMethod()},
-                Coverage : ${getCoverage()},                
-                PDB begin: ${getPdbStart()},
-                PDB end: ${getPdbEnd()}`;
-        } else {
-            throw Error('Unknown source of PDB mapping data');
-        }
+        return `Experimental method: ${getExperimentalMethod()}`;
     };
 
 
@@ -245,6 +252,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         getId: getId
         ,getPdbId: getPdbId
         ,getChainId: getChainId
+        ,getFormat: getFormat
         ,getExperimentalMethod: getExperimentalMethod
         ,getCoverage: getCoverage
         ,getLength: getLength
@@ -274,6 +282,7 @@ const pdbMapping = function (record, _source = 'PDB') {
             id: getId(),
             pdbId: getPdbId(),
             chainId: getChainId(),
+            format: getFormat(),
             experimentalMethod: getExperimentalMethod(),
             coverage: getCoverage(),
             pdbStart: getPdbStart(),
@@ -291,5 +300,6 @@ const pdbMapping = function (record, _source = 'PDB') {
 
 module.exports = {
     pdbMapping: pdbMapping,
-    ObservedRange: ObservedRange
+    ObservedRange: ObservedRange,
+    STRUCTURE_FORMAT: STRUCTURE_FORMAT
 };

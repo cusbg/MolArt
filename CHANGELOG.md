@@ -6,6 +6,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Ability to provide custom sequence and sequence-structure mapping
 
 ### Removed
 

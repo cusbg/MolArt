@@ -4,10 +4,13 @@ module.exports = {
     , pvMappedStructuresCat: {
         id: 'EXPERIMENTAL_STRUCTURES'
         , idPredicted: 'PREDICTED_STRUCTURES'
+        , idProvided: 'USER_PROVIDED_STRUCTURES'
         , name: 'Experimental structures'
         , namePredicted: 'Predicted structures'
+        , nameProvided: 'Provided structures'
         , clazz: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
-        , clazzPred: 'up_pftv_category_EXPERIMENTAL_STRUCTURES'
+        , clazzPred: 'up_pftv_category_PREDICTED_STRUCTURES'
+        , clazzProvided: 'up_pftv_category_PROVIDED_STRUCTURES'
     }
     , pvPredictProteinCat: {
         id: 'PREDICT_PROTEIN'

@@ -1,6 +1,8 @@
 const blender = require('color-blend');
 let LiteMol = require('litemol').default;
 
+const STRUCTURE_FOMAT = require('./pdb.mapping.js').STRUCTURE_FORMAT;
+
 const getUniqueId = (function() {
     let uniqueId = 0;
 
@@ -159,7 +161,7 @@ function createPlugin() {
             return controller.context.select(what);
         }
 
-        const loadMolecule = function (pdbId, source, url) {
+        const loadMolecule = function (pdbId, source, dataFormat, url) {
             controllerAvailability();
 
             const modelId = getModelId(pdbId);
@@ -167,9 +169,9 @@ function createPlugin() {
             if (selectNodes(modelId).length > 0) return Promise.resolve(modelId);
 
             let format;
-            if (source === 'PDB') {
+            if (dataFormat === STRUCTURE_FOMAT.mmCIF) {
                 format = LiteMol.Core.Formats.Molecule.SupportedFormats.mmCIF;
-            } else if (source === 'SMR') {
+            } else if (dataFormat === STRUCTURE_FOMAT.PDB) {
                 format = LiteMol.Core.Formats.Molecule.SupportedFormats.PDB;
             } else {
                 throw Error('Unsuported format of the structure file');

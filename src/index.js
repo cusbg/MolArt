@@ -104,7 +104,7 @@ class ActiveStructure {
 
 
         const source = this.record.getSource();
-        if (source === 'PDB'){
+        if (source === 'PDB' || source == 'USER'){
             content += `cmd.load('${this.record.getCoordinatesFile()}')\n`;
         } else if (source === 'SMR') {
             const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
@@ -234,7 +234,8 @@ const MolArt = function(opts) {
     this.globals = globals;
 
     createPageStructure();
-    initializePlugins(opts).then( () => updatePageStructure() );
+    setTimeout(() => initializePlugins(opts).then( () => updatePageStructure() ), 1000);
+
 
     function createPageStructure(){
         if ($("#" + globals.containerId).height() == 0)
@@ -416,6 +417,7 @@ const MolArt = function(opts) {
             globals.activeStructure.exportToPymol();
         });
 
+        resize(); //this helps in some cases in FF where when setting width of ProtVista's FeaturesViewer, the width of the viewer is 0
         $(window).on('resize', () => {
             resize();
         });
@@ -576,20 +578,22 @@ const MolArt = function(opts) {
 
     function convertPassedRec(rec) {
         return {
-            pdb_id: rec.pdbId,
+            pdb_id: rec.id,
             chain_id: rec.chainId,
             start: rec.start,
             end: rec.end,
             unp_start: rec.seqStart,
             unp_end: rec.seqEnd,
-            coverage: (parseInt(rec.end) - parseInt(rec.start)) / (parseInt(rec.seqEnd) - parseInt(rec.seqStart))
+            coverage: (parseInt(rec.end) - parseInt(rec.start)) / (parseInt(rec.seqEnd) - parseInt(rec.seqStart)),
+            structure: rec.structure
         }
 
     }
     function retrievePassedStructureRecords(opts) {
 
         globals.pdbRecords = opts.sequenceStructureMapping.map(rec => {
-            const pdbRec = pdbMapping.pdbMapping(convertPassedRec(rec), 'PDB');
+            // const pdbRec = pdbMapping.pdbMapping(convertPassedRec(rec), 'USER');
+            const pdbRec = pdbMapping.pdbMapping(rec, 'USER');
             const ors = rec.coverage.map(rng => new pdbMapping.ObservedRange(rng));
             pdbRec.setObservedRanges(ors);
             return pdbRec;

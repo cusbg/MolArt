@@ -243,8 +243,9 @@ const LmController = function () {
             linkContainer[0].childNodes[0].nodeValue = 'SMR: ';
             linkContainer.attr('href', getSmrLink(globals.uniprotId));
             linkContainer.find('.detail').text(`${globals.uniprotId} (${globals.activeStructure.pdbId})`);
-        } else {
-            throw Error('Unknown structure source');
+        }
+        else {
+            linkContainer.css('display', 'none');
         }
     }
 
@@ -341,7 +342,7 @@ const LmController = function () {
 
     function loadMolecule(rec, hideOthers) {
 
-        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getCoordinatesFile()).then(function (modelId) {
+        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getFormat(), rec.getCoordinatesFile()).then(function (modelId) {
             mapping[rec.getId()].setPdbRecord(rec);
             mapping[rec.getId()].setModelId(modelId);
             // load molecule into the LM plugin, retrieve ID of the respective model and hide all other models
@@ -410,7 +411,7 @@ const LmController = function () {
             .then(_selectionId => {
 
                 selectionId = _selectionId;
-                if (plugin.getEntity(selectionId).length == 0){
+                if (plugin.getEntity(selectionId).length === 0){
                   throw Error('Invalid mapping (the structure file does not contain the selection)');
                 }
 
