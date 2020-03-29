@@ -245,7 +245,7 @@ const MolArt = function(opts) {
     this.globals = globals;
 
     createPageStructure();
-    setTimeout(() => initializePlugins(opts).then( () => {updatePageStructure(); hideLoadingIcon(globals.containerId);} ), 1000);
+    initializePlugins(opts).then( () => {updatePageStructure(); hideLoadingIcon(globals.containerId);} );
 
 
     function createPageStructure(){
