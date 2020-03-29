@@ -200,6 +200,15 @@ class ActiveFeature {
 }
 
 
+const showLoadingIcon = function (containerId) {
+    $(`#${containerId}`).append(`<div class="pv3d-loader-container"><div class="pv3d-loader"></div></div>`)
+
+};
+
+const hideLoadingIcon = function (containerId) {
+    $(`#${containerId} .pv3d-loader-container`).remove();
+
+};
 
 const MolArt = function(opts) {
 
@@ -231,10 +240,12 @@ const MolArt = function(opts) {
     globals.pvContainerId = globals.containerId + 'ProtVista';
     globals.lmContainerId = globals.containerId + 'LiteMol';
 
+    showLoadingIcon(globals.containerId);
+
     this.globals = globals;
 
     createPageStructure();
-    setTimeout(() => initializePlugins(opts).then( () => updatePageStructure() ), 1000);
+    setTimeout(() => initializePlugins(opts).then( () => {updatePageStructure(); hideLoadingIcon(globals.containerId);} ), 1000);
 
 
     function createPageStructure(){
@@ -478,6 +489,7 @@ const MolArt = function(opts) {
 
     function showErrorMessage(message) {
 
+        hideLoadingIcon(globals.containerId);
         globals.errorMessageContainer.find('.error-message')[0].innerHTML = message;
         globals.errorMessageContainer.css('display', 'block');
     }
