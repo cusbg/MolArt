@@ -249,7 +249,7 @@ const MolArt = function(opts) {
 
 
     function createPageStructure(){
-        if ($("#" + globals.containerId).height() == 0)
+        if ($("#" + globals.containerId).height() === 0)
             $("#" + globals.containerId).css("height", "100vh");
 
         globals.container = $('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
@@ -428,7 +428,6 @@ const MolArt = function(opts) {
             globals.activeStructure.exportToPymol();
         });
 
-        resize(); //this helps in some cases in FF where when setting width of ProtVista's FeaturesViewer, the width of the viewer is 0
         $(window).on('resize', () => {
             resize();
         });
