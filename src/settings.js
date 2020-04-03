@@ -39,7 +39,7 @@ module.exports = {
     }
     , corsServer: 'https://dobrman.ms.mff.cuni.cz/'
 
-    , urlPredictProtein: 'https://api.predictprotein.org/v1/results/'
+    , urlPredictProtein: 'https://api.predictprotein.org/v1/results/molart/'
 
     , colors: {
         'pvStructureObserved': "#2E86C1",

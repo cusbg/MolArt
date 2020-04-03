@@ -95,11 +95,7 @@ const PvController = function () {
         }
 
         if (params.opts.exclusions === undefined || params.opts.exclusions.indexOf(predictProteinId) < 0) {
-            customDataSources.push({
-                source: 'PREDICT PROTEIN',
-                useExtension: false,
-                url: 'https://api.predictprotein.org/v1/results/molart/'
-            });
+            customDataSources.push(definePredictProteinDS(sequence));
 
         }
         plugin = new ProtVista( Object.assign({}, params.opts,
@@ -142,6 +138,37 @@ const PvController = function () {
         // });
     }
 
+    function definePredictProteinDS(sequence) {
+
+        let dsDefinition;
+
+        if (globals.uniprotId !== undefined) {
+            dsDefinition = {
+                source: 'PREDICT PROTEIN',
+                useExtension: false,
+                url: predictProteinUrl
+            };
+        } else {
+            dsDefinition = {
+                source: 'PREDICT PROTEIN',
+                payload: JSON.stringify({
+                    protein: {
+                        sequence: sequence
+                    }
+                }),
+                contentType: 'application/json',
+                url: predictProteinUrl.replace(/\/$/, ""),
+                unpack: function (data) {
+                    return data.data;
+                }
+            };
+        }
+
+
+
+        return dsDefinition;
+    }
+
     function setCategoriesTooltips(enable, toolTips) {
         if (enable !== undefined && !enable) {
           globals.pvContainer.find('a.up_pftv_category-name').removeAttr('title');
@@ -153,7 +180,6 @@ const PvController = function () {
             }
         }
     }
-
 
     /*
     Extension of the the ProtVista's category sorting which does not take
