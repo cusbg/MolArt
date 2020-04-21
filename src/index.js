@@ -210,6 +210,30 @@ const hideLoadingIcon = function (containerId) {
 
 };
 
+const parseEnabledPdbIds = function(pdbIds) {
+    //The list contains records either in the formatd PDB_ID or PDB_ID:CHAIN_ID. For example ['1ryp:b', '4r17']. We want to return
+    //for each PDB_ID list of chains or empty list meaning that we want to retrieve all the chains of given PDB_ID
+    const pdbIdDict = {};
+    pdbIds.forEach(function (pdbId) {
+        pdbId = pdbId.toLowerCase().trim();
+        let id = pdbId;
+        let chain = undefined;
+
+        const ixColon = pdbId.indexOf(':');
+        if (ixColon > 0){
+            id = pdbId.substring(0, ixColon).trim();
+            chain = pdbId.substring(ixColon + 1).trim();
+        }
+        if (Object.keys(pdbIdDict).indexOf(id) < 0){
+            pdbIdDict[id] = [];
+        }
+        if (chain !== undefined && pdbIdDict[id].indexOf(chain) < 0) {
+            pdbIdDict[id].push(chain);
+        }
+    });
+    return pdbIdDict;
+};
+
 const MolArt = function(opts) {
 
     let pvReady  = false;
@@ -566,7 +590,17 @@ const MolArt = function(opts) {
         return services.getUnpToPdbMapping(opts.uniprotId).then(function(uniprotIdPdbs) {
             globals.pdbRecords = mergeMappings(uniprotIdPdbs[opts.uniprotId].map(rec => pdbMapping.pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
-                globals.pdbRecords = globals.pdbRecords.filter(rec => opts.pdbIds.indexOf(rec.getPdbId()) >= 0);
+                const pdbIds = parseEnabledPdbIds(opts.pdbIds);
+                globals.pdbRecords = globals.pdbRecords.filter(rec => {
+                    const pdbId = rec.getPdbId().toLowerCase();
+                    const chainId = rec.getChainId().toLowerCase();
+                    if (Object.keys(pdbIds).indexOf(pdbId) >= 0) {
+                        if (pdbIds[pdbId].length === 0 || pdbIds[pdbId].indexOf(chainId) >= 0) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
             }
 
             const promises = globals.pdbRecords.map(rec => services.getObservedRanges(rec.getPdbId(), rec.getChainId()));
