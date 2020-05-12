@@ -194,7 +194,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         if (source === 'SMR'){
             orc.end.posPDBSequence +=1;
         } else {
-            orc.start.posPDBSequence -= pdbStart;
+            orc.start.posPDBSequence -= pdbStart - 1;
             orc.end.posPDBSequence -= pdbStart - 1;
         }
 
