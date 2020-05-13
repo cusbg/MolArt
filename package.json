@@ -42,7 +42,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-replace": "^1.0.0",
     "gulp-uglify": "^3.0.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "litemol": "github:dsehnal/LiteMol",
     "lodash": "^4.17.15",
     "mocha": "^4.0.1",

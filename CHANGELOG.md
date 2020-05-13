@@ -16,6 +16,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Fixed
 
 - Beginning of region when shifting observed ranges
+- Included updated ProtVista which handles problems with shifted ruler
 
 ##  [1.5.0] - 2019-09-30
 
