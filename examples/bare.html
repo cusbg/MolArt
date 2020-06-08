@@ -23,7 +23,7 @@ html, body { height:100%; }
 <div id="pluginContainer"></div>
 
 <script>
-  const molstar = new MolArt({
+  const molart = new MolArt({
     // uniprotId: 'Q13936',
     // uniprotId: 'P23639',
      uniprotId: 'Q13158',
@@ -99,6 +99,11 @@ html, body { height:100%; }
     // exclusions: ['SEQUENCE_INFORMATION', 'STRUCTURAL', 'TOPOLOGY', 'MUTAGENESIS', 'MOLECULE_PROCESSING', 'PREDICT_PROTEIN']
     //   exclusions: ['PREDICT_PROTEIN']
 });
+
+  // molart.on("sequenceMouseOn", residue => console.log(residue))
+  // molart.on("sequenceMouseOff", () => console.log("seqeunce off"))
+  // molart.on("structureMouseOn", residue => console.log(residue))
+  // molart.on("structureMouseOff", () => console.log("structure off"))
 </script>
   
 </body>

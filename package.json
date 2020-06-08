@@ -13,7 +13,6 @@
     "type": "git",
     "url": "https://github.com/davidhoksza/MolArt.git"
   },
-  "main": "dist/molart.js",
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",

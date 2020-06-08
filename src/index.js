@@ -238,14 +238,13 @@ const MolArt = function(opts) {
 
     let pvReady  = false;
 
-    this.eventEmitter = new events.EventEmitter();
-    const eventEmitter = this.eventEmitter;
-
     const globals = {
         lmCallbackRegistered: false
 
         ,pv: PvController()
         ,lm: LmController()
+
+        ,eventEmitter: new events.EventEmitter()
 
         ,settings: require('./settings')
     };
@@ -774,7 +773,7 @@ const MolArt = function(opts) {
 
             if (!('pdbRecords' in globals)) {
                 globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
-                eventEmitter.emit('pvReady');
+                globals.eventEmitter.emit('pvReady');
                 pvReady = true;
                 // resize();
             }
@@ -795,7 +794,7 @@ const MolArt = function(opts) {
 
         }, function (error) {
             showErrorMessage('UniProt record ' + globals.uniprotId + ' could not be retrieved.');
-            eventEmitter.emit('pvReady');
+            globals.eventEmitter.emit('pvReady');
         });
 
         function onPvReady() {
@@ -805,7 +804,7 @@ const MolArt = function(opts) {
             globals.pv.setCategoriesTooltips(opts.enableCategoriesTooltips, opts.categoriesTooltips);
             globals.pv.reorderCategories(opts);
 
-            eventEmitter.emit('pvReady');
+            globals.eventEmitter.emit('pvReady');
             pvReady = true;
             resize();
         }
@@ -841,7 +840,7 @@ MolArt.prototype.getLmController = function () {
  };
 
 MolArt.prototype.on = function (eventType, callback) {
-    this.eventEmitter.on(eventType, callback);
+    this.globals.eventEmitter.on(eventType, callback);
 };
 
  module.exports = MolArt;

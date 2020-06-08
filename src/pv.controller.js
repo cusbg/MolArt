@@ -630,14 +630,21 @@ const PvController = function () {
     }
 
     function handleMouseMoveEvents() {
+        let lastResNum = undefined;
         globals.container.find('.up_pftv_category-viewer svg, .up_pftv_track svg, .up_pftv_aaviewer svg')
             .off()
             .on('mousemove', (e) =>{
                 const resNum = Math.round(globals.pv.getPlugin().xScale.invert(e.offsetX));
                 globals.lm.highlightResidue(resNum);
+                if (lastResNum !== resNum){
+                    lastResNum = resNum;
+                    globals.eventEmitter.emit('sequenceMouseOn', resNum);
+                }
             })
             .on('mouseout', (e) =>{
                 globals.lm.dehighlightAll();
+                globals.eventEmitter.emit('sequenceMouseOff');
+                lastResNum = undefined;
             });
         globals.container.find('.up_pftv_category-container')
             .off()

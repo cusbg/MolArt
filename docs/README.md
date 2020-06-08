@@ -89,7 +89,7 @@ If you are using a bundling system to build your application, not using NPM and 
 
 If you need to create an instance repeatedly , e.g. every time a user clicks on UniprotID you open/create a tab and spawn a new instance of MOLART and when she closes the tab, you remove all its content. In such situations LiteMol (or rather THREE.js) does not release all the WebGL related structures and still tries to draw something into HTML elements which are not available any more. To get rid of the warning messages, you can call the `destroy` method. However, if there are still some callback functions active, which try to access LiteMol, you will get the
 
-## Options and parameters
+## Options, parameters and events
 
 All parameters for ProtVista are also available in MOLART, which simply
 takes them and passes them to ProtVista. These include ability to exclude
@@ -362,7 +362,7 @@ does not show a tooltip for that category as ProtVista does by default. This opt
 was added because default category tooltips in ProtVista are not very illustrative.
 
 - ```highlightByHovering``` (default ```false```) - when set to ```true```
-hovering over an annotation in sequence view highlights the corresponding part
+hovering over an annotation in the sequence view highlights the corresponding part
 of the structure in the structure view. By default, an annotation is highlighted
 only when clicked on in the sequence view.
 
@@ -426,4 +426,43 @@ header where the user can turn on and of the defined highlights.
     }
     
     ```
+ ### Events
+ 
+ MolArt object generates several events. The app which owns the MolArt object can register listeners 
+ for those events and thus react on what happens inside the plugin.
+ 
+ * ``structureMouseOn``
+    * ```molart.on("structureMouseOn", residue => console.log(residue))```
+        * Triggers when a residue is hovered over in the structure view.
+         The listener is passed an argument with a ``residue`` object containing information about 
+         the corresponding residue. The ``residue`` object
+        is a dictionary having the available information as returned from LiteMol:
+             * ```
+               authName: "SER"
+               authSeqNumber: 13
+               chain:
+                   asymId: "A"
+                   authAsymId: "A"
+                   entity:
+                       entityId: "1"
+                       index: 0
+                       __proto__: Object
+                   index: 0
+                   __proto__: Object
+               index: 12
+               insCode: null
+               isHet: 0
+               name: "SER"
+               seqNumber: 281
+               __proto__: Object 
+               ```
+               
+ * ``structureMouseOff``
+     * Triggers when the mouse stops being over a residue.
+ * ``sequenceMouseOn``
+    * Triggers when a mouse hovers over a position in the sequence view. 
+    The listener is passed an argument which corresponds to the actual position in the sequence. 
+ * ``sequenceMouseOff``
+    * Triggers when the mouse leaves the space of the sequence view. It is also triggered
+    when it leaves a category DIV.
  

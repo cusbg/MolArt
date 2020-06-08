@@ -10,6 +10,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Ability to provide custom sequence and sequence-structure mapping
 - PredictProtein is passed sequence when UniProt ID is not available
 - Possibility to pass also chain specification when restricting the list of structures
+- Event listeners for sequence and structure mouse hover events
 
 ### Removed
 

@@ -308,12 +308,13 @@ const LmController = function () {
         globals.container.find('.pv3d-header .shift-right').on('click', () => shiftActiveStructure(1));
     }
 
-
     function highlightCallBack(e) {
         if (e.data && e.data.residues.length > 0) {
             globals.pv.highlightActivePosition(e.data.residues[0].seqNumber);
+            globals.eventEmitter.emit("structureMouseOn", e.data.residues[0]);
         } else {
             globals.pv.dehighlightActivePosition();
+            globals.eventEmitter.emit("structureMouseOff");
         }
     }
 
