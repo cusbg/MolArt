@@ -466,3 +466,27 @@ header where the user can turn on and of the defined highlights.
     * Triggers when the mouse leaves the space of the sequence view. It is also triggered
     when it leaves a category DIV.
  
+ ### Controlling MolArt
+
+ Molart can be partially controlled from by accessing methods available in the MolArt object.
+
+ * ``getPvController``
+    * Returns the ProtVista (sequence view) controller.
+
+* ``getLmController``
+    * Returns the LiteMol (structure view) controller.
+
+* ``getGlobals``
+    * Returns the globals object which includes various objects (including the Lm and Pv controllers).
+
+* ``highlightInSequence(pos)``
+    * Highlights the specified residue in the sequence view.
+
+* ``deHighlightInSequence()``
+    * Removes highlighting in the sequence view.
+
+* ``highlightInStructure(pos)``
+    * Highlights the specified residue in the structure view. The position is the position in sequence (which might differ from the position in the structure).
+
+* ``deHighlightInStructure()``
+    * Removes highlighting in the structure view.

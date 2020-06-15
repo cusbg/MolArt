@@ -629,6 +629,15 @@ const PvController = function () {
         return plugin.categories;
     }
 
+    function highlightResidue(resNum, lastResNum) {
+        highlightActivePosition(resNum);
+    }
+
+    function dehighlight(){
+        globals.lm.dehighlightAll();
+        globals.eventEmitter.emit('sequenceMouseOff');
+    }
+
     function handleMouseMoveEvents() {
         let lastResNum = undefined;
         globals.container.find('.up_pftv_category-viewer svg, .up_pftv_track svg, .up_pftv_aaviewer svg')
@@ -642,8 +651,7 @@ const PvController = function () {
                 }
             })
             .on('mouseout', (e) =>{
-                globals.lm.dehighlightAll();
-                globals.eventEmitter.emit('sequenceMouseOff');
+                dehighlight();
                 lastResNum = undefined;
             });
         globals.container.find('.up_pftv_category-container')
@@ -717,7 +725,7 @@ const PvController = function () {
         ,extractAnnotationData: extractAnnotationData
         ,setCategoriesTooltips: setCategoriesTooltips
         ,reorderCategories: reorderCategories
-
+      
         //Exposed for testing purposes
         ,getHeaderLinkContainer: getHeaderLinkContainer
     }

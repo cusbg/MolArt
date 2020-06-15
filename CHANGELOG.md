@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - PredictProtein is passed sequence when UniProt ID is not available
 - Possibility to pass also chain specification when restricting the list of structures
 - Event listeners for sequence and structure mouse hover events
+- Ability to control highliting of position in both sequence and structure views outside of MolArt
 
 ### Removed
 

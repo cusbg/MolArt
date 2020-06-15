@@ -843,4 +843,20 @@ MolArt.prototype.on = function (eventType, callback) {
     this.globals.eventEmitter.on(eventType, callback);
 };
 
+MolArt.prototype.highlightInSequence = function (seqPos) {
+    this.getPvController().highlightActivePosition(seqPos);
+};
+
+MolArt.prototype.deHighlightInSequence = function () {
+    this.getPvController().dehighlightActivePosition();
+};
+
+MolArt.prototype.highlightInStructure = function (seqPos) {
+    this.getLmController().highlightResidue(seqPos);
+};
+
+MolArt.prototype.deHighlightInStructure = function () {
+    this.getLmController().dehighlightAll();
+};
+
  module.exports = MolArt;
