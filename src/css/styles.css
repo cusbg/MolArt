@@ -360,5 +360,9 @@
     100% { transform: rotate(360deg); }
 }
 
+.up_pftv_category-name {
+    vertical-align: inherit;
+}
+
 
 

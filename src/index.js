@@ -234,7 +234,17 @@ const parseEnabledPdbIds = function(pdbIds) {
     return pdbIdDict;
 };
 
+function sanitizeInputOpts(opts){
+    Object.keys(opts).forEach(k => {
+        if (typeof opts[k] === "string") {
+            opts[k] = opts[k].trim();
+        }
+    })
+}
+
 const MolArt = function(opts) {
+
+    sanitizeInputOpts(opts);
 
     let pvReady  = false;
 

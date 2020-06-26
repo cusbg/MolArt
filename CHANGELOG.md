@@ -12,6 +12,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Possibility to pass also chain specification when restricting the list of structures
 - Event listeners for sequence and structure mouse hover events
 - Ability to control highliting of position in both sequence and structure views outside of MolArt
+- Input options sanitization (e.g. Uniprot ID can be passed with trailing spaces)
 
 ### Removed
 
@@ -19,6 +20,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - Beginning of region when shifting observed ranges
 - Included updated ProtVista which handles problems with shifted ruler
+- Issue with shifted arrow icon in categories headers in some scenarios (removed verctial bottom alignment)
 
 ##  [1.5.0] - 2019-09-30
 
