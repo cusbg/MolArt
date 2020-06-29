@@ -21,6 +21,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Beginning of region when shifting observed ranges
 - Included updated ProtVista which handles problems with shifted ruler
 - Issue with shifted arrow icon in categories headers in some scenarios (removed verctial bottom alignment)
+- MouseMove emmiter events generated numbers outside of the range of sequence numbers.
+- Dehighlight in structure view when mouse moved outside of sequence view.
 
 ##  [1.5.0] - 2019-09-30
 

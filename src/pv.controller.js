@@ -629,21 +629,13 @@ const PvController = function () {
         return plugin.categories;
     }
 
-    function highlightResidue(resNum, lastResNum) {
-        highlightActivePosition(resNum);
-    }
-
-    function dehighlight(){
-        globals.lm.dehighlightAll();
-        globals.eventEmitter.emit('sequenceMouseOff');
-    }
-
     function handleMouseMoveEvents() {
         let lastResNum = undefined;
         globals.container.find('.up_pftv_category-viewer svg, .up_pftv_track svg, .up_pftv_aaviewer svg')
             .off()
             .on('mousemove', (e) =>{
-                const resNum = Math.round(globals.pv.getPlugin().xScale.invert(e.offsetX));
+                let resNum = Math.round(globals.pv.getPlugin().xScale.invert(e.offsetX));
+                resNum = Math.max(resNum, 1);
                 globals.lm.highlightResidue(resNum);
                 if (lastResNum !== resNum){
                     lastResNum = resNum;
@@ -651,7 +643,7 @@ const PvController = function () {
                 }
             })
             .on('mouseout', (e) =>{
-                dehighlight();
+                globals.lm.dehighlightAll();
                 lastResNum = undefined;
             });
         globals.container.find('.up_pftv_category-container')
