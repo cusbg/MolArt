@@ -644,6 +644,7 @@ const PvController = function () {
             })
             .on('mouseout', (e) =>{
                 globals.lm.dehighlightAll();
+                globals.eventEmitter.emit('sequenceMouseOff');
                 lastResNum = undefined;
             });
         globals.container.find('.up_pftv_category-container')
