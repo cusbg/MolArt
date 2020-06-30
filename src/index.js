@@ -1,7 +1,8 @@
 require('./css/styles.css');
 const download = require('downloadjs');
 
-if (!window.$) window.$ = require('jquery');
+const jQuery = require('jquery')
+if (!window.$) window.$ = jQuery;
 if (!window.jQuery) window.jQuery = window.$;
 
 const events = require('events');
@@ -285,7 +286,7 @@ const MolArt = function(opts) {
         if ($("#" + globals.containerId).height() === 0)
             $("#" + globals.containerId).css("height", "100vh");
 
-        globals.container = $('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
+        globals.container = jQuery('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
 
         const pvBlock = $('<div class="pv3d-pv"></div>').appendTo(globals.container);
         const lmBlock = $('<div class="pv3d-lm"></div>').appendTo(globals.container);
@@ -854,11 +855,12 @@ MolArt.prototype.on = function (eventType, callback) {
 };
 
 MolArt.prototype.highlightInSequence = function (seqPos) {
-    this.getPvController().highlightActivePosition(seqPos);
+    this.getPvController().getPlugin().highlightRegion(seqPos,seqPos)
+    // this.getPvController().highlightActivePosition(seqPos);
 };
 
 MolArt.prototype.deHighlightInSequence = function () {
-    this.getPvController().dehighlightActivePosition();
+    this.getPvController().resetHighlight();
 };
 
 MolArt.prototype.highlightInStructure = function (seqPos) {
