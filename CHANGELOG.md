@@ -13,6 +13,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Event listeners for sequence and structure mouse hover events
 - Ability to control highliting of position in both sequence and structure views outside of MolArt
 - Input options sanitization (e.g. Uniprot ID can be passed with trailing spaces)
+- Destroy method of the MolArt object not only destroys LiteMol object, but also removes everything from the root container.
 
 ### Removed
 
@@ -23,6 +24,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Issue with shifted arrow icon in categories headers in some scenarios (removed verctial bottom alignment)
 - MouseMove emmiter events generated numbers outside of the range of sequence numbers.
 - Dehighlight in structure view when mouse moved outside of sequence view.
+- Using local jQuery for container object to avoid clashing with plugins which claim global jQuery instance
 
 ##  [1.5.0] - 2019-09-30
 
