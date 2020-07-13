@@ -834,8 +834,8 @@ const MolArt = function(opts) {
 };
 
 MolArt.prototype.destroy = function () {
-    this.globals.container.empty();
-    return this.getLmController().destroy();
+    this.getLmController().destroy();
+    $(`#${this.globals.containerId}`).empty();
 
 };
 
