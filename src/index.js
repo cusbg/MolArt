@@ -551,6 +551,9 @@ const MolArt = function(opts) {
                 globals.pdbRecords = globals.pdbRecords.filter(rec => rec.isPDB() || opts.smrIds.indexOf(rec.getPdbId()) >= 0);
             }
 
+            //sort records by length and size
+            globals.pdbRecords.sort((a,b) => b.getCoverage() - a.getCoverage());
+
             return Promise.resolve();
         });
     }

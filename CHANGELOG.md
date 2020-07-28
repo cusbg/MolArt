@@ -14,6 +14,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - Ability to control highliting of position in both sequence and structure views outside of MolArt
 - Input options sanitization (e.g. Uniprot ID can be passed with trailing spaces)
 - Destroy method of the MolArt object not only destroys LiteMol object, but also removes everything from the root container.
+- SMR records sorted by coverage
 
 ### Removed
 
@@ -26,6 +27,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - MouseMove emmiter events generated numbers outside of the range of sequence numbers.
 - Dehighlight in structure view when mouse moved outside of sequence view.
 - Using local jQuery for container object to avoid clashing with plugins which claim global jQuery instance
+- Improved error message when LiteMol cannot process the structure file
 
 ##  [1.5.0] - 2019-09-30
 
