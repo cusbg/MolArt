@@ -597,6 +597,9 @@ const MolArt = function(opts) {
 
     function retrieveStructureRecordsOnline(opts) {
 
+
+        let pdbMappingAvailable = true;
+
         return services.getUnpToPdbMapping(opts.uniprotId).then(function(uniprotIdPdbs) {
             globals.pdbRecords = mergeMappings(uniprotIdPdbs[opts.uniprotId].map(rec => pdbMapping.pdbMapping(rec, 'PDB')));
             if (opts.pdbIds && opts.pdbIds.length > 0) {
@@ -622,9 +625,10 @@ const MolArt = function(opts) {
                 }
             })
         }, function(error){
+            pdbMappingAvailable = false;
             return loadSmr(opts.uniprotId, opts);
         }).then(function(){
-            return opts.alwaysLoadPredicted ? loadSmr(opts.uniprotId, opts) : Promise.resolve();
+            return opts.alwaysLoadPredicted && pdbMappingAvailable ? loadSmr(opts.uniprotId, opts) : Promise.resolve();
         }).then(function () {
             if (globals.pdbRecords.length === 0) delete globals.pdbRecords;
             else globals.pdbRecords = sortPdbRecords(globals.pdbRecords, opts, globals.settings);

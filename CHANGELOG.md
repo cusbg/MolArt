@@ -19,6 +19,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+- SwissProt structures showing twice in ProtVista when PDBe mapping not availble 
 - Beginning of region when shifting observed ranges
 - Included updated ProtVista which handles problems with shifted ruler
 - Issue with shifted arrow icon in categories headers in some scenarios (removed verctial bottom alignment)
