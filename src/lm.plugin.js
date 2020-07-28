@@ -191,7 +191,7 @@ function createPlugin() {
             return controller.applyTransform(action).then(function () {
 
                 const visual = selectNodes(visualId);
-                if (visual.length === 0) throw Error('Accessing PDB failed <br/> (' + url + ')');
+                if (visual.length === 0) throw Error('Litemol could not access or process the structure file <br/> (' + url + ')');
 
                 defaultlVisuals[visualId] = Object.assign({}, visual[0].props.model.theme, {isSticky: true});
                 // let visual = selectNodes(visualId)[0];
