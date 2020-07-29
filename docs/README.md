@@ -199,8 +199,8 @@ MolArt is able to handle situations when a user wants to visualize
 
 ###### User-provided sequence-structure mapping
 
-To provided a custom sequence-structure mapping, one needs to provide in the MolArt constructor the information 
-which structures map to given sequence and which regions in sequence map to which sequence in structure. This
+To provide a custom sequence-structure mapping, one needs to pass the MolArt constructor the information about
+which structures map to given sequence and which regions in the sequence map to which regions in the structure. This
 is basically the information which MolArt automatically gets from the `https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/` 
 and `https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/` PDBe REST API endpoints. Also the format is 
 somewhat similar to what these endpoints provide.
