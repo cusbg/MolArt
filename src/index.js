@@ -863,8 +863,11 @@ MolArt.prototype.on = function (eventType, callback) {
     this.globals.eventEmitter.on(eventType, callback);
 };
 
-MolArt.prototype.highlightInSequence = function (seqPos) {
+MolArt.prototype.highlightInSequence = function (seqPos, zoomIn) {
     this.getPvController().getPlugin().highlightRegion(seqPos,seqPos)
+    if (zoomIn) {
+        this.getPvController().getPlugin().zoomIn();
+    }
     // this.getPvController().highlightActivePosition(seqPos);
 };
 

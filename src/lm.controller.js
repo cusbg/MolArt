@@ -311,7 +311,9 @@ const LmController = function () {
     function highlightCallBack(e) {
         if (e.data && e.data.residues.length > 0) {
             globals.pv.highlightActivePosition(e.data.residues[0].seqNumber);
-            globals.eventEmitter.emit("structureMouseOn", e.data.residues[0]);
+            const resInfo = e.data.residues[0];
+            resInfo.unpSeqNumber = globals.activeStructure.record.mapPosPdbToUnp(resInfo.seqNumber);
+            globals.eventEmitter.emit("structureMouseOn", resInfo);
         } else {
             globals.pv.dehighlightActivePosition();
             globals.eventEmitter.emit("structureMouseOff");
