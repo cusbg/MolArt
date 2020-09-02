@@ -6,6 +6,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Convenience function to find out whether MolArt is loaded
 - Ability to provide custom 3D structure
 - Ability to provide custom sequence and sequence-structure mapping
 - PredictProtein is passed sequence when UniProt ID is not available
