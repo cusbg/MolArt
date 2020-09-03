@@ -847,7 +847,12 @@ MolArt.prototype.destroy = function () {
 };
 
 MolArt.prototype.loaded = function () {
-    return this.getLmController().getPlugin().moleculeLoaded();
+    try {
+        return this.getLmController().getPlugin().moleculeLoaded();
+    } catch (e) {
+        return false;
+    }
+
 };
 
 MolArt.prototype.getGlobals = function () {
