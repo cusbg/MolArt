@@ -447,6 +447,15 @@ function createPlugin() {
             Command.Molecule.Highlight.dispatch(controller.context, {model: model, query: query, isOn: true});
         };
 
+        const focusResidue = function (modelId, chainId, resNum, neighborhoodSize) {
+            controllerAvailability();
+
+            const model = controller.selectEntities(modelId)[0];
+            if (!model) return;
+            const query = modSequence('1', {authAsymId: chainId}, {seqNumber: resNum}, {seqNumber: resNum}).ambientResidues(neighborhoodSize);
+            Command.Molecule.FocusQuery.dispatch(controller.context, {model: model, query: query});
+        };
+
         const registerHighlightCallback = function (f) {
             highlightCallbacks.push(f);
         };
@@ -631,6 +640,7 @@ function createPlugin() {
             , loadMolecule: loadMolecule
             , registerHighlightCallback: registerHighlightCallback
             , highlightResidue: highlightResidue
+            , focusResidue: focusResidue
             , dehighlightAll: dehighlightAll
             , createSelectionFromRange: createSelectionFromRange
             , createSelectionFromList: createSelectionFromList

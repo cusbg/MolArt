@@ -6,6 +6,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Ability to focus at a residue in the structure view.
 - Convenience function to find out whether MolArt is loaded
 - Ability to provide custom 3D structure
 - Ability to provide custom sequence and sequence-structure mapping

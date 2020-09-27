@@ -600,6 +600,18 @@ const LmController = function () {
         }
     }
 
+    function focusResidue(resNum, neighborhoodSize) {
+        for (const id in mapping) {
+            if (mapping[id].getPdbRecord()) { // the structure might still be loading and pdbRecord might not have been added yet
+                const pdbRec = mapping[id].getPdbRecord();
+
+                if (pdbRec.isInObservedRanges(resNum)) {
+                    plugin.focusResidue(mapping[id].getModelId(), pdbRec.getChainId(), pdbRec.mapPosUnpToPdb(resNum), neighborhoodSize);
+                }
+            }
+        }
+    }
+
     function dehighlightAll() {
         plugin.dehighlightAll();
     }
@@ -693,6 +705,7 @@ const LmController = function () {
         unmapFeature: unmapFeature,
         getPlugin: getPlugin,
         highlightResidue: highlightResidue,
+        focusResidue: focusResidue,
         dehighlightAll: dehighlightAll,
         // ,registerHighlightCallback: registerHighlightCallback
         moleculeLoaded: moleculeLoaded,

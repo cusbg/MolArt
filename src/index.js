@@ -876,6 +876,7 @@ MolArt.prototype.highlightInSequence = function (seqPos, zoomIn) {
     this.getPvController().getPlugin().highlightRegion(seqPos,seqPos)
     if (zoomIn) {
         this.getPvController().getPlugin().zoomIn();
+        this.getPvController().highlightActiveStructure();
     }
     // this.getPvController().highlightActivePosition(seqPos);
 };
@@ -886,6 +887,15 @@ MolArt.prototype.deHighlightInSequence = function () {
 
 MolArt.prototype.highlightInStructure = function (seqPos) {
     this.getLmController().highlightResidue(seqPos);
+};
+
+/***
+ * Focuses to given residues + neighborhood in Angstroms.
+ * @param seqPos
+ * @param neighborhoodSize Any residues having atoms within a sphere with given size and centered in seqPos will be displayed.
+ */
+MolArt.prototype.focusInStructure = function (seqPos, neighborhoodSize = 0) {
+    this.getLmController().focusResidue(seqPos, neighborhoodSize);
 };
 
 MolArt.prototype.deHighlightInStructure = function () {

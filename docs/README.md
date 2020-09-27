@@ -490,3 +490,7 @@ header where the user can turn on and of the defined highlights.
 
 * ``deHighlightInStructure()``
     * Removes highlighting in the structure view.
+    
+* ``focusInStructure(seqPos, neighborhoodSize)``
+    * Focuses at a given residue. If *neighborhoodSize* provided, all residues having atoms
+    in a sphere of given radius (in Angstroms) will be dispalayed as well.
