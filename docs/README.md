@@ -431,6 +431,12 @@ header where the user can turn on and of the defined highlights.
  MolArt object generates several events. The app which owns the MolArt object can register listeners 
  for those events and thus react on what happens inside the plugin.
  
+ * ``lmReady``
+    Emitted every time when any of the ProtVista's track is loaded. This means that once
+    *lmReady* is emitted, the sequence view is ready to accept user events.
+ * ``pvReady``
+    Emitted once LiteMol (the structure view) loads a structure. This happens also when
+    a user selects a structure in the sequence view. 
  * ``structureMouseOn``
     * ```molart.on("structureMouseOn", residue => console.log(residue))```
         * Triggers when a residue is hovered over in the structure view.

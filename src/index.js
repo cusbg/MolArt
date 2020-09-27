@@ -674,7 +674,8 @@ const MolArt = function(opts) {
 
     function initializeActiveStructure(){
         const rec = globals.pdbRecords[0];
-            globals.activeStructure.set(rec.getPdbId(), rec.getChainId());
+            globals.activeStructure.set(rec.getPdbId(), rec.getChainId())
+                .then(() => {globals.eventEmitter.emit('lmReady');})
     }
 
     // function initializeTestDataSet(sequence, catName, variant=false){
