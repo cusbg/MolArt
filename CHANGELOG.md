@@ -4,8 +4,11 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
+##  [1.6.0] - 2020-10-11
+
 ### Added
 
+- Integrated new version of ProtVista which correctly handles changes in Proteins API 
 - Ability to focus at a residue in the structure view.
 - Convenience function to find out whether MolArt is loaded
 - Ability to provide custom 3D structure

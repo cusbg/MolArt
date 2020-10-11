@@ -1,7 +1,7 @@
 {
   "name": "molart",
   "description": "MOLeculAR structure annoTator",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "homepage": "https://github.com/davidhoksza/MolArt",
   "author": "David Hoksza",
   "keywords": [],
@@ -43,7 +43,7 @@
     "gulp-uglify": "^3.0.2",
     "jquery": "^3.5.1",
     "litemol": "github:dsehnal/LiteMol",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "mocha": "^4.0.1",
     "open": "^6.4.0",
     "postcss": "^6.0.19",
