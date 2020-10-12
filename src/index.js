@@ -1,9 +1,14 @@
 require('./css/styles.css');
 const download = require('downloadjs');
 
-const jQuery = require('jquery')
-if (!window.$) window.$ = jQuery;
-if (!window.jQuery) window.jQuery = window.$;
+
+if (!window.$) {
+    // Requiring jquery seems to have some side effect which conflict with semantics ui if this is also used for the app in which MolArt is used
+    // That's why the jquery require statement is inside of the if statement
+    const jQuery = require('jquery');
+    window.$ = jQuery;
+    if (!window.jQuery) window.jQuery = window.$;
+}
 
 const events = require('events');
 

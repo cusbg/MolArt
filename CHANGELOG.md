@@ -4,6 +4,10 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
+### Fixed
+
+- Possible conflict of jQuery with Semantics UI jQuery object
+
 ##  [1.6.0] - 2020-10-11
 
 ### Added
