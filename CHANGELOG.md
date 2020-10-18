@@ -4,6 +4,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ##  [Unreleased]
 
+### Added
+
+- Get information about which regions in sequence have a structure mapped.
+- Emitting an event every time a structure has been loaded.
+
+### Removed
+
 ### Fixed
 
 - Possible conflict of jQuery with Semantics UI jQuery object

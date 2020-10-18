@@ -122,11 +122,17 @@ const pdbMapping = function (record, _source = 'PDB') {
     const getObservedRanges = function(){return observedRanges;};
     const getUnobservedRanges = function(){return unobservedRanges;};
     const getSource = function(){return source};
-    const getCoordinatesFile = function () {return coordinatesFile; };
-
+    const getCoordinatesFile = function () {return coordinatesFile; }
     const isPDB = function () {
         return getSource() === 'PDB';
     };
+
+    const getSeqRangeFromObservedRange = function (range) {
+        return [
+            Math.max(this.getUnpStart(), this.mapPosStructToUnp(range.start.posPDBSequence)),
+            Math.min(this.mapPosStructToUnp(range.end.posPDBSequence), this.getUnpEnd())
+            ];
+    }
 
     const setUnobservedRanges = function(){
         const ors = getObservedRanges().sort( (a,b) => a.start.posPDBSequence - b.start.posPDBSequence);
@@ -278,6 +284,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,getObservedRanges: getObservedRanges
         ,setObservedRanges: setObservedRanges
         ,getUnobservedRanges: getUnobservedRanges
+        ,getSeqRangeFromObservedRange: getSeqRangeFromObservedRange
         ,setTaxId: setTaxId
         ,isValidPdbPos: isValidPdbPos
         ,isValidPdbRegion: isValidPdbRegion

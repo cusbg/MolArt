@@ -64,6 +64,7 @@ class ActiveStructure {
             this.globals.pv.highlightActiveStructure();
             this.globals.activeFeature.overlay();
             this.globals.lm.hideErrorMessage();
+            this.globals.eventEmitter.emit('structureLoaded');
         }, function (error) {
             console.log(error);
             self.globals.lm.showErrorMessage(error);
@@ -71,8 +72,22 @@ class ActiveStructure {
         });
     }
 
+    /***
+     * Get ranges in the sequence which have structure mapped. If there is not structure set, the method
+     * throws an error.
+     * @returns {*[] Array of arrays of size 2 [begin, end]}
+     */
+    getSeqStrRange() {
+        if (!this.isSet()) {
+            throw new Error("No structure loaded.")
+        }
+
+        const rec = this.record;
+        return this.record.getObservedRanges().map(range => rec.getSeqRangeFromObservedRange(range));
+    }
+
     isSet(){
-        return (this.pdbId === undefined ? false : true);
+        return this.pdbId !== undefined;
     }
 
     exportToPymol(){
@@ -906,6 +921,26 @@ MolArt.prototype.focusInStructure = function (seqPos, neighborhoodSize = 0) {
 
 MolArt.prototype.deHighlightInStructure = function () {
     this.getLmController().dehighlightAll();
+};
+
+/***
+ * Gets information about whether a structure is loaded. Returns true if there is no structure available for the
+ * sequence of if the structure has not been loaded yet.
+ * @returns {boolean}
+ */
+MolArt.prototype.structureLoaded = function () {
+    return this.globals.activeStructure.isSet();
+};
+
+/***
+ * Get ranges in the sequence which have structure mapped. If there is not structure set, the method
+ * throws an error.
+ * @returns {*[] Array of arrays of size 2 [begin, end]}
+ */
+MolArt.prototype.getSeqStrRanges = function () {
+    return this.globals.activeStructure.getSeqStrRange();
+
+
 };
 
  module.exports = MolArt;

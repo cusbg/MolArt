@@ -1,4 +1,4 @@
-// var $ = require('jquery');
+    // var $ = require('jquery');
 
 const svgSymbols = require('./svg.symbols');
 const ProtVista = require('ProtVista');
@@ -50,14 +50,15 @@ const PvController = function () {
                     catId = globals.settings.pvMappedStructuresCat.idProvided;
                 }
                 rec.getObservedRanges().forEach(range => {
+                    const seqRange = rec.getSeqRangeFromObservedRange(range);
                     pvDataSource.features.push({
                         category: catId,
                         type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
                         description: `\n${rec.getDescription()}`,
                         color: globals.settings.colors.pvStructureObserved,
                         ftId: ix,
-                        begin: Math.max(rec.getUnpStart(), rec.mapPosStructToUnp(range.start.posPDBSequence)), //rec.getUnpStart(),
-                        end: Math.min(rec.mapPosStructToUnp(range.end.posPDBSequence), rec.getUnpEnd()) //rec.getUnpEnd()
+                        begin: seqRange[0], //rec.getUnpStart(),
+                        end: seqRange[1] //rec.getUnpEnd()
                     })
                 });
                 rec.getUnobservedRanges().forEach(range => {
@@ -627,6 +628,10 @@ const PvController = function () {
 
     function getCategories() {
         return plugin.categories;
+    }
+
+    function getSeqStrRange() {
+
     }
 
     function handleMouseMoveEvents() {

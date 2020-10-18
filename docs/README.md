@@ -437,6 +437,8 @@ header where the user can turn on and of the defined highlights.
  * ``pvReady``
     Emitted once LiteMol (the structure view) loads a structure. This happens also when
     a user selects a structure in the sequence view. 
+ * ``structureLoaded``
+    Emitted every time the active structure changes.
  * ``structureMouseOn``
     * ```molart.on("structureMouseOn", residue => console.log(residue))```
         * Triggers when a residue is hovered over in the structure view.
@@ -472,7 +474,7 @@ header where the user can turn on and of the defined highlights.
     * Triggers when the mouse leaves the space of the sequence view. It is also triggered
     when it leaves a category DIV.
  
- ### Controlling MolArt
+ ### MolArt API
 
  Molart can be partially controlled from by accessing methods available in the MolArt object.
 
@@ -500,3 +502,14 @@ header where the user can turn on and of the defined highlights.
 * ``focusInStructure(seqPos, neighborhoodSize)``
     * Focuses at a given residue. If *neighborhoodSize* provided, all residues having atoms
     in a sphere of given radius (in Angstroms) will be dispalayed as well.
+    
+* ``structureLoaded()``
+    * True if a structure is loaded. Can be false either if there does not exist anystructure
+    for the molecule or when the stucture it not loaded yet.
+
+* ``getSeqStrRange()``
+    * Get ranges in the sequence which have a structure mapped. The return value
+    is an array of arrays of size 2 as there can be undetermined parts of the structure 
+    resulting in multiple observed regions. 
+    If there is not structure set, the method throws an error (can be checked in advance
+    using the ``structureLoaded`` method). 
