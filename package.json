@@ -1,7 +1,7 @@
 {
   "name": "molart",
   "description": "MOLeculAR structure annoTator",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "homepage": "https://github.com/davidhoksza/MolArt",
   "author": "David Hoksza",
   "keywords": [],
@@ -13,6 +13,7 @@
     "type": "git",
     "url": "https://github.com/davidhoksza/MolArt.git"
   },
+  "main": "dist/molart.js",
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",
