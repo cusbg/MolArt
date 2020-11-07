@@ -11,7 +11,7 @@ It couples protein sequence annotation capabilities provided by [ProtVista](http
  Since it does not have any software dependencies and all the data are obtained on the fly,
   it is easy to integrate it to any web page.
 
-Examples of MolArt's use can be found at https://davidhoksza.github.io/MolArt/ .
+Examples of MolArt's use can be found at https://cusbg.github.io/MolArt/.
 
 [Documentation](https://github.com/davidhoksza/MolArt/tree/master/docs) shows usage of the plugin.
 
