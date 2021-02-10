@@ -1,5 +1,7 @@
 /* eslint-disable indent,max-len */
 const createPlugin = require('./lm.plugin.js');
+const settings = require('./settings');
+
 
 require('../node_modules/semantic-ui-transition/transition.min');
 require('../node_modules/semantic-ui-dropdown/dropdown.min');
@@ -288,7 +290,7 @@ const LmController = function () {
 
     function handleEvents() {
 
-        const initialTransparency = 15;
+        const initialTransparency = settings.lmInitSurfaceTransparency;
         globals.container.find('.transparency-slider').range({
             min: 0,
             max: 100,
@@ -683,8 +685,17 @@ const LmController = function () {
 
     }
 
+    function processPassedOptions(opts) {
+        if (opts.lmInitSurfaceTransparency) {
+            settings.lmInitSurfaceTransparency = opts.lmInitSurfaceTransparency;
+        }
+    }
+
     function initialize(params) {
         globals = params.globals;
+
+        processPassedOptions(globals.opts);
+
         plugin.initializePlugin(globals.lmContainerId);
 
         initalizeUserHighlights();

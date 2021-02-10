@@ -382,6 +382,9 @@ supposed to be shown in the Predicted structures category.
 Structures in the mapping outside of this list will not be shown. If
 not set or the list is empty, no restriction takes place.
 
+- ```lmInitSurfaceTransparency``` - specifies the default transparency level (0-100) of the surface 
+representation of the displayed structure.
+
 - ```extraHighlights``` (default ```undefined```) - allows to highlight a list of residues and
 even restrict atoms of the residues. Moreover, one can specify the type of highlight. Specifically, 
 on needs to pass an object containing 

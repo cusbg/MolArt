@@ -45,4 +45,6 @@ module.exports = {
         'pvStructureObserved': "#2E86C1",
         'pvStructureUnobserved': "#BDBFC1"
     }
+
+    , lmInitSurfaceTransparency: 15
 }
