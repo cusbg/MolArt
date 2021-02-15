@@ -441,7 +441,7 @@ const LmController = function () {
                         rootId: selectionsGroupId,
                         name: selName,
                         chainId: rec.getChainId(),
-                        sequenceNumbers: h.sequenceNumbers.map(n=>rec.mapPosUnpToPdb(n)),
+                        sequenceNumbers: h.sequenceNumbers.map(n=> rec.mapPosUnpToPdb(n)),
                         atomNames: h.atomNames,
                         selectionId: `user_selection_${selectionsGroupId}_sel${i}`
                     });

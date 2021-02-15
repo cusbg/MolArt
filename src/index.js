@@ -646,6 +646,15 @@ const MolArt = function(opts) {
                     const ors = ranges.map(r => new pdbMapping.ObservedRange(r));
                     globals.pdbRecords[i].setObservedRanges(ors);
                 }
+            }).then(function () {
+                let pdbIds = globals.pdbRecords.map(rec => rec.getPdbId()).filter((v, i, a) => a.indexOf(v) === i);
+                const promises = pdbIds.map(pdbId => services.getUniprotSegments(pdbId));
+                return Promise.all(promises).then(function (mappings) {
+                    globals.pdbRecords.forEach(rec => {
+                        let pdbIx = pdbIds.indexOf(rec.getPdbId());
+                        rec.parseInsertedRanges(mappings[pdbIx], globals.uniprotId);
+                    })
+                });
             })
         }, function(error){
             pdbMappingAvailable = false;

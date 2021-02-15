@@ -8,17 +8,18 @@ const STRUCTURE_FORMAT = {
     mmCIF: 1
 };
 
-class ObservedRangePoint {
+class PDBRangePoint {
     constructor(data){
         this.posPDBStructure = data.author_residue_number; //number of the residue in the PDB structure
         this.insertionCode = data.author_insertion_code;
         this.posPDBSequence = data.residue_number; // number of the residue in the PDB sequence
     }
 }
+
 class ObservedRange {
     constructor(data){
-        this.start = new ObservedRangePoint(data.start);
-        this.end = new ObservedRangePoint(data.end);
+        this.start = new PDBRangePoint(data.start);
+        this.end = new PDBRangePoint(data.end);
     }
 }
 
@@ -26,6 +27,19 @@ class UnobservedRange {
     constructor(start, end){
         this.start = start;
         this.end = end;
+    }
+}
+
+/**
+ * Contains rages of residues which are isnerted with respect to the PDB record. I.e. ranges of residues
+ * which are not observed in the UniProt record.
+ */
+class UniprotRange {
+    constructor(data){
+        this.unpStart = data.unp_start;
+        this.pdbStart = data.start;
+        this.unpEnd = data.unp_end;
+        this.pdbEnd = data.end;
     }
 }
 
@@ -105,6 +119,8 @@ const pdbMapping = function (record, _source = 'PDB') {
         }
     }))];
     let unobservedRanges = [];
+
+    let uniprotRanges = [];
 
     const getId = function(){return getPdbId() + getChainId();};
     const getPdbId = function(){return pdbId;};
@@ -216,11 +232,82 @@ const pdbMapping = function (record, _source = 'PDB') {
         setUnobservedRanges();
     };
 
+    const parseUniprotRanges = function (json, uniprotId) {
+        /*** Only the mappings part of the following JSON is passed to the function
+         * {
+  "6i53": {
+    "UniProt": {
+      "P14867": {
+        "identifier": "GBRA1_HUMAN",
+        "name": "GBRA1_HUMAN",
+        "mappings": [
+          {
+            "entity_id": 2,
+            "chain_id": "A",
+            "start": {
+              "author_residue_number": null,
+              "author_insertion_code": "",
+              "residue_number": 1
+            },
+            "unp_end": 27,
+            "unp_start": 1,
+            "end": {
+              "author_residue_number": null,
+              "author_insertion_code": "",
+              "residue_number": 27
+            },
+            "struct_asym_id": "B"
+          },
+          {
+            "entity_id": 2,
+            "chain_id": "A",
+            "start": {
+              "author_residue_number": null,
+              "author_insertion_code": "",
+              "residue_number": 36
+            },
+            "unp_end": 456,
+            "unp_start": 28,
+            "end": {
+              "author_residue_number": null,
+              "author_insertion_code": "",
+              "residue_number": 464
+            },
+            "struct_asym_id": "B"
+          },
+          ...}
+         * @type {*[]}
+         */
+        let pdbId = Object.keys(json)[0];
+        uniprotRanges = json[pdbId]["UniProt"][uniprotId]["mappings"]
+            .filter(m => m["chain_id"].toUpperCase() === getChainId().toUpperCase())
+            .map(m => new UniprotRange(m))
+    }
+
+    const getUniprotRanges = function () {
+        return uniprotRanges;
+    }
+
+    const cntStructureInsertedPosBefore = function (pos) {
+        let cntInserted = 0;
+        let prev = null;
+        for (let r of getUniprotRanges()) {
+            if (r.start > pos)
+                break;
+            if (prev) {
+                cntInserted += parseInt(r.pdbStart.residue_number) - parseInt(prev.pdbEnd.residue_number) - 1;
+            }
+            prev = r;
+        }
+        return cntInserted
+    }
+
     const mapPosUnpToPdb = function(pos) {
-        return getPdbStart() + parseInt(pos) - getUnpStart();
+        return getPdbStart() + parseInt(pos) + cntStructureInsertedPosBefore(pos) - getUnpStart();
     };
+
     const mapPosPdbToUnp = function(pos) {
-        return getUnpStart() + parseInt(pos) - getPdbStart();
+        return getUnpStart() + parseInt(pos) - cntStructureInsertedPosBefore(pos) - getPdbStart();
     };
 
     const isInObservedRanges = function (pos) {
@@ -239,7 +326,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     };
 
     const mapPosStructToUnp = function (pos) {
-        return getUnpStart() + pos-1;
+        return getUnpStart() + pos - 1 - cntStructureInsertedPosBefore(pos);
     };
 
     const isValidPdbRegion = function(begin, end) {
@@ -283,6 +370,8 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,setObservedResidues: setObservedResidues
         ,getObservedRanges: getObservedRanges
         ,setObservedRanges: setObservedRanges
+        ,getInsertedRanges: getUniprotRanges
+        ,parseInsertedRanges: parseUniprotRanges
         ,getUnobservedRanges: getUnobservedRanges
         ,getSeqRangeFromObservedRange: getSeqRangeFromObservedRange
         ,setTaxId: setTaxId

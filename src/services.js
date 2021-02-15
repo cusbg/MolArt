@@ -16,7 +16,7 @@ function getFastaByUniprotId(uniprotId) {
 }
 
 function getUnpToPdbMapping(uniprotId) {
-    return ajaxQuery('https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/' + uniprotId);
+        return ajaxQuery('https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/' + uniprotId);
 }
 
 function getObservedRanges(pdbId, chainId) {
@@ -71,6 +71,59 @@ function getObservedRanges(pdbId, chainId) {
 
 }
 
+//sometimes, the structure has insertions with respect to UniProt record, meaning that the UniProt does not
+//need to fully cover the structure, the mappings API has information about segments which correspond to the
+//regions in the structure covered by the uniprot record (e.g. 6i53 where the resiudes 28-35 [including] are not observed
+// in the uniprot record
+// {
+//     "6i53": {
+//     "UniProt": {
+//         "P14867": {
+//             "identifier": "GBRA1_HUMAN",
+//                 "name": "GBRA1_HUMAN",
+//                 "mappings": [
+//                 {
+//                     "entity_id": 2,
+//                     "chain_id": "A",
+//                     "start": {
+//                         "author_residue_number": null,
+//                         "author_insertion_code": "",
+//                         "residue_number": 1
+//                     },
+//                     "unp_end": 27,
+//                     "unp_start": 1,
+//                     "end": {
+//                         "author_residue_number": null,
+//                         "author_insertion_code": "",
+//                         "residue_number": 27
+//                     },
+//                     "struct_asym_id": "B"
+//                 },
+//                 {
+//                     "entity_id": 2,
+//                     "chain_id": "A",
+//                     "start": {
+//                         "author_residue_number": null,
+//                         "author_insertion_code": "",
+//                         "residue_number": 36
+//                     },
+//                     "unp_end": 456,
+//                     "unp_start": 28,
+//                     "end": {
+//                         "author_residue_number": null,
+//                         "author_insertion_code": "",
+//                         "residue_number": 464
+//                     },
+//                     "struct_asym_id": "B"
+//                 },
+//                 ...
+
+function getUniprotSegments(pdbId){
+
+    return ajaxQuery(`https://www.ebi.ac.uk/pdbe/api/mappings/uniprot/${pdbId}`);
+
+}
+
 function getUnpToSmrMapping(uniprotId) {
   let spUrl = 'https://swissmodel.expasy.org/repository/uniprot/'+uniprotId+'.json?provider=swissmodel'
   if (useCorsForSmr) {
@@ -94,4 +147,5 @@ module.exports = {
     , getUnpToSmrMapping: getUnpToSmrMapping
     , getPredictProtein: getPredictProtein
     , getObservedRanges: getObservedRanges
+    , getUniprotSegments: getUniprotSegments
 };

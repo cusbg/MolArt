@@ -12,6 +12,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+- Taking into account inserted segments in structure with respect to sequence (e.g.6I53:A). 
+
 
 
 ##  [1.7.0] - 2020-10-22
