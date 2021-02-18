@@ -6,6 +6,9 @@
 @import "../../node_modules/semantic-ui-label/label.min.css";
 @import "../../node_modules/semantic-ui-dropdown/dropdown.min.css";
 @import "../../node_modules/semantic-ui-transition/transition.min.css";
+@import "../../node_modules/semantic-ui-modal/modal.min.css";
+@import "../../node_modules/semantic-ui-dimmer/dimmer.min.css";
+@import "../../node_modules/semantic-ui-button/button.min.css";
 @import "../lib/semantic-ui-range/range.css";
 
 /* padding so that track headers do not interfere with arrows */
@@ -365,5 +368,10 @@
     vertical-align: inherit;
 }
 
+.center-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 

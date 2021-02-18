@@ -1,7 +1,6 @@
 require('./css/styles.css');
 const download = require('downloadjs');
 
-
 if (!window.$) {
     // Requiring jquery seems to have some side effect which conflict with semantics ui if this is also used for the app in which MolArt is used
     // That's why the jquery require statement is inside of the if statement
@@ -9,6 +8,9 @@ if (!window.$) {
     window.$ = jQuery;
     if (!window.jQuery) window.jQuery = window.$;
 }
+
+require('../node_modules/semantic-ui-dimmer/dimmer.min');
+require('../node_modules/semantic-ui-modal/modal.min');
 
 const events = require('events');
 
@@ -306,7 +308,41 @@ const MolArt = function(opts) {
         if ($("#" + globals.containerId).height() === 0)
             $("#" + globals.containerId).css("height", "100vh");
 
+
+
         globals.container = jQuery('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
+
+        globals.downloadModal = $(`
+            <div class="ui modal">                
+                                
+                <div class="content center-items">
+                  <button class="ui button pymol">
+                       PyMOL
+                  </button>
+                  <button class="ui button csv">
+                       CSV
+                  </button>
+                </div>
+            </div>
+        `).appendTo(globals.container);
+        globals.downloadModal.modal();
+        // For some reason setting the following styles (or class with those items) directly to the div element
+        // does not work. Probably they are overrident when modal() is called
+        const modalContent = globals.downloadModal.find(".content");
+        modalContent.css("display", "flex");
+        modalContent.css("align-items", "center");
+        modalContent.css("justify-content", "center");
+
+        globals.downloadModal.find(".pymol").click(() => {
+            globals.activeStructure.exportToPymol();
+            globals.downloadModal.modal("hide");
+        });
+        globals.downloadModal.find(".csv").click(() => {
+            globals.pv.exportToCsv();
+            globals.downloadModal.modal("hide");
+
+        });
+
 
         const pvBlock = $('<div class="pv3d-pv"></div>').appendTo(globals.container);
         const lmBlock = $('<div class="pv3d-lm"></div>').appendTo(globals.container);
@@ -479,7 +515,7 @@ const MolArt = function(opts) {
         });
 
         globals.container.find('.pv3d-button.pv3d-download').on('click',function () {
-            globals.activeStructure.exportToPymol();
+            globals.downloadModal.modal("show");
         });
 
         $(window).on('resize', () => {

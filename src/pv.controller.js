@@ -1,4 +1,5 @@
-    // var $ = require('jquery');
+
+const download = require('downloadjs');
 
 const svgSymbols = require('./svg.symbols');
 const ProtVista = require('ProtVista');
@@ -504,22 +505,30 @@ const PvController = function () {
          : null;
     }
 
-    function extractAnnotationData(){
+    function extractAnnotationData(retrieveStructureMappingInfo= false){
         const data = {};
         const categories = getCategories();
         categories.forEach(cat => {
-            if ('features' in cat.categoryViewer ||
-                cat.name === globals.settings.pvMappedStructuresCat.id ||
-                cat.name === globals.settings.pvMappedStructuresCat.idPredicted ||
-                cat.name === globals.settings.pvMappedStructuresCat.idProvided
+            if ('features' in cat.categoryViewer || //variants
+                (!retrieveStructureMappingInfo && (
+                    cat.name === globals.settings.pvMappedStructuresCat.id ||
+                    cat.name === globals.settings.pvMappedStructuresCat.idPredicted ||
+                    cat.name === globals.settings.pvMappedStructuresCat.idProvided
+                    )
+                )
             ) return;
             data[cat.name] = [];
 
             cat.data.forEach(feature => {
+                let track = cat.tracks.filter(t => t.type === feature.type)[0];
                 data[cat.name].push({
                     type: feature.type,
                     begin: feature.begin,
-                    end: feature.end
+                    end: feature.end,
+                    description: feature.description,
+                    internalId: feature.internalId,
+                    categoryTitle: cat.header.text(),
+                    trackTitle: track.titleContainer.text()
                 })
             })
         });
@@ -702,6 +711,49 @@ const PvController = function () {
         handleMouseMoveEvents();
     }
 
+    function flattenAnnotations(annotations){
+        let flattened = {};
+
+        Object.keys(annotations).forEach(catName => {
+            annotations[catName].forEach(rec => {
+                // const name = `${catName}_${rec.type}`;
+                const name = `${rec.categoryTitle} - ${rec.trackTitle}`;
+                if (!(name in flattened)) {
+                    flattened[name] = [];
+                }
+                flattened[name].push(rec);
+            })
+        })
+        return flattened;
+    }
+
+    function exportToCsv(){
+
+        const seqLength = getPlugin().sequence.length;
+
+        const annotations = flattenAnnotations(extractAnnotationData(true));
+        const annotationsTransformed = {};
+
+        const trackNames = Object.keys(annotations);
+        trackNames.forEach(trackName => {
+            const vals = Array.from({length: seqLength}, () => 0);
+            annotations[trackName].forEach((rec) => {
+                for (let i = rec.begin; i <= rec.end; ++i){
+                    vals[i] = rec.description ? rec.description : rec.internalId;
+                }
+            })
+            annotationsTransformed[trackName] = vals;
+        });
+
+
+        let content = trackNames.join(";") + '\n';
+        for (let i = 0; i < seqLength; ++i){
+            content += trackNames.map(trackName => annotationsTransformed[trackName][i]).join(";") + '\n';
+        }
+
+        download(content, `${globals.uniprotId}.csv`, "text/plain");
+    }
+
     function getPlugin() {
         return plugin;
     }
@@ -723,6 +775,7 @@ const PvController = function () {
         ,extractAnnotationData: extractAnnotationData
         ,setCategoriesTooltips: setCategoriesTooltips
         ,reorderCategories: reorderCategories
+        ,exportToCsv: exportToCsv
       
         //Exposed for testing purposes
         ,getHeaderLinkContainer: getHeaderLinkContainer
