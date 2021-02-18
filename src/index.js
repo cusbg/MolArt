@@ -9,9 +9,6 @@ if (!window.$) {
     if (!window.jQuery) window.jQuery = window.$;
 }
 
-require('../node_modules/semantic-ui-dimmer/dimmer.min');
-require('../node_modules/semantic-ui-modal/modal.min');
-
 const events = require('events');
 
 const LmController = require('./lm.controller.js');
@@ -312,34 +309,41 @@ const MolArt = function(opts) {
 
         globals.container = jQuery('<div class="pv-inner-container"></div>').appendTo($("#" + globals.containerId));
 
-        globals.downloadModal = $(`
-            <div class="ui modal">                
+        globals.downloadMessage = $(`
+            <div class="message-container"> 
+                <div class="message">               
                                 
-                <div class="content center-items">
-                  <button class="ui button pymol">
-                       PyMOL
-                  </button>
-                  <button class="ui button csv">
-                       CSV
-                  </button>
+                    <div class="content center-items">
+                      <button class="ui button pymol">
+                           PyMOL
+                      </button>
+                      <button class="ui button csv">
+                           CSV
+                      </button>
+                    </div>
                 </div>
             </div>
         `).appendTo(globals.container);
-        globals.downloadModal.modal();
+        // globals.downloadModal.modal({
+        //     context: globals.container
+        // });
         // For some reason setting the following styles (or class with those items) directly to the div element
         // does not work. Probably they are overrident when modal() is called
-        const modalContent = globals.downloadModal.find(".content");
-        modalContent.css("display", "flex");
-        modalContent.css("align-items", "center");
-        modalContent.css("justify-content", "center");
+        // const modalContent = globals.downloadModal.find(".content");
+        // modalContent.css("display", "flex");
+        // modalContent.css("align-items", "center");
+        // modalContent.css("justify-content", "center");
 
-        globals.downloadModal.find(".pymol").click(() => {
+        globals.downloadMessage.click(() => {
+            globals.downloadMessage.css("display", "none");
+        })
+        globals.downloadMessage.find(".pymol").click(() => {
             globals.activeStructure.exportToPymol();
-            globals.downloadModal.modal("hide");
+            globals.downloadMessage.css("display", "none");
         });
-        globals.downloadModal.find(".csv").click(() => {
+        globals.downloadMessage.find(".csv").click(() => {
             globals.pv.exportToCsv();
-            globals.downloadModal.modal("hide");
+            globals.downloadMessage.css("display", "none");
 
         });
 
@@ -349,14 +353,14 @@ const MolArt = function(opts) {
         globals.splitBar = $('<div class="pv3d-split-bar"></div>');
 
         globals.errorMessageContainer = $(`
-        <div class="error-message-container">
-            <div class="error-message">.</div>
+        <div class="message-container">
+            <div class="message">.</div>
         </div>`).appendTo(globals.container);
 
         globals.lmErrorMessageContainer = $(`
-        <div class="error-message-container">
+        <div class="message-container">
             <a href="#" class="pv3d-error-close-button"></a>
-            <div class="error-message">.</div>            
+            <div class="message">.</div>            
         </div>`).appendTo(lmBlock);
 
         globals.container.append(pvBlock);
@@ -515,7 +519,7 @@ const MolArt = function(opts) {
         });
 
         globals.container.find('.pv3d-button.pv3d-download').on('click',function () {
-            globals.downloadModal.modal("show");
+            globals.downloadMessage.css("display", "block");
         });
 
         $(window).on('resize', () => {
@@ -537,7 +541,7 @@ const MolArt = function(opts) {
 
         globals.container.find('.pv3d-header').css('top', newHeaderTop + 'px');
         globals.container.find('.logo').css('top', `${newHeaderTop + 4}px`);
-        globals.container.find('.pv3d-lm .error-message-container').css('top', newHeaderTop + 'px');
+        globals.container.find('.pv3d-lm .message-container').css('top', newHeaderTop + 'px');
 
         globals.lmContainer.css('top', (newHeaderTop + headerHeight) + 'px');
     }
@@ -579,7 +583,7 @@ const MolArt = function(opts) {
     function showErrorMessage(message) {
 
         hideLoadingIcon(globals.containerId);
-        globals.errorMessageContainer.find('.error-message')[0].innerHTML = message;
+        globals.errorMessageContainer.find('.message')[0].innerHTML = message;
         globals.errorMessageContainer.css('display', 'block');
     }
 

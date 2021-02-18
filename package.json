@@ -55,11 +55,8 @@
     "litemol": "github:dsehnal/LiteMol",
     "lodash": "^4.17.20",
     "semantic-ui-button": "^2.3.2",
-    "semantic-ui-dimmer": "^2.4.0",
     "semantic-ui-dropdown": "^2.2.12",
-    "semantic-ui-grid": "^2.4.1",
     "semantic-ui-label": "^2.2.12",
-    "semantic-ui-modal": "^2.2.12",
     "semantic-ui-transition": "^2.2.12"
   }
 }
