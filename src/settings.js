@@ -43,7 +43,8 @@ module.exports = {
 
     , colors: {
         'pvStructureObserved': "#2E86C1",
-        'pvStructureUnobserved': "#BDBFC1"
+        'pvStructureUnobserved': "#BDBFC1",
+        'lmHighlight': {r: 255, g: 233, b: 153}
     }
 
     , lmInitSurfaceTransparency: 15

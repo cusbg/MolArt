@@ -447,6 +447,7 @@ function createPlugin() {
             Command.Molecule.Highlight.dispatch(controller.context, {model: model, query: query, isOn: true});
         };
 
+
         const focusResidue = function (modelId, chainId, resNum, neighborhoodSize) {
             controllerAvailability();
 

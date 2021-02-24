@@ -211,11 +211,47 @@ class ActiveFeature {
         this.features = undefined;
         this.colors = undefined;
         this.overlay();
+        this.globals.activeHighlight.overlay(); //if the highlight is active, it needs to be also visible in the structure once the other overlays are gone
     }
 
     overlay(){
         this.features ? this.globals.lm.mapFeatures(this.features, this.colors) : this.globals.lm.unmapFeature();
         this.globals.pv.deselectAllOverlayIcons();
+    }
+}
+
+class ActiveHighlight {
+    constructor(globals){
+        this.begin = undefined;
+        this.end = undefined;
+        this.globals = globals;
+    }
+
+    set(begin, end) {
+        this.begin = begin;
+        this.end = end;
+        this.overlay();
+    }
+
+    unset() {
+        this.begin = undefined;
+        this.end = undefined;
+        this.overlay();
+    }
+
+    isSet() {
+        return this.begin !== undefined;
+    }
+
+    overlay(){
+        if (this.isSet()) {
+            this.globals.pv.deselectAllOverlayIcons();
+            this.globals.lm.highlightRegion(this.begin, this.end);
+        } else {
+            if (!this.globals.lm.groupSelected()){
+                this.globals.lm.resetVisuals();
+            }
+        }
     }
 }
 
@@ -281,6 +317,7 @@ const MolArt = function(opts) {
 
     globals.activeStructure =  new ActiveStructure(globals);
     globals.activeFeature =  new ActiveFeature(globals);
+    globals.activeHighlight =  new ActiveHighlight(globals);
 
     globals.uniprotId = opts.uniprotId;
     globals.sequence = opts.sequence;

@@ -481,10 +481,20 @@ const LmController = function () {
                     extraHighlightsContent[i].visualIds.push(id)
                 });
             });
-
     }
 
     function mapFeatures(features, colors) {
+        colorRegions(features.map((f, i) => {
+            return {
+                seqBegin: f.begin,
+                seqEnd: f.end,
+                color: rgbFromString(colors[i]),
+                boundary: globals.settings.boundaryFeatureTypes.indexOf(f.type) >= 0
+            }
+        }))
+    }
+
+    function colorRegions(regions) {
 
         const modelIdSelections = {}; // mapping of features over all loaded chains
 
@@ -499,10 +509,10 @@ const LmController = function () {
             const chainId = rec.getChainId();
             const chainSelections = [];
 
-            features.forEach((f, i) => {
-                let  begin = rec.mapPosUnpToPdb(f.begin);
-                let end = rec.mapPosUnpToPdb(f.end);
-                const boundaryOnly = globals.settings.boundaryFeatureTypes.indexOf(f.type) >= 0; // whether only begin and end residues should be selected
+            regions.forEach(r => {
+                let  begin = rec.mapPosUnpToPdb(r.seqBegin);
+                let end = rec.mapPosUnpToPdb(r.seqEnd);
+                const boundaryOnly = r.boundary; // whether only begin and end residues should be selected
 
                 if ((boundaryOnly && (rec.isValidPdbPos(begin) || rec.isValidPdbPos(end))) ||
                     //(!boundaryOnly && rec.isValidPdbRegion(begin, end))
@@ -516,15 +526,15 @@ const LmController = function () {
                         rec.getObservedRanges().forEach(or => {
                             const seqStart = rec.mapPosStructToUnp(or.start.posPDBSequence);
                             const seqEnd = rec.mapPosStructToUnp(or.end.posPDBSequence);
-                            if (f.end < seqStart || f.begin > seqEnd) {
+                            if (r.seqEnd < seqStart || r.seqBegin > seqEnd) {
                                 return;
                             }
-                            begin = Math.max(rec.mapPosUnpToPdb(Math.max(f.begin, seqStart)), 0);
-                            end = Math.min(rec.mapPosUnpToPdb(Math.min(f.end, seqEnd)), rec.getPdbEnd());
-                            modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: rgbFromString(colors[i]), boundaryOnly: boundaryOnly});
+                            begin = Math.max(rec.mapPosUnpToPdb(Math.max(r.seqBegin, seqStart)), 0);
+                            end = Math.min(rec.mapPosUnpToPdb(Math.min(r.seqEnd, seqEnd)), rec.getPdbEnd());
+                            modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: r.color, boundaryOnly: boundaryOnly});
                         })
                     } else {
-                        modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color: rgbFromString(colors[i]), boundaryOnly: boundaryOnly});
+                        modelIdSelections[modelId].push({ chainId: chainId, begin: begin, end: end, color:  r.color, boundaryOnly: boundaryOnly});
                     }
                 }
             });
@@ -534,8 +544,13 @@ const LmController = function () {
         Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], "user_selection_"));
     }
 
-    function unmapFeature(feature) {
+    function resetVisuals(){
         plugin.resetVisuals("user_selection_");
+    }
+
+    function unmapFeature(feature) {
+        resetVisuals();
+
     }
 
 
@@ -600,6 +615,15 @@ const LmController = function () {
                 // }
             }
         }
+    }
+
+    function highlightRegion(seqBegin, seqEnd){
+        colorRegions([{
+            seqBegin: seqBegin,
+            seqEnd: seqEnd,
+            color: settings.colors.lmHighlight
+        }])
+
     }
 
     function focusResidue(resNum, neighborhoodSize) {
@@ -691,6 +715,10 @@ const LmController = function () {
         }
     }
 
+    function groupSelected(){
+        return globals.pvContainer.find(".pv3d-svg-icon.selected").length >= 1;
+    }
+
     function initialize(params) {
         globals = params.globals;
 
@@ -735,13 +763,19 @@ const LmController = function () {
         getAuthSeqNumber: getAuthSeqNumber,
         getAuthSeqNumberRange: getAuthSeqNumberRange,
 
+        highlightRegion: highlightRegion,
+        highlightCallback: highlightCallBack,
+        resetVisuals: resetVisuals,
+        groupSelected: groupSelected,
+
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,
         getHeaderChainId: getHeaderChainId,
         getHeaderPdbIdList: getHeaderPdbIdList,
         getHeaderPdbChainList: getHeaderPdbChainList,
         getHeaderLinkContainer: getHeaderLinkContainer,
-        highlightCallback: highlightCallBack
+
+
     };
 };
 

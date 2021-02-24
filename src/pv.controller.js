@@ -442,6 +442,31 @@ const PvController = function () {
         });
     }
 
+    function highlightRegionCallback() {
+        globals.pv.registerCallback("regionHighlighted", function (r) {
+            globals.activeHighlight.set(r.begin, r.end);
+
+        });
+
+        globals.pvContainer.find(".up_pftv_category-viewer").each(function(ix, el) {
+            let isDragging = false;
+            $(el)
+                .mousedown(function() {
+                    isDragging = false;
+                })
+                .mousemove(function() {
+                    isDragging = true;
+                })
+                .mouseup(function() {
+                    const wasDragging = isDragging;
+                    isDragging = false;
+                    if (!wasDragging) {
+                        globals.activeHighlight.unset();
+                    }
+                });
+        });
+    }
+
     function featureSelectedCallback(){
         globals.pv.registerCallback("featureSelected", function(f) {
 
@@ -567,7 +592,7 @@ const PvController = function () {
 
                 let target = $(e.target); //clicked element
                 target =  getClosestSvgElement(target);
-                getPlugin().deselectFeature()
+                getPlugin().deselectFeature();
                 if (!isSelected(target)){
                     const tracks = {trackData: [], trackColors: []};
                     if (isTrackIcon(target)) { //track icon was clicked
@@ -706,6 +731,7 @@ const PvController = function () {
 
         featureSelectedCallback();
         featureDeselectedCallback();
+        highlightRegionCallback();
         overlayCallbacks();
         variantsCallbacks();
         handleMouseMoveEvents();

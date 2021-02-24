@@ -8,6 +8,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - Ability to specify default structure transparency level using lmInitSurfaceTransparency.
 - Download all annotation data in CSV.
+- Highlithing a region in the sequence view also highlights corresponding part of the structure in the
+structure view. 
 
 ### Removed
 
