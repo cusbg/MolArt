@@ -996,6 +996,10 @@ MolArt.prototype.highlightInStructure = function (seqPos) {
     this.getLmController().highlightResidue(seqPos);
 };
 
+MolArt.prototype.hideSequenceView = function (seqPos) {
+    $(this.globals.pvContainer).css('display', 'none');
+    $(this.globals.lmContainer).css('width', '100%');
+};
 /***
  * Focuses to given residues + neighborhood in Angstroms.
  * @param seqPos
