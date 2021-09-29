@@ -6,6 +6,15 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+### Removed
+
+### Fixed
+
+
+##  [1.8.0] - 2021-09-29
+
+### Added
+
 - AlphaFold DB structures available.
 - Ability to specify default structure transparency level using lmInitSurfaceTransparency.
 - Download all annotation data in CSV.

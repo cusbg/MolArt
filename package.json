@@ -1,17 +1,17 @@
 {
   "name": "molart",
   "description": "MOLeculAR structure annoTator",
-  "version": "1.7.0",
-  "homepage": "https://github.com/davidhoksza/MolArt",
+  "version": "1.8.0",
+  "homepage": "https://github.com/cusbg/MolArt",
   "author": "David Hoksza",
   "keywords": [],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/davidhoksza/MolArt/issues"
+    "url": "https://github.com/cusbg/MolArt/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidhoksza/MolArt.git"
+    "url": "https://github.com/cusbg/MolArt.git"
   },
   "main": "dist/molart.js",
   "scripts": {
