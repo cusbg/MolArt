@@ -20,8 +20,8 @@ The plugin is being developed at the Luxembourg Center for Systems Biomedicine, 
 To cite MolArt use: **MolArt: A molecular structure annotation and visualization tool** (doi: [10.1093/bioinformatics/bty489](https://doi.org/10.1093/bioinformatics/bty489))
 
 
-<div style="text-align:center">
-    <img src="gitweb/teaser.png" style="width:400px;"/>
+<div style="text-align:center;">
+    <img src="gitweb/teaser.png" style="width:80%"/>
 </div>
 
 
