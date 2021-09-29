@@ -47,6 +47,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "@types/downloadjs": "^1.4.2",
     "ProtVista": "git://github.com/davidhoksza/protvista.git#scaling",
     "color-blend": "^1.0.0",
     "downloadjs": "^1.4.7",

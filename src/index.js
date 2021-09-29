@@ -640,19 +640,58 @@ const MolArt = function(opts) {
     }
 
     function loadSmr(uniprotId, opts) {
+        let records = [];
         return services.getUnpToSmrMapping(uniprotId).then(function (uniprotIdSmrs) {
-            if (!globals.pdbRecords) globals.pdbRecords = [];
-            if (uniprotIdSmrs.structures.length !== 0)  globals.pdbRecords = globals.pdbRecords.concat(uniprotIdSmrs.structures.map(rec => pdbMapping.pdbMapping(rec, 'SMR')));
+            if (uniprotIdSmrs.structures.length !== 0)  records = uniprotIdSmrs.structures.map(rec => pdbMapping.pdbMapping(rec, 'SMR'));
 
+            //if only specific SMR records are required
             if (opts.smrIds && opts.smrIds.length > 0) {
-                globals.pdbRecords = globals.pdbRecords.filter(rec => rec.isPDB() || opts.smrIds.indexOf(rec.getPdbId()) >= 0);
+                records = records.filter(rec => rec.isPDB() || opts.smrIds.indexOf(rec.getPdbId()) >= 0);
             }
 
             //sort records by length and size
-            globals.pdbRecords.sort((a,b) => b.getCoverage() - a.getCoverage());
+            records.sort((a,b) => b.getCoverage() - a.getCoverage());
 
-            return Promise.resolve();
+            return records;
         });
+    }
+
+    function loadAf(uniprotId, opts){
+        let records = [];
+        return services.getUnpToAfMapping(uniprotId).then(afRecords => {
+            //it seem that when there is no record for given UniProt ID, the API returns "{}", otherwise it returns an array with one object
+            /*
+            [
+              {
+                "entryId": "AF-Q5VSL9-F1",
+                "gene": "STRIP1",
+                "uniprotAccession": "Q5VSL9",
+                "uniprotId": "STRP1_HUMAN",
+                "uniprotDescription": "Striatin-interacting protein 1",
+                "taxId": 9606,
+                "organismScientificName": "Homo sapiens",
+                "uniprotStart": 1,
+                "uniprotEnd": 837,
+                "uniprotSequence": "MEPAVGGPGPLIVNNKQPQPPPPPPPAAAQPPPGAPRAAAGLLPGGKAREFNRNQRKDSEGYSESPDLEFEYADTDKWAAELSELYSYTEGPEFLMNRKCFEEDFRIHVTDKKWTELDTNQHRTHAMRLLDGLEVTAREKRLKVARAILYVAQGTFGECSSEAEVQSWMRYNIFLLLEVGTFNALVELLNMEIDNSAACSSAVRKPAISLADSTDLRVLLNIMYLIVETVHQECEGDKAEWRTMRQTFRAELGSPLYNNEPFAIMLFGMVTKFCSGHAPHFPMKKVLLLLWKTVLCTLGGFEELQSMKAEKRSILGLPPLPEDSIKVIRNMRAASPPASASDLIEQQQKRGRREHKALIKQDNLDAFNERDPYKADDSREEEEENDDDNSLEGETFPLERDEVMPPPLQHPQTDRLTCPKGLPWAPKVREKDIEMFLESSRSKFIGYTLGSDTNTVVGLPRPIHESIKTLKQHKYTSIAEVQAQMEEEYLRSPLSGGEEEVEQVPAETLYQGLLPSLPQYMIALLKILLAAAPTSKAKTDSINILADVLPEEMPTTVLQSMKLGVDVNRHKEVIVKAISAVLLLLLKHFKLNHVYQFEYMAQHLVFANCIPLILKFFNQNIMSYITAKNSISVLDYPHCVVHELPELTAESLEAGDSNQFCWRNLFSCINLLRILNKLTKWKHSRTMMLVVFKSAPILKRALKVKQAMMQLYVLKLLKVQTKYLGRQWRKSNMKTMSAIYQKVRHRLNDDWAYGNDLDARPWDFQAEECALRANIERFNARRYDRAHSNPDFLPVDNCLQSVLGQRVDLPEDFQMNYDLWLEREVFSKPISWEELLQ",
+                "modelCreatedDate": "2021-07-01",
+                "latestVersion": 1,
+                "allVersions": [
+                  1
+                ],
+                "cifUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.cif",
+                "bcifUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.bcif",
+                "pdbUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.pdb",
+                "paeImageUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-predicted_aligned_error_v1.png",
+                "paeDocUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-predicted_aligned_error_v1.json"
+              }
+            ]
+             */
+            if (afRecords !== {} && afRecords.length > 0) {
+                records = afRecords.map(rec => pdbMapping.pdbMapping(rec, 'AF'));
+            }
+
+            return records;
+        })
     }
 
     function mappingInMappings(m, mps){
@@ -697,7 +736,6 @@ const MolArt = function(opts) {
 
     function retrieveStructureRecordsOnline(opts) {
 
-
         let pdbMappingAvailable = true;
 
         return services.getUnpToPdbMapping(opts.uniprotId).then(function(uniprotIdPdbs) {
@@ -734,10 +772,20 @@ const MolArt = function(opts) {
                 });
             })
         }, function(error){
+            if (!globals.pdbRecords) globals.pdbRecords = [];
             pdbMappingAvailable = false;
-            return loadSmr(opts.uniprotId, opts);
+            return Promise.all([loadAf(opts.uniprotId, opts), loadSmr(opts.uniprotId, opts)]).then(records => {
+                globals.pdbRecords = globals.pdbRecords.concat(records[0]).concat(records[1]);
+            });
         }).then(function(){
-            return opts.alwaysLoadPredicted && pdbMappingAvailable ? loadSmr(opts.uniprotId, opts) : Promise.resolve();
+            if (!globals.pdbRecords) globals.pdbRecords = [];
+            if (opts.alwaysLoadPredicted && pdbMappingAvailable) {
+                return Promise.all([loadAf(opts.uniprotId, opts), loadSmr(opts.uniprotId, opts)]).then(records => {
+                    globals.pdbRecords = globals.pdbRecords.concat(records[0]).concat(records[1]);
+                });
+            } else {
+                return Promise.resolve();
+            }
         }).then(function () {
             if (globals.pdbRecords.length === 0) delete globals.pdbRecords;
             else globals.pdbRecords = sortPdbRecords(globals.pdbRecords, opts, globals.settings);
@@ -923,6 +971,7 @@ const MolArt = function(opts) {
         });
 
         function onPvReady() {
+            globals.pvContainer.find('.up_pftv_category_PREDICTED_STRUCTURES .up_pftv_track-header,.up_pftv_category_EXPERIMENTAL_STRUCTURES .up_pftv_track-header').css('text-transform', 'uppercase');
             globals.pv.modifyHtmlStructure();
             globals.pv.resized();
             globals.pv.registerCallbacksAndEvents();

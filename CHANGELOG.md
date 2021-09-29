@@ -6,6 +6,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- AlphaFold DB structures available.
 - Ability to specify default structure transparency level using lmInitSurfaceTransparency.
 - Download all annotation data in CSV.
 - Highlithing a region in the sequence view also highlights corresponding part of the structure in the
@@ -15,7 +16,8 @@ structure view.
 
 ### Fixed
 
-- Taking into account inserted segments in structure with respect to sequence (e.g.6I53:A). 
+- Taking into account inserted segments in structure with respect to sequence (e.g.6I53:A).
+- Structure IDs show up as uppercase. 
 
 
 

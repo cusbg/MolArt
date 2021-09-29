@@ -43,18 +43,22 @@ const PvController = function () {
 
             globals.pdbRecords.forEach(function (rec, ix) {
                 let catId;
-                if (rec.getSource() === 'PDB') {
+                const _source = rec.getSource();
+                let label_prefix = '';
+                if (_source === 'PDB') {
                     catId = globals.settings.pvMappedStructuresCat.id;
-                } else if (rec.getSource() === 'SMR') {
+                } else if (_source === 'SMR' || _source === 'AF') {
+                    label_prefix = `${_source}: `;
                     catId = globals.settings.pvMappedStructuresCat.idPredicted;
                 } else {
                     catId = globals.settings.pvMappedStructuresCat.idProvided;
                 }
+
                 rec.getObservedRanges().forEach(range => {
                     const seqRange = rec.getSeqRangeFromObservedRange(range);
                     pvDataSource.features.push({
                         category: catId,
-                        type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
+                        type: `${label_prefix}${rec.getPdbId().toUpperCase()}:${rec.getChainId().toUpperCase()}`, //this will be capitalized due to the PV behavior (Constants.getTrackInfo) -> after the categories are loaded, text-transform style will be applied in onPvReady
                         description: `\n${rec.getDescription()}`,
                         color: globals.settings.colors.pvStructureObserved,
                         ftId: ix,
@@ -65,7 +69,7 @@ const PvController = function () {
                 rec.getUnobservedRanges().forEach(range => {
                     pvDataSource.features.push({
                         category: catId,
-                        type: rec.getPdbId().toUpperCase() + "_" + rec.getChainId().toUpperCase(),
+                        type: rec.getPdbId().toUpperCase() + ":" + rec.getChainId().toUpperCase(),
                         description: rec.getDescription(),
                         color: globals.settings.colors.pvStructureUnobserved,
                         ftId: ix,
@@ -699,9 +703,9 @@ const PvController = function () {
                     const featureEl = e.target;
                     const featureId = featureEl.getAttribute('name');
 
-                    if (featureId.indexOf(globals.settings.pvMappedStructuresCat.id) == 0 ||
-                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idPredicted) == 0 ||
-                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idProvided) == 0)
+                    if (featureId.indexOf(globals.settings.pvMappedStructuresCat.id) === 0 ||
+                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idPredicted) === 0 ||
+                        featureId.indexOf(globals.settings.pvMappedStructuresCat.idProvided) === 0)
                         return;
 
                     const featureCategoryEl = featureEl.closest('div.up_pftv_category');

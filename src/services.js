@@ -136,6 +136,15 @@ function getUnpToSmrMapping(uniprotId) {
   })
 }
 
+function getAfURI(uniprotId) {
+    return `https://alphafold.ebi.ac.uk/api/prediction/${uniprotId}`;
+}
+
+function getUnpToAfMapping(uniprotId) {
+
+    return ajaxQuery(getAfURI(uniprotId));
+}
+
 function getPredictProtein(uniprotId) {
     return ajaxQuery(`${urlPredictProtein}${uniprotId}?format=molart`);
 
@@ -145,7 +154,9 @@ module.exports = {
     getFastaByUniprotId: getFastaByUniprotId
     , getUnpToPdbMapping: getUnpToPdbMapping
     , getUnpToSmrMapping: getUnpToSmrMapping
+    , getUnpToAfMapping: getUnpToAfMapping
     , getPredictProtein: getPredictProtein
     , getObservedRanges: getObservedRanges
     , getUniprotSegments: getUniprotSegments
+    , getAfURI: getAfURI
 };

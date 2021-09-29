@@ -245,6 +245,10 @@ const LmController = function () {
             linkContainer[0].childNodes[0].nodeValue = 'SMR: ';
             linkContainer.attr('href', getSmrLink(globals.uniprotId));
             linkContainer.find('.detail').text(`${globals.uniprotId} (${globals.activeStructure.pdbId})`);
+        } else if (source === 'AF') {
+            linkContainer[0].childNodes[0].nodeValue = 'AF: ';
+            linkContainer.attr('href', getAfLink(globals.uniprotId));
+            linkContainer.find('.detail').text(`${globals.uniprotId} (${globals.activeStructure.pdbId})`);
         }
         else {
             linkContainer.css('display', 'none');
@@ -338,6 +342,10 @@ const LmController = function () {
 
     function getSmrLink(uniprotId, pdbId) {
         return 'https://swissmodel.expasy.org/repository/uniprot/' + uniprotId;
+    }
+
+    function getAfLink(uniprotId, pdbId) {
+        return 'https://alphafold.ebi.ac.uk/entry/' + uniprotId;
     }
 
     function rgbFromString(color) {

@@ -48,6 +48,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     let pdbId = undefined,
         chain = undefined,
         format = undefined,
+        uniprotDescription = undefined,
         experimentalMethod = undefined,
         coverage = undefined,
         pdbStart = undefined,
@@ -82,7 +83,44 @@ const pdbMapping = function (record, _source = 'PDB') {
         uniprotEnd = parseInt(record.to);
         coordinatesFile = record.coordinates;
         if (useCorsForSmr) coordinatesFile = corsServer + coordinatesFile
-    } else if (source === 'USER'){
+    } else if (source === 'AF') {//alphafold DB
+        /*
+            [
+              {
+                "entryId": "AF-Q5VSL9-F1",
+                "gene": "STRIP1",
+                "uniprotAccession": "Q5VSL9",
+                "uniprotId": "STRP1_HUMAN",
+                "uniprotDescription": "Striatin-interacting protein 1",
+                "taxId": 9606,
+                "organismScientificName": "Homo sapiens",
+                "uniprotStart": 1,
+                "uniprotEnd": 837,
+                "uniprotSequence": "MEPAVGGPGPLIVNNKQPQPPPPPPPAAAQPPPGAPRAAAGLLPGGKAREFNRNQRKDSEGYSESPDLEFEYADTDKWAAELSELYSYTEGPEFLMNRKCFEEDFRIHVTDKKWTELDTNQHRTHAMRLLDGLEVTAREKRLKVARAILYVAQGTFGECSSEAEVQSWMRYNIFLLLEVGTFNALVELLNMEIDNSAACSSAVRKPAISLADSTDLRVLLNIMYLIVETVHQECEGDKAEWRTMRQTFRAELGSPLYNNEPFAIMLFGMVTKFCSGHAPHFPMKKVLLLLWKTVLCTLGGFEELQSMKAEKRSILGLPPLPEDSIKVIRNMRAASPPASASDLIEQQQKRGRREHKALIKQDNLDAFNERDPYKADDSREEEEENDDDNSLEGETFPLERDEVMPPPLQHPQTDRLTCPKGLPWAPKVREKDIEMFLESSRSKFIGYTLGSDTNTVVGLPRPIHESIKTLKQHKYTSIAEVQAQMEEEYLRSPLSGGEEEVEQVPAETLYQGLLPSLPQYMIALLKILLAAAPTSKAKTDSINILADVLPEEMPTTVLQSMKLGVDVNRHKEVIVKAISAVLLLLLKHFKLNHVYQFEYMAQHLVFANCIPLILKFFNQNIMSYITAKNSISVLDYPHCVVHELPELTAESLEAGDSNQFCWRNLFSCINLLRILNKLTKWKHSRTMMLVVFKSAPILKRALKVKQAMMQLYVLKLLKVQTKYLGRQWRKSNMKTMSAIYQKVRHRLNDDWAYGNDLDARPWDFQAEECALRANIERFNARRYDRAHSNPDFLPVDNCLQSVLGQRVDLPEDFQMNYDLWLEREVFSKPISWEELLQ",
+                "modelCreatedDate": "2021-07-01",
+                "latestVersion": 1,
+                "allVersions": [
+                  1
+                ],
+                "cifUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.cif",
+                "bcifUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.bcif",
+                "pdbUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-model_v1.pdb",
+                "paeImageUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-predicted_aligned_error_v1.png",
+                "paeDocUrl": "https://alphafold.ebi.ac.uk/files/AF-Q5VSL9-F1-predicted_aligned_error_v1.json"
+              }
+            ]
+             */
+        pdbId = record.entryId;
+        chain = 'A'; //The AF structures seem to be single-chain structures where the assymetric unit ID is A
+        format = STRUCTURE_FORMAT.mmCIF;
+        uniprotDescription = record.uniprotDescription,
+        pdbStart = parseInt(record.uniprotStart);
+        pdbEnd = parseInt(record.uniprotEnd);
+        uniprotStart = parseInt(record.uniprotStart);
+        uniprotEnd = parseInt(record.uniprotEnd);
+        coordinatesFile = record.cifUrl;
+    }
+    else if (source === 'USER'){
         pdbId = record.id;
         chain = record.chainId;
         format = record.structure.format.toUpperCase() === 'PDB' ? STRUCTURE_FORMAT.PDB : STRUCTURE_FORMAT.mmCIF;
@@ -127,6 +165,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     const getChainId = function(){return chain;};
     const getFormat = function () {return format;};
     const getExperimentalMethod = function(){return experimentalMethod;};
+    const getUniprotDescription = function(){return uniprotDescription;};
     const getCoverage = function(){return coverage;};
     const getLength = function () {return getUnpEnd() - getUnpStart();};
     const getPdbStart = function(){return pdbStart;};
@@ -342,7 +381,7 @@ const pdbMapping = function (record, _source = 'PDB') {
     };
 
     const getDescription = function(){
-        return `Experimental method: ${getExperimentalMethod()}`;
+        return uniprotDescription ? getUniprotDescription() : `Experimental method: ${getExperimentalMethod()}`;
     };
 
 
@@ -352,6 +391,7 @@ const pdbMapping = function (record, _source = 'PDB') {
         ,getPdbId: getPdbId
         ,getChainId: getChainId
         ,getFormat: getFormat
+        ,getUniprotDescription: getUniprotDescription
         ,getExperimentalMethod: getExperimentalMethod
         ,getCoverage: getCoverage
         ,getLength: getLength
@@ -385,6 +425,7 @@ const pdbMapping = function (record, _source = 'PDB') {
             pdbId: getPdbId(),
             chainId: getChainId(),
             format: getFormat(),
+            description: getDescription(),
             experimentalMethod: getExperimentalMethod(),
             coverage: getCoverage(),
             pdbStart: getPdbStart(),
