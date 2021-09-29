@@ -32,7 +32,7 @@ To cite MolArt use: **MolArt: A molecular structure annotation and visualization
 - Annotations of protein sequence from [PredictProtein](https://en.wikipedia.org/wiki/Predictprotein) 
 - Mapping of structure on corresponding substring in the sequence
 - Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
-- Retrieval of predicted models from [AlphaFold DB](https://alphafold.ebi.ac.uk/) and [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
+- Retrieval of predicted models from [AlphaFold Protein Structure DB](https://alphafold.ebi.ac.uk/) (ADB) and [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
 no PDB structure is available
 - Controlling transparency of the structure to see both cartoon and surface view of the structure
 - Hovering over position in sequence to highlight it in structure and vice versa
@@ -73,7 +73,7 @@ Waals-based spheres with given color and transparency.
 - Structure mapping
     - Automatic
         - To obtain the mapping between UniProt and PDB, MolArt is using the [SIFTS API](https://www.ebi.ac.uk/pdbe/api/doc/sifts.html), part of the [PDBe REST API](http://www.ebi.ac.uk/pdbe/pdbe-rest-api).
-        - In case the SIFTS mapping yields no PDB structures, SMR is queried using its [API](https://swissmodel.expasy.org/docs/repository_help#smr_api) for available models.
+        - In case the SIFTS mapping yields no PDB structures, ADB and SMR are queried using their respective APIs for available models.
     - Custom
         - When working with sequence which is not in UniProt or when the mapping is not known, 
         sequence-structure mapping can be provided. This includes
@@ -82,7 +82,8 @@ Waals-based spheres with given color and transparency.
 
 - Structure data
   - In case an experimental structure is available in PDB for given UniProt ID, this structure is downloaded by LiteMol. In this case, MolArt instructs LiteMol to use the mmCIF format.
-  - In case there is no experimental structure in PDB, but a model exists in SMR, MolArt instructs LiteMol to use the PDB-format structure data from SMR.
+  - In case there is no experimental structure in PDB, but a model exists in ADB 
+  or SMR, MolArt instructs LiteMol to use the mmCIF-format in case of ADB and PDB-format in case of SMR.
 
 ## How to use MolArt
 
