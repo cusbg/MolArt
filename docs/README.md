@@ -367,8 +367,8 @@ of the structure in the structure view. By default, an annotation is highlighted
 only when clicked on in the sequence view.
 
 - ```alwaysLoadPredicted``` (default ```false```) - when set to ```true```
-MolArt always connects to SMR and downloads available models; by default, 
-it will query SMR only when no experimental structure is available.
+MolArt always connects to ADB (AlphaFold DB) and SMR (SwissProt Model Repository) and downloads available models; by default, 
+it will query ADB and SMR only when no experimental structure is available.
 
 - ```pdbIds``` (default ```undefined```) - list of PDB IDs and possibly chain IDs (such as ```['1ryp:b', '4r17']```) 
 which are

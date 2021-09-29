@@ -32,7 +32,7 @@ To cite MolArt use: **MolArt: A molecular structure annotation and visualization
 - Annotations of protein sequence from [PredictProtein](https://en.wikipedia.org/wiki/Predictprotein) 
 - Mapping of structure on corresponding substring in the sequence
 - Automatic retrieval of sequence data based on UniProt ID and corresponding experimental structures from PDB
-- Retrieval of predicted models from [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
+- Retrieval of predicted models from [AlphaFold DB](https://alphafold.ebi.ac.uk/) and [SWISS-MODEL Repository](https://swissmodel.expasy.org/repository) (SMR) if 
 no PDB structure is available
 - Controlling transparency of the structure to see both cartoon and surface view of the structure
 - Hovering over position in sequence to highlight it in structure and vice versa
