@@ -6,6 +6,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Controlling user visuals via MolArt API (add visual, remove visual)
+
 ### Removed
 
 ### Fixed

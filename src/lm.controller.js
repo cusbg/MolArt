@@ -26,6 +26,8 @@ const LmController = function () {
             this.pdbRecord = undefined;
             this.modelId = undefined;
             this.selectionId = undefined;
+            this.selectionGroupId = undefined;
+            this.interactiveHighlightsGroupId = undefined;
             this.observedResidues = [];
             this.userHighlightVisualIds = [];
         }
@@ -54,6 +56,22 @@ const LmController = function () {
             return this.selectionId;
         }
 
+        setInteractiveHighlightsGroupId(id) {
+            this.interactiveHighlightsGroupId = id;
+        }
+
+        getInteractiveHighlightsGroupId() {
+            return this.interactiveHighlightsGroupId;
+        }
+
+        setSelectionGroupId(selectionId) {
+            this.selectionGroupId = selectionId;
+        }
+
+        getSelectionGroupId() {
+            return this.selectionGroupId;
+        }
+
         setObservedResidues(observedResidues) {
             this.observedResidues= observedResidues;
         }
@@ -70,9 +88,16 @@ const LmController = function () {
             return this.userHighlightVisualIds;
         }
     }
+    class InteractiveVisual {
+        constructor(selectionDef, visualDef) {
+            this.selectionDef = selectionDef;
+            this.visualDef = visualDef;
+        }
+    }
 
     let globals;
     const mapping = {};
+    const interactiveVisuals = {};
 
     function setToArray(set) {
         const array = [];
@@ -441,6 +466,8 @@ const LmController = function () {
 
             }).then((selectionsGroupId => {
 
+                mapping[recId].setSelectionGroupId(selectionsGroupId);
+
                 // Create selection for each of the selections
                 const promises = extraHighlightsContent
                     .map((h, i) => {
@@ -488,7 +515,65 @@ const LmController = function () {
                     if (extraHighlightsContent[i].visualIds === undefined) extraHighlightsContent[i].visualIds = [];
                     extraHighlightsContent[i].visualIds.push(id)
                 });
+            }).then(() => {
+                Object.keys(interactiveVisuals).forEach(visualId => {
+                    const vis = interactiveVisuals[visualId];
+                    return setVisualInteractive(visualId, vis.selectionDef, vis.visualDef, recId);
+                })
+            })
+    }
+
+    /*
+        selectionDef: {
+            sequenceNumbers: [63],
+            atomNames: ['CA', 'CE'] //can be empty
+        }
+        visualDef: {
+                    type: 'BallsAndSticks',
+                    //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.ballsandsticksparams.html
+                    params: { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' },
+                    color: {r:1, g: 0, b: 0},
+                    alpha: 1
+                }
+     */
+    const getInteractiveSelectionId = (recId, visualId) => `interactive-sel-${recId}-${visualId}`;
+    function setVisualInteractive(visualId, selectionDef, visualDef, recId = undefined){
+
+        const promises = [];
+        const recIds = recId ? [recId] : Object.keys(mapping);
+        recIds.forEach(recId => {
+            const promise = plugin.createGroup('interactive-highlights', 'Interactive highlights', mapping[recId].getSelectionId()).then(groupId => {
+                const selId = getInteractiveSelectionId(recId, visualId);
+                const rec = mapping[recId];
+                return plugin.createSelectionFromList({
+                    rootId: groupId,
+                    name: selId,
+                    chainId: rec.getPdbRecord().getChainId(),
+                    sequenceNumbers: selectionDef.sequenceNumbers.map(n=> rec.getPdbRecord().mapPosUnpToPdb(n)),
+                    atomNames: selectionDef.atomNames,
+                    selectionId: selId
+                });
+            }).then(selectionId => {
+                return plugin.createVisual(selectionId,
+                    {
+                        style: plugin.getStyleDefinition(visualDef.type, visualDef.params, visualDef.color, visualDef.alpha)
+                    });
             });
+            promises.push(promise);
+        });
+
+        return Promise.all(promises).then(() => {
+            interactiveVisuals[visualId] = new InteractiveVisual(selectionDef, visualDef);
+        })
+
+
+    }
+
+    function clearVisualInteractive(visualId) {
+        for (const recId in  mapping) {
+            plugin.removeEntity(getInteractiveSelectionId(recId, visualId));
+        }
+        delete interactiveVisuals[visualId];
     }
 
     function mapFeatures(features, colors) {
@@ -573,7 +658,7 @@ const LmController = function () {
         }
 
         getHeaderUserHighlightsList().find('div.item').each(i => {
-            globals.opts.extraHighlights.content[i].visualIds.forEach((visualId) => {
+            globals.opts.extraHighlightsextraHighlights.content[i].visualIds.forEach((visualId) => {
                 if (recordVisuals === undefined || recordVisuals.indexOf(visualId) >= 0) {
                     userHighlightSelected(i) ? plugin.showEntity(visualId): plugin.hideEntity(visualId);
                 }
@@ -775,6 +860,9 @@ const LmController = function () {
         highlightCallback: highlightCallBack,
         resetVisuals: resetVisuals,
         groupSelected: groupSelected,
+
+        setVisualInteractive: setVisualInteractive,
+        clearVisualInteractive: clearVisualInteractive,
 
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,

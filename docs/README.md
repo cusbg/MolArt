@@ -484,35 +484,51 @@ header where the user can turn on and of the defined highlights.
  * ``getPvController``
     * Returns the ProtVista (sequence view) controller.
 
-* ``getLmController``
-    * Returns the LiteMol (structure view) controller.
+ * ``getLmController``
+     * Returns the LiteMol (structure view) controller.
 
-* ``getGlobals``
-    * Returns the globals object which includes various objects (including the Lm and Pv controllers).
+ * ``getGlobals``
+     * Returns the globals object which includes various objects (including the Lm and Pv controllers).
 
-* ``highlightInSequence(pos)``
-    * Highlights the specified residue in the sequence view.
+ * ``highlightInSequence(pos)``
+     * Highlights the specified residue in the sequence view.
 
-* ``deHighlightInSequence()``
-    * Removes highlighting in the sequence view.
+ * ``deHighlightInSequence()``
+     * Removes highlighting in the sequence view.
 
-* ``highlightInStructure(pos)``
-    * Highlights the specified residue in the structure view. The position is the position in sequence (which might differ from the position in the structure).
+ * ``highlightInStructure(pos)``
+     * Highlights the specified residue in the structure view. The position is the position in sequence (which might differ from the position in the structure).
 
-* ``deHighlightInStructure()``
-    * Removes highlighting in the structure view.
+ * ``deHighlightInStructure()``
+     * Removes highlighting in the structure view.
     
-* ``focusInStructure(seqPos, neighborhoodSize)``
-    * Focuses at a given residue. If *neighborhoodSize* provided, all residues having atoms
-    in a sphere of given radius (in Angstroms) will be dispalayed as well.
+ * ``focusInStructure(seqPos, neighborhoodSize)``
+     * Focuses at a given residue. If *neighborhoodSize* provided, all residues having atoms
+     in a sphere of given radius (in Angstroms) will be dispalayed as well.
     
-* ``structureLoaded()``
-    * True if a structure is loaded. Can be false either if there does not exist anystructure
-    for the molecule or when the stucture it not loaded yet.
+ * ``structureLoaded()``
+     * True if a structure is loaded. Can be false either if there does not exist anystructure
+     for the molecule or when the stucture it not loaded yet.
+   
+ * ``getLmController().setVisualInteractive(visualId, selectionDef, visualDev)``
+   * Enables users to add custom highlights into the visualization. For example, one can draw red balls 
+   on the position of C-alpha atoms for residues which are have some property. Another option si to
+   "draw" a mesh over a range of residues. The method has three parameters:
+     * ``visualId`` identifies the visual, so that it can be later removed
+     * ``selectionDef`` specifies residues and possibly also atoms over which the visual definition should
+     be applied, e.g. ``{sequenceNumbers: [63,64], atomNames: ['CA', 'CB']}`` (``atomNames`` is optional)
+     * ``visualDef`` specifies the type of visual to be applied over the selection, e.g.
+     ``{type: 'Surface', params: {isWireframe: true, probeRadius: 0, density: 1.25, smoothing: 3}, color: {r: 0, g: 0, b: 1}, alpha: 0.8 }``.
+     The visual definition is passed directly to LiteMol and thus any definition valid in LiteMol
+     is also valid for MolArt. Check the [interactive_highlight.html](../examples/interactive_highlight.html)  
+     for some examples.
+     
+ * ``getLmController().clearVisualInteractive(visualId)``
+   * Removes previously created custom highlight.
 
-* ``getSeqStrRange()``
-    * Get ranges in the sequence which have a structure mapped. The return value
-    is an array of arrays of size 2 as there can be undetermined parts of the structure 
-    resulting in multiple observed regions. 
-    If there is not structure set, the method throws an error (can be checked in advance
-    using the ``structureLoaded`` method). 
+ * ``getSeqStrRange()``
+     * Get ranges in the sequence which have a structure mapped. The return value
+     is an array of arrays of size 2 as there can be undetermined parts of the structure 
+     resulting in multiple observed regions. 
+     If there is not structure set, the method throws an error (can be checked in advance
+     using the ``structureLoaded`` method). 

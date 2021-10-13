@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+html, body { height:100%; }
+#setVisualTab form input {
+  margin-bottom: 5px;
+}
+
+#setVisualTab button {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+#removeVisualTab {
+  vertical-align: text-top;
+  padding-left: 20px
+}
+</style>
+
+  <meta charset="UTF-8"/>
+ 
+  <title></title>
+  
+
+</head>
+
+<body  style="padding: 0; margin: 0; ">
+
+
+  <script type="text/javascript" src="../dist/molart.js"></script>
+  <script type="text/javascript" src="5uig_a.js"></script>
+
+  <table>
+    <tr>
+      <td id="setVisualTab">
+        <h2>Set visual</h2>
+        <form>
+
+          <label for="visualId">Visual ID:</label><br>
+          <input type="text" id="visualId" name="visualId" value="visual1"><br>
+
+          <fieldset>
+            <legend>Selection definition</legend>
+
+            <label for="residueIds">Residue numbers (sequence):</label>
+            <input type="text" id="residueIds" name="residueIds" value="62, 63, 64"><br>
+
+            <label for="atomTypes">Atom types (can be empty):</label>
+            <input type="text" id="atomTypes" name="atomTypes" value="CA, CB"><br>
+
+          </fieldset>
+
+          <fieldset>
+            <legend>Visual definition</legend>
+
+            <label for="visualType"><a href="https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/modules/litemol.bootstrap.visualization.molecule.html#type">Type:</a></label>
+            <select id="visualType" name="visualType" onchange="setVisualTypeDefault(this.value);">
+              <option value="Surface" selected>Surface</option>
+              <option value="BallsAndSticks" selected>BallsAndSticks</option>
+              <option value="Cartoons">Cartoons</option>
+              <option value="Calpha">Calpha</option>
+              <option value="VDWBalls">VDWBalls</option>
+            </select> <br>
+            <label for="visualParams">Params:</label>
+            <input type="text" id="visualParams" name="visualParams" size="100"><br>
+            <label for="visualColor">Color:</label>
+            <input type="text" id="visualColor" name="visualColor" value='{"r": 0, "g": 0, "b": 1}'><br>
+            <label for="visualAlpha">Alpha:</label>
+            <input type="text" id="visualAlpha" name="visualAlpha" value="0.8"><br>
+          </fieldset>
+          <div style="text-align: center">
+            <button id="highlightButton" type="button" onclick="interactiveHighlight();">Highlight</button>
+          </div>
+        </form>
+      </td>
+      <td id="removeVisualTab">
+        <h2>Remove visual</h2>
+        <form>
+          <label for="visualIds">Present visual IDs</label>
+          <select id="visualIds" name="visualIds">
+          </select> <br>
+          <div style="text-align: center">
+            <button id="removeVisualButton" type="button" onclick="removeVisualId()">Remove visual</button>
+          </div>
+        </form>
+      </td>
+    </tr>
+  </table>
+
+<div id="pluginContainer"></div>
+
+<script>
+  window.molart = new MolArt({
+    uniprotId: 'P14867',
+    alwaysLoadPredicted: true,
+    containerId: 'pluginContainer',
+});
+
+  var visualIds = [];
+
+  var defaultParams = {
+    'Surface': {isWireframe: true, probeRadius: 0, density: 1.25, smoothing: 3},
+    'BallsAndSticks': { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' },
+    'Cartoons': { tessalation: 3, drawingType: 0, showDirectionCones: true },
+    'Calpha': { tessalation: 3, drawingType: 1, showDirectionCones: true },
+    'VDWBalls': { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' }
+  }
+
+  function setVisualTypeDefault(typeId) {
+    document.getElementById('visualParams').value= JSON.stringify(defaultParams[typeId]);
+  }
+  setVisualTypeDefault('BallsAndSticks');
+
+  function remakeVisualIdsList() {
+    const elVisualIds = document.getElementById('visualIds');
+
+    while (elVisualIds.firstChild) {
+      elVisualIds.firstChild.remove()
+    }
+
+    visualIds.forEach(id =>  {
+      var opt = document.createElement('option');
+      opt.value = id;
+      opt.innerHTML = id;
+      elVisualIds.appendChild(opt);
+    })
+  }
+
+  function removeVisualId() {
+    const visualId = document.getElementById('visualIds').value;
+    if (!visualId) return;
+
+    molart.getLmController().clearVisualInteractive(visualId);
+    visualIds = visualIds.filter(item => item !== visualId)
+    remakeVisualIdsList();
+  }
+
+
+  var interactiveHighlight = function() {
+
+    var visualId = document.getElementById('visualId').value;
+    var residueIds = document.getElementById('residueIds').value.split(',').map(val => parseInt(val));
+    var val = document.getElementById('atomTypes').value.trim();
+    var atomTypes = val === "" ? [] : val.split(',').map(val => val.trim());
+    var elVisualType = document.getElementById('visualType');
+    var visualType = elVisualType.options[elVisualType.selectedIndex].text
+    var visualParams = JSON.parse(document.getElementById('visualParams').value);
+    var visualColor = JSON.parse(document.getElementById('visualColor').value);
+    var visualAlpha = parseFloat(document.getElementById('visualAlpha').value);
+
+    molart.getLmController().setVisualInteractive(
+            visualId,
+            {sequenceNumbers: residueIds, atomNames: atomTypes},
+            {type: visualType, params: visualParams, color: visualColor, alpha: visualAlpha}).then(function (d) {
+              if (visualIds.indexOf(visualId) < 0) {
+                visualIds.push(visualId);
+                remakeVisualIdsList();
+              }
+
+    })
+    // molart.globals.lm.setVisualInteractive("visual2", {sequenceNumbers: [63]}, {type: 'Surface', params: {isWireframe: true, probeRadius: 0, density: 1.25, smoothing: 3}, color: {r: 0, g: 0, b: 1}, alpha: 0.8 })
+      }
+
+</script>
+  
+</body>
+
+</html>
