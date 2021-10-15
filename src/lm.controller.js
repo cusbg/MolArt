@@ -563,7 +563,8 @@ const LmController = function () {
                 return plugin.createVisual(selectionId,
                     {
                         style: plugin.getStyleDefinition(visualDef.type, visualDef.params, visualDef.color, visualDef.alpha)
-                    });
+                    },
+                    true);
             });
             promises.push(promise);
         });
@@ -581,6 +582,7 @@ const LmController = function () {
 
     function clearVisualInteractive(visualId) {
 
+        if (Object.keys(interactiveVisuals).indexOf(visualId) < 0) return;
         for (const recId in  mapping) {
             plugin.removeEntity(getInteractiveSelectionId(recId, visualId));
         }

@@ -255,7 +255,7 @@ function createPlugin() {
             };
         };
 
-        const createVisual = function (entityId, params) {
+        const createVisual = function (entityId, params, isUserDefined = false) {
             controllerAvailability();
 
             //check whether the entity over which the visual is to be applied exists
@@ -303,7 +303,10 @@ function createPlugin() {
                 .add(selectNodes(entityId)[0], Transformer.Molecule.CreateVisual, params, {ref: visualId});
 
             return controller.applyTransform(action).then(() => {
-                defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true});
+                if (!isUserDefined) {
+                    defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true});
+                }
+
                 return Promise.resolve(visualId);
             });
         };

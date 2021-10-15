@@ -6,11 +6,11 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
-- Controlling user visuals via MolArt API (add visual, remove visual)
-
 ### Removed
 
 ### Fixed
+
+- User-defined visuals do not create default visuals (causing problems once removed)
 
 ##  [1.9.1] - 2021-10-15
 
