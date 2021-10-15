@@ -12,6 +12,27 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+##  [1.9.1] - 2021-10-15
+
+### Added
+
+### Removed
+
+### Fixed
+
+- User visuals stay colored after feature selection
+
+
+##  [1.9.0] - 2021-10-15
+
+### Added
+
+- Controlling user visuals via MolArt API (add visual, remove visual)
+
+### Removed
+
+### Fixed
+
 
 ##  [1.8.0] - 2021-09-29
 

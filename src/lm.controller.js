@@ -526,6 +526,7 @@ const LmController = function () {
     /*
         selectionDef: {
             sequenceNumbers: [63],
+            structureNumbers: [72] //used only if sequenceNumbers is not defined
             atomNames: ['CA', 'CE'] //can be empty
         }
         visualDef: {
@@ -536,13 +537,18 @@ const LmController = function () {
                     alpha: 1
                 }
      */
-    const getInteractiveSelectionId = (recId, visualId) => `interactive-sel-${recId}-${visualId}`;
+    const getInteractiveSelectionId = (recId, visualId) => `interactive_sel_${recId}-${visualId}`;
     function setVisualInteractive(visualId, selectionDef, visualDef, recId = undefined){
+
+        if (selectionDef.sequenceNumbers.length === 0) {
+            console.warn('Setting interative visual with empty selection.')
+            return ;
+        }
 
         const promises = [];
         const recIds = recId ? [recId] : Object.keys(mapping);
         recIds.forEach(recId => {
-            const promise = plugin.createGroup('interactive-highlights', 'Interactive highlights', mapping[recId].getSelectionId()).then(groupId => {
+            const promise = plugin.createGroup('interactive_highlights', 'Interactive highlights', mapping[recId].getSelectionId()).then(groupId => {
                 const selId = getInteractiveSelectionId(recId, visualId);
                 const rec = mapping[recId];
                 return plugin.createSelectionFromList({
@@ -569,7 +575,12 @@ const LmController = function () {
 
     }
 
+    function clearVisualInteractiveAll() {
+        Object.keys(interactiveVisuals).forEach( id => clearVisualInteractive(id));
+    }
+
     function clearVisualInteractive(visualId) {
+
         for (const recId in  mapping) {
             plugin.removeEntity(getInteractiveSelectionId(recId, visualId));
         }
@@ -634,7 +645,7 @@ const LmController = function () {
             modelIdSelections[modelId] = modelIdSelections[modelId].concat(chainSelections);
         }
 
-        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], "user_selection_"));
+        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], ["user_selection_", "interactive_sel_"]));
     }
 
     function resetVisuals(){
@@ -863,6 +874,7 @@ const LmController = function () {
 
         setVisualInteractive: setVisualInteractive,
         clearVisualInteractive: clearVisualInteractive,
+        clearVisualInteractiveAll: clearVisualInteractiveAll,
 
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,

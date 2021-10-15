@@ -481,7 +481,7 @@ function createPlugin() {
                 (resConcat ? resConcat + "-" : "");
         }
 
-        function colorSelections(modelId, selColors, idRestriction = "") {
+        function colorSelections(modelId, selColors, idRestrictions = []) {
             controllerAvailability();
 
             if (selColors.length == 0) return;
@@ -522,7 +522,14 @@ function createPlugin() {
             // instead of "polymer-visual", "model" or any valid ref can be used: all "child" visuals will be colored.
             const visuals = controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Molecule.Visual));
             visuals.forEach(visual => {
-                if (visual.ref.search(settings.visualPrefix) == 0 && visual.ref.search(idRestriction) < 0) { //apply only on macromolecule visuals (not waters or ligands which have automatically geenrated names)
+                let notRestricted = true;
+                for (const id of idRestrictions) {
+                    if (visual.ref.search(id) >= 0) {
+                        notRestricted = false;
+                        break;
+                    }
+                }
+                if (visual.ref.search(settings.visualPrefix) == 0 && notRestricted) { //apply only on macromolecule visuals (not waters or ligands which have automatically geenrated names)
                     if (visual.props.style.type === 'Surface') CustomTheme.applyTheme(controller, visual.ref, themeTransparent);
                     else CustomTheme.applyTheme(controller, visual.ref, theme);
 
