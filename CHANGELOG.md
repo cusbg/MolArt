@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Fixed
 
 - User-defined visuals do not create default visuals (causing problems once removed)
+- Failing when AlphaFold or SMR not available
 
 ##  [1.9.1] - 2021-10-15
 

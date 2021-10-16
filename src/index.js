@@ -653,6 +653,8 @@ const MolArt = function(opts) {
             records.sort((a,b) => b.getCoverage() - a.getCoverage());
 
             return records;
+        }, function (error) {
+            return [];
         });
     }
 
@@ -691,6 +693,8 @@ const MolArt = function(opts) {
             }
 
             return records;
+        }, function (error) {
+            return [];
         })
     }
 
