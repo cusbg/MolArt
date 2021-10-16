@@ -112,7 +112,7 @@ class ActiveStructure {
 
         const sanitizeFeatureType = function(catName, subCatName) {
             let rv = replaceNamesWithCustom(subCatName);
-            if (subCatName == 'CHAIN') {
+            if (subCatName === 'CHAIN') {
                 //CHAIN is a reserved word in pymol
                 rv =  'CHAIN_';
             }
@@ -124,7 +124,7 @@ class ActiveStructure {
 
 
         const source = this.record.getSource();
-        if (source === 'PDB' || source == 'USER'){
+        if (source === 'PDB' || source === 'USER'){
             content += `cmd.load('${this.record.getCoordinatesFile()}')\n`;
         } else if (source === 'SMR') {
             const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
@@ -145,18 +145,21 @@ class ActiveStructure {
             annotationsSanitized[sanitizeFeatureName(cat)] = annotations[cat];
         }
 
+        const fullResiduesSuffix = '_full_residues';
+        const cAlphaSuffix = '_c-alpha';
+
         Object.keys(annotationsSanitized).forEach(cat => {
             // const featureNames = [];
             const catSubcats = {};
             annotationsSanitized[cat].forEach(feature => {
 
                 const featureTypeRoot =  sanitizeFeatureType(cat, feature.type);
-                const featureType =  featureTypeRoot + '_full_residues';
-                const featureTypeCA = featureTypeRoot + '_c-alpha';
+                const featureType =  featureTypeRoot + fullResiduesSuffix;
+                const featureTypeCA = featureTypeRoot + cAlphaSuffix;
 
                 const featureNameRoot = sanitizeFeatureName(`${feature.type}${feature.begin}-${feature.end}`);
-                const featureName = featureNameRoot + '_full_residues';
-                const featureNameCA = featureNameRoot + '_c-alpha';
+                const featureName = featureNameRoot + fullResiduesSuffix;
+                const featureNameCA = featureNameRoot + cAlphaSuffix;
 
                 let fBeginStructure = this.record.mapPosUnpToPdb(feature.begin);
                 let fEndStructure = this.record.mapPosUnpToPdb(feature.end);
@@ -192,6 +195,20 @@ class ActiveStructure {
             Object.keys(catSubcats).forEach(cs => content += `cmd.group('${cs}', '${catSubcats[cs].join(" ")}')\n`);
             content += `cmd.group('${cat}', '${Object.keys(catSubcats).join(" ")}')\n`;
         });
+
+        const customVisuals = this.globals.lm.getVisualsInteractive();
+        Object.keys(customVisuals).forEach(visualId => {
+            const selectionDef = customVisuals[visualId].selectionDef;
+            let structurePoss = selectionDef.structureNumbers;
+            if (!structurePoss || structurePoss.length === 0) {
+                structurePoss = selectionDef.sequenceNumbers.map(d => this.record.mapPosUnpToPdb(d));
+            }
+            const authSeqNumbers = structurePoss.map(d => this.globals.lm.getAuthSeqNumber(this.record, d));
+            const selection = `chain ${this.chainId} and (resi ${authSeqNumbers.join(' or resi ')})`;
+            const selectionCA = `(${selection}) and name CA`;
+            content += `cmd.select('${visualId}${fullResiduesSuffix}', '${selection}')\n`;
+            content += `cmd.select('${visualId}${cAlphaSuffix}', '${selectionCA}')\n`;
+        })
 
         download(content, `${this.pdbId}_${this.chainId}.py`, "text/plain");
     }

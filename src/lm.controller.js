@@ -89,9 +89,27 @@ const LmController = function () {
         }
     }
     class InteractiveVisual {
+        /*
+        selectionDef: {
+            sequenceNumbers: [63],
+            structureNumbers: [72] //used only if sequenceNumbers is not defined
+            atomNames: ['CA', 'CE'] //can be empty
+        }
+        visualDef: {
+                    type: 'BallsAndSticks',
+                    //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.bootstrap.visualization.molecule.ballsandsticksparams.html
+                    params: { useVDW: true, vdwScaling: 1, bondRadius: 0.13, detail: 'Automatic' },
+                    color: {r:1, g: 0, b: 0},
+                    alpha: 1
+                }
+     */
         constructor(selectionDef, visualDef) {
             this.selectionDef = selectionDef;
             this.visualDef = visualDef;
+        }
+
+        exportToPyMol() {
+
         }
     }
 
@@ -572,8 +590,6 @@ const LmController = function () {
         return Promise.all(promises).then(() => {
             interactiveVisuals[visualId] = new InteractiveVisual(selectionDef, visualDef);
         })
-
-
     }
 
     function clearVisualInteractiveAll() {
@@ -581,12 +597,15 @@ const LmController = function () {
     }
 
     function clearVisualInteractive(visualId) {
-
         if (Object.keys(interactiveVisuals).indexOf(visualId) < 0) return;
         for (const recId in  mapping) {
             plugin.removeEntity(getInteractiveSelectionId(recId, visualId));
         }
         delete interactiveVisuals[visualId];
+    }
+
+    function getVisualsInteractive(){
+        return interactiveVisuals;
     }
 
     function mapFeatures(features, colors) {
@@ -877,6 +896,7 @@ const LmController = function () {
         setVisualInteractive: setVisualInteractive,
         clearVisualInteractive: clearVisualInteractive,
         clearVisualInteractiveAll: clearVisualInteractiveAll,
+        getVisualsInteractive: getVisualsInteractive,
 
         // Exposed for testing purposes
         getHeaderPdbId: getHeaderPdbId,
