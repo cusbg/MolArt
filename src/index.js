@@ -130,6 +130,9 @@ class ActiveStructure {
             const url = this.record.getCoordinatesFile().replace(this.globals.settings.corsServer, "");
             const name = `${this.globals.uniprotId}.${this.record.getPdbId()}.${this.record.getChainId()}.${this.record.getPdbStart()}-${this.record.getPdbEnd()}`;
             content += `cmd.load('${url}', '${name}', 0, 'pdb')\n`;
+        } else if (source === 'AF'){
+            const url = services.getAfCifURL(this.globals.uniprotId)
+            content += `cmd.load('${url}', '${this.globals.uniprotId}', 0, 'cif')\n`;
         } else {
             throw Error('Unknown structure source');
         }
