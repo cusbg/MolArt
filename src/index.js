@@ -203,7 +203,14 @@ class ActiveStructure {
             if (!structurePoss || structurePoss.length === 0) {
                 structurePoss = selectionDef.sequenceNumbers.map(d => this.record.mapPosUnpToPdb(d));
             }
-            const authSeqNumbers = structurePoss.map(d => this.globals.lm.getAuthSeqNumber(this.record, d));
+            const authSeqNumbers = structurePoss
+                .map(d => this.globals.lm.getAuthSeqNumber(this.record, d))
+                .filter((d,i) => {
+                    if (d === undefined) {
+                        console.warn(`Sequence-structure mapping not found for sequence position ${selectionDef.sequenceNumbers[i]}.`);
+                    }
+                    return d !== undefined;
+                });
             const selection = `chain ${this.chainId} and (resi ${authSeqNumbers.join(' or resi ')})`;
             const selectionCA = `(${selection}) and name CA`;
             content += `cmd.select('${visualId}${fullResiduesSuffix}', '${selection}')\n`;
