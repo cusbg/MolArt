@@ -586,7 +586,7 @@ function createPlugin() {
                     // the first observed position
                     resInfo.unpSeqNumber = activeStructure.record.mapPosStructToUnp(resInfo.seqNumber);
 
-                    labelCallback({atomInfo: atomInfo, resInfo: resInfo});
+                    return labelCallback({atomInfo: atomInfo, resInfo: resInfo});
                 })
 
                 // model = plugin.context.select('mod6i53')[0]

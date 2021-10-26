@@ -439,7 +439,7 @@ residue. See the actual fields by running:
     new MolArt({
         uniprotId: 'P14867',        
         containerId: 'pluginContainer',
-        labelCallback: (info) => console.log(info)
+        labelCallback: (info) => {console.log(info); return info.resInfo.unpSeqNumber}
 });
 ```
 
