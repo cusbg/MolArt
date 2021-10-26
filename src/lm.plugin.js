@@ -1,5 +1,7 @@
 const blender = require('color-blend');
 let LiteMol = require('litemol').default;
+const globalSettings = require('./settings');
+const {globals} = require("browserify-css/config/jshint");
 
 const STRUCTURE_FOMAT = require('./pdb.mapping.js').STRUCTURE_FORMAT;
 
@@ -542,8 +544,60 @@ function createPlugin() {
             // CustomTheme.applyTheme(controller, modelId, theme);
         }
 
-        const initializePlugin = function (idContainer) {
+
+        const initializePlugin = function (idContainer, activeStructure, labelCallback) {
+
+            const HighlightCustomElements = function (context) {
+                context.highlight.addProvider(function (info) {
+                    // console.log(info)
+                    if (info.kind === 0 /*|| info.source.ref.indexOf(globalSettings.interactiveSelectionPrefix) < 0*/) return null;
+
+                    //the info contains information about the selected atom ID -> we find relevant inforamtion to be passed to the labelCallback
+                    const atomIx = info.elements[0];
+                    //find parent model
+                    let model = info.source;
+                    while (model.type.info.shortName != 'M_M') model = model.parent;
+
+                    const atoms = model.props.model.data.atoms;
+                    const atomInfo = {
+                        authName: atoms.authName[atomIx],
+                        elementSymbol: atoms.elementSymbol[atomIx],
+                        name: atoms.name[atomIx]
+                    }
+                    const residueIx = atoms.residueIndex[atomIx];
+
+                    const residues = model.props.model.data.residues;
+
+                    if (residues.isHet[residueIx]) return null;
+
+                    const resInfo = {
+                        asymId: residues.asymId[residueIx],
+                        authAsymId: residues.authAsymId[residueIx],
+                        authName: residues.authName[residueIx],
+                        authSeqNumber: residues.authSeqNumber[residueIx],
+                        entityId: residues.entityId[residueIx],
+                        name: residues.name[residueIx],
+                        seqNumber: residues.seqNumber[residueIx]
+                    }
+                    //this will be enriched by uniprot seq number as that might not be the same as seqNumber
+                    // when there are missing regions in uniprot relative to structure
+                    // Example is 6i53 where first position in chain A (asymID: B) is 45 (seqNumber), but it is
+                    // at position 37 in UniProt as there are 8 residues missing (28-35 in PDB sequence) before
+                    // the first observed position
+                    resInfo.unpSeqNumber = activeStructure.record.mapPosStructToUnp(resInfo.seqNumber);
+
+                    labelCallback({atomInfo: atomInfo, resInfo: resInfo});
+                })
+
+                // model = plugin.context.select('mod6i53')[0]
+                // res = q(model.props.model.queryContext)
+                // res[0].fragments[0].residueIndices[0]
+
+            }
+
             if (!controller) {
+                const specs = LiteMol.Plugin.getDefaultSpecification();
+                if (labelCallback) specs.behaviours.push(HighlightCustomElements);
                 controller = LiteMol.Plugin.create({
                     target: '#' + idContainer,
                     viewportBackground: '#ffffff',
@@ -552,7 +606,8 @@ function createPlugin() {
                         hideControls: true,
                         isExpanded: false
                     },
-                    allowAnalytics: false
+                    allowAnalytics: false,
+                    customSpecification: specs
                 });
                 // window.lmController = controller;
 
@@ -744,6 +799,8 @@ var OptimizedId = (function () {
     return OptimizedId;
 }());
 
+//for debugging purposes
+// window.LiteMol = LiteMol
 
 
 module.exports = createPlugin;

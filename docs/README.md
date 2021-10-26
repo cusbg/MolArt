@@ -429,6 +429,20 @@ header where the user can turn on and of the defined highlights.
     }
     
     ```
+- ```labelCallback``` - A function which is called when a position in the structured is hovered. It should
+return a string which will be displayed in the structure view together with the default information about the 
+hovered atom. This can be useful in situations where you, for example, highlight (e.g. by a sphere)
+residues which you know are often mutated and then hovering over that highlighted residue you can show additional
+information about the mutation in the structure view. The function is passed one argument containing information about the hovered atom and corresponding
+residue. See the actual fields by running: 
+```javascript
+    new MolArt({
+        uniprotId: 'P14867',        
+        containerId: 'pluginContainer',
+        labelCallback: (info) => console.log(info)
+});
+```
+
  ### Events
  
  MolArt object generates several events. The app which owns the MolArt object can register listeners 

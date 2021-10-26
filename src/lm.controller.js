@@ -496,7 +496,7 @@ const LmController = function () {
                         chainId: rec.getChainId(),
                         sequenceNumbers: h.sequenceNumbers.map(n=> rec.mapPosUnpToPdb(n)),
                         atomNames: h.atomNames,
-                        selectionId: `user_selection_${selectionsGroupId}_sel${i}`
+                        selectionId: `${settings.userSelectionPrefix}${selectionsGroupId}_sel${i}`
                     });
                 });
 
@@ -555,7 +555,7 @@ const LmController = function () {
                     alpha: 1
                 }
      */
-    const getInteractiveSelectionId = (recId, visualId) => `interactive_sel_${recId}-${visualId}`;
+    const getInteractiveSelectionId = (recId, visualId) => `${settings.interactiveSelectionPrefix}${recId}-${visualId}`;
     function setVisualInteractive(visualId, selectionDef, visualDef, recId = undefined){
 
         if (selectionDef.sequenceNumbers.length === 0) {
@@ -666,11 +666,11 @@ const LmController = function () {
             modelIdSelections[modelId] = modelIdSelections[modelId].concat(chainSelections);
         }
 
-        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], ["user_selection_", "interactive_sel_"]));
+        Object.keys(modelIdSelections).forEach(modelId => plugin.colorSelections(modelId, modelIdSelections[modelId], [settings.userSelectionPrefix, settings.interactiveSelectionPrefix]));
     }
 
     function resetVisuals(){
-        plugin.resetVisuals("user_selection_");
+        plugin.resetVisuals(settings.userSelectionPrefix);
     }
 
     function unmapFeature(feature) {
@@ -776,7 +776,7 @@ const LmController = function () {
     }
 
     function setSurfaceTransparency(val) {
-        return plugin.setSurfaceTransparency(val, 'user_selection_');
+        return plugin.setSurfaceTransparency(val, settings.userSelectionPrefix);
     }
 
     function showErrorMessage(message) {
@@ -849,7 +849,7 @@ const LmController = function () {
 
         processPassedOptions(globals.opts);
 
-        plugin.initializePlugin(globals.lmContainerId);
+        plugin.initializePlugin(globals.lmContainerId, globals.activeStructure, globals.opts.labelCallback);
 
         initalizeUserHighlights();
 

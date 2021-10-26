@@ -7,6 +7,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Added
 
 - AlphaFold export to PyMOL
+- Ability to show additional information about hovered element.
 
 ### Removed
 

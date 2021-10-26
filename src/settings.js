@@ -48,4 +48,6 @@ module.exports = {
     }
 
     , lmInitSurfaceTransparency: 15
+    , interactiveSelectionPrefix: 'interactive_sel_'
+    , userSelectionPrefix: 'user_selection_'
 }
