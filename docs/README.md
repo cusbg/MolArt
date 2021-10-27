@@ -377,10 +377,23 @@ all chains of given protein will be listed.
 Structures in the mapping outside of this list will not be shown. If
 not set or the list is empty, no restriction takes place.
 
-- ```smrIds``` (default ```undefined```) - list of PDB IDs (such as ```['3q27.1']```) which are
+- ```smrIds``` (default ```undefined```) - list of SMR IDs (such as ```['3q27.1']```) which are
 supposed to be shown in the Predicted structures category. 
 Structures in the mapping outside of this list will not be shown. If
 not set or the list is empty, no restriction takes place.
+
+- ```defaultStructureId``` - ID of the structure to be displayed when MolArt starts. This can be either
+PDB ID, SMR ID or AlphaFold ID. For example, if we want to load by default the AlphaFold structure,
+we can call MolArt with:
+
+```javascript
+new MolArt({
+    uniprotId: 'O00571',        
+    containerId: 'pluginContainer',
+    alwaysLoadPredicted: true,
+    defaultStructureId: 'AF-O00571-F1',    
+})
+```
 
 - ```lmInitSurfaceTransparency``` - specifies the default transparency level (0-100) of the surface 
 representation of the displayed structure.

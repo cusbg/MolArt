@@ -857,10 +857,20 @@ const MolArt = function(opts) {
         }
     }
 
-    function initializeActiveStructure(){
-        const rec = globals.pdbRecords[0];
-            globals.activeStructure.set(rec.getPdbId(), rec.getChainId())
-                .then(() => {globals.eventEmitter.emit('lmReady');})
+    function initializeActiveStructure(structureId){
+        let rec = globals.pdbRecords[0];
+        if (structureId) {
+            for (const _rec of globals.pdbRecords) {
+                if (_rec.getPdbId().toLowerCase() === structureId.toLowerCase()) {
+                    rec = _rec;
+                    break;
+                }
+                console.warn(`Default structure required (${structureId}) but not found in`, globals.pdbRecords)
+            }
+        }
+
+        globals.activeStructure.set(rec.getPdbId(), rec.getChainId())
+            .then(() => {globals.eventEmitter.emit('lmReady');})
     }
 
     // function initializeTestDataSet(sequence, catName, variant=false){
@@ -976,14 +986,14 @@ const MolArt = function(opts) {
             });
 
             if (!('pdbRecords' in globals)) {
-                globals.lm.showErrorMessage('No PDB mapping or Swissprot model available for UniprotId ' + globals.uniprotId);
+                globals.lm.showErrorMessage('No PDB mapping or Swissprot or AlphaFold model available for UniprotId ' + globals.uniprotId);
                 globals.eventEmitter.emit('pvReady');
                 pvReady = true;
                 // resize();
             }
 
             if ('pdbRecords' in globals) {
-                initializeActiveStructure();
+                initializeActiveStructure(opts.defaultStructureId);
 
                 globals.pv.getPlugin().getDispatcher().on('ready', () => onPvReady());
                 if (globals.pv.getPlugin().categories.length > 0) {
