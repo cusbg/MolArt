@@ -43,13 +43,13 @@
 
 .pv3d-pv {
     height: 100%;
-    min-width: 400px;
+    /*min-width: 400px;*/
 }
 
 
 
 .pv3d-lm {
-    min-width: 400px;
+    /*min-width: 400px;*/
 }
 
 .pv3d-invisible {

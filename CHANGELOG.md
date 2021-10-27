@@ -6,11 +6,21 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+### Removed
+
+### Fixed
+
+##  [1.10.0] - 2021-10-27
+
+### Added
+
 - AlphaFold export to PyMOL
 - Ability to show additional information about hovered element.
 - Choose which structure to load by default.
 
 ### Removed
+
+- Removed min-width of structure and sequence view
 
 ### Fixed
 
