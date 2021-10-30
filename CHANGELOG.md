@@ -6,6 +6,10 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Added `variantFilterDefaultBehavior` making ProtVista's |variant filter dialog to behave
+as standard checkboxes. By default, when consequence clicked in ProtVista and that consequence
+is already checked, all other checkboxes become unchecked which is not intuitive for some users.
+
 ### Removed
 
 ### Fixed
