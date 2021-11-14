@@ -6,6 +6,15 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+### Removed
+
+### Fixed
+
+
+##  [1.11.0]
+
+### Added
+
 - Added `variantFilterDefaultBehavior` making ProtVista's |variant filter dialog to behave
 as standard checkboxes. By default, when consequence clicked in ProtVista and that consequence
 is already checked, all other checkboxes become unchecked which is not intuitive for some users.
@@ -13,6 +22,8 @@ is already checked, all other checkboxes become unchecked which is not intuitive
 ### Removed
 
 ### Fixed
+
+- Mapping in HighlightCustomElements when the structure starts before UniProt sequence (e.g. 2I4I)
 
 ##  [1.10.0] - 2021-10-27
 
