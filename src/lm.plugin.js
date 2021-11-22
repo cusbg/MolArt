@@ -584,8 +584,11 @@ function createPlugin() {
                     // Example is 6i53 where first position in chain A (asymID: B) is 45 (seqNumber), but it is
                     // at position 37 in UniProt as there are 8 residues missing (28-35 in PDB sequence) before
                     // the first observed position
-                    resInfo.unpSeqNumber = activeStructure.record.mapPosStructToUnp(residueIx);
-                    
+                    // Additionally, we need to use residueIx and not seqNumber as the input to mapPosStructToUnp as
+                    // the seqNumber can be higher then residueIx (e.g. in case of 2I4I, the PDB sequence starts actually two residues before the start of O00571)
+                    //resInfo.unpSeqNumber = activeStructure.record.mapPosStructToUnp(resInfo.seqNumber);
+                    resInfo.unpSeqNumber = resInfo.authSeqNumber;
+
                     return labelCallback({atomInfo: atomInfo, resInfo: resInfo});
                 })
 

@@ -10,6 +10,18 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+- Fixed unpSeqNumber passed in HighlightCustomElements
+
+##  [1.11.1]
+
+### Added
+
+### Removed
+
+### Fixed
+
+- Fixed unpSeqNumber passed in HighlightCustomElements
+
 
 ##  [1.11.0]
 
