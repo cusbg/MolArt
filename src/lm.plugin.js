@@ -587,6 +587,7 @@ function createPlugin() {
                     // Additionally, we need to use residueIx and not seqNumber as the input to mapPosStructToUnp as
                     // the seqNumber can be higher then residueIx (e.g. in case of 2I4I, the PDB sequence starts actually two residues before the start of O00571)
                     //resInfo.unpSeqNumber = activeStructure.record.mapPosStructToUnp(resInfo.seqNumber);
+                    //TODO not sure how this should be correctly computed as in cases of 2I4I we would like to use residueIx but in case of 5E7I:A we would likte to use seqNumber
                     resInfo.unpSeqNumber = resInfo.authSeqNumber;
 
                     return labelCallback({atomInfo: atomInfo, resInfo: resInfo});
