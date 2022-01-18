@@ -781,7 +781,7 @@ const LmController = function () {
 
     function showErrorMessage(message) {
 
-        globals.lmErrorMessageContainer.find('.error-message')[0].innerHTML = message;
+        globals.lmErrorMessageContainer.find('.message')[0].innerHTML = message;
         globals.lmErrorMessageContainer.css('display', 'block');
     }
 

@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Fixed
 
 - Fixed unpSeqNumber passed in HighlightCustomElements
+- Fixed not showing structure viewer error messages
 
 ##  [1.11.1]
 
