@@ -89,6 +89,14 @@ class ActiveStructure {
         return this.pdbId !== undefined;
     }
 
+    getPyMolFileName(){
+        const fnTemplate = this.globals.opts.pyMOLExportFileName;
+
+        const source = this.record.getSource();
+        if (!fnTemplate || !fnTemplate[source]) return `${this.pdbId}_${this.chainId}.py`;
+        return fnTemplate[source].replace('{id}', this.pdbId).replace('{chain}', this.chainId)
+    }
+
     exportToPymol(){
         let globals = this.globals;
         let content = "import __main__\n" +
@@ -217,7 +225,9 @@ class ActiveStructure {
             content += `cmd.select('${visualId}${cAlphaSuffix}', '${selectionCA}')\n`;
         })
 
-        download(content, `${this.pdbId}_${this.chainId}.py`, "text/plain");
+
+
+        download(content, this.getPyMolFileName(), "text/plain");
     }
 }
 

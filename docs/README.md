@@ -475,7 +475,7 @@ residue. See the actual fields by running:
          The listener is passed an argument with a ``residue`` object containing information about 
          the corresponding residue. The ``residue`` object
         is a dictionary having the available information as returned from LiteMol:
-             * ```
+             * ```javascript
                authName: "SER"
                authSeqNumber: 13
                chain:
@@ -503,6 +503,16 @@ residue. See the actual fields by running:
  * ``sequenceMouseOff``
     * Triggers when the mouse leaves the space of the sequence view. It is also triggered
     when it leaves a category DIV.
+* ``pyMOLExportFileName``
+    * Allows user to change the PyMOL export filename:
+    ```javascript
+        pyMOLExportFileName: {
+            PDB: 'PDB-{id}_{chain}.py',
+            SMR: 'SMR-{id}_{chain}.py',
+            AF: 'AF-{id}_{chain}.py',
+            USER: 'user-{id}_{chain}.py'
+    }
+    ```
  
  ### MolArt API
 

@@ -10,6 +10,17 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+
+##  [1.12.0]
+
+### Added
+
+- Ability to specify PyMOL export file name
+
+### Removed
+
+### Fixed
+
 - Fixed unpSeqNumber passed in HighlightCustomElements
 - Fixed not showing structure viewer error messages
 
