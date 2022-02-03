@@ -3,6 +3,8 @@ let LiteMol = require('litemol').default;
 const globalSettings = require('./settings');
 const {globals} = require("browserify-css/config/jshint");
 
+window.LiteMol = LiteMol
+
 const STRUCTURE_FOMAT = require('./pdb.mapping.js').STRUCTURE_FORMAT;
 
 const getUniqueId = (function() {
@@ -309,7 +311,7 @@ function createPlugin() {
                     defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true});
                 }
 
-                return Promise.resolve(visualId);
+                return visualId;
             });
         };
 
@@ -390,6 +392,12 @@ function createPlugin() {
 
             changeEntityVisibility(entityId, false);
         };
+
+        const hideEntityIfInHiddenModel = function(entityId) {            
+            let ent = selectNodes(entityId)[0];
+            while (ent.type.id != Bootstrap.Entity.Molecule.Model.id) ent = ent.parent;
+            if (ent.state.visibility > 0) hideEntity(entityId);
+        }
 
         const showEntity = function (entityId) {
             controllerAvailability();
@@ -718,6 +726,7 @@ function createPlugin() {
             , focusSelection: focusSelection
             , hideModelsExcept: hideModelsExcept
             , hideEntity: hideEntity
+            , hideEntityIfInHiddenModel: hideEntityIfInHiddenModel
             , showEntity: showEntity
             , toggleEntity: toggleEntity
             , createGroup: createGroup

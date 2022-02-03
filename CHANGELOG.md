@@ -10,6 +10,15 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+##  [1.12.1]
+
+### Added
+
+### Removed
+
+### Fixed
+- Fixed showing interactive visuals of structures which are currently not visible
+
 
 ##  [1.12.0]
 

@@ -579,16 +579,18 @@ const LmController = function () {
                 });
             }).then(selectionId => {
                 return plugin.createVisual(selectionId,
-                    {
-                        style: plugin.getStyleDefinition(visualDef.type, visualDef.params, visualDef.color, visualDef.alpha)
-                    },
-                    true);
+                    {style: plugin.getStyleDefinition(visualDef.type, visualDef.params, visualDef.color, visualDef.alpha)},
+                    true).then(() => {
+                        //the resulting selection and visual should be visible only if the parent model is visible (by default the visual selection and visual is visible)
+                        return plugin.hideEntityIfInHiddenModel(selectionId)                        
+                    })
             });
             promises.push(promise);
         });
 
         return Promise.all(promises).then(() => {
             interactiveVisuals[visualId] = new InteractiveVisual(selectionDef, visualDef);
+
         })
     }
 
