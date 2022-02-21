@@ -468,12 +468,14 @@ residue. See the actual fields by running:
     ```
 
 - ```alphaFoldConfidence``` - Property allowint to control visibility of low-confidence regions in AlphaFold structures. When set, a button
-appears above the structure view allowing one to hide low-confident regions. The value is an object specifying what is the threshold and whether all regions or only high-confident
-regions should show up by default:
+appears above the structure view allowing one to hide low-confident regions. The value is an object specifying what is the threshold, whether all regions or only high-confident
+regions should show up by default, and whether low-confidence regions filering should apply ony to structures downloaded from the API or whether it should also apply
+to user-provided structure (this comes handy when the AF structures are actually downloaded and not served from the AF API):
 ```javascript
     alphaFoldConfidence: {
       threshold: 40,
-      startWithAll: true
+      startWithAll: true,
+      applyToUserStructures: true
     }
 ```
 

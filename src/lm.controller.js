@@ -407,8 +407,15 @@ const LmController = function () {
         });
     }
 
+    const handleAfConfidence = () => {
+        const source = mapping[activeRecId].getPdbRecord().getSource();
+        return globals.opts.alphaFoldConfidence && (source === 'AF' || (source == 'USER' && globals.opts.alphaFoldConfidence.applyToUserStructures));
+
+    }
+
     const setAFConfidenceVisibility = () => {
-        if (mapping[activeRecId].getPdbRecord().getSource() === 'AF'){
+        
+        if (handleAfConfidence){
             return plugin.setAFConfidenceVisibility(mapping[activeRecId].getModelId(), globals.afConfident);
         }
     }
@@ -487,7 +494,7 @@ const LmController = function () {
                 // return createVisualForSelection(rec, selectionId);
                 // focusAndColorPdb(rec, selectionId, color)
             }).then((surfaceVisualId) => {
-                if (rec.getSource() == 'AF' && globals.opts.alphaFoldConfidence) {
+                if (handleAfConfidence()) {
                     const modelId = mapping[rec.getId()].getModelId();
                     return plugin.createVisualsForAFConfidence(modelId, surfaceVisualId, globals.opts.alphaFoldConfidence.threshold)
                         .then(setAFConfidenceVisibility);

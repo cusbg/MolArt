@@ -72,7 +72,7 @@ class ActiveStructure {
             self.globals.lm.showErrorMessage(error);
             throw error;
         }).then(() => {
-            if (this.globals.opts.alphaFoldConfidence.threshold !== undefined && this.source == 'AF') {
+            if (this.globals.opts.alphaFoldConfidence &&  (this.source == 'AF' || (this.source == 'USER' && this.globals.opts.alphaFoldConfidence.applyToUserStructures))) {
                 this.globals.container.find('.confidence').css('display', 'inline-block');                
             } else {
                 this.globals.container.find('.confidence').css('display', 'none');                
