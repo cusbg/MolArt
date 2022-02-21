@@ -180,6 +180,14 @@
     font-size: 13px;
 }
 
+.pv3d-header-lm .confidence {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 13px;
+    line-height: 13px;
+    display: none;
+}
+
 .pv3d-header-lm .pv3d-svg-icon {
     position: relative;
     height: 25px;

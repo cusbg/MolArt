@@ -18,6 +18,7 @@ const services = require('./services');
 
 const pdbMapping = require('./pdb.mapping')
 const svgSymbols = require('./svg.symbols');
+const { globalAgent } = require('http');
 
 function loadRecord(rec, globals){
     let loadedRecord = globals.lm.loadRecord(rec);
@@ -38,6 +39,7 @@ class ActiveStructure {
         this.pdbId = undefined;
         this.chainId = undefined;
         this.record = undefined;
+        this.source = undefined;
         this.globals = globals;
     }
 
@@ -54,6 +56,7 @@ class ActiveStructure {
         this.record = records[0];
         this.pdbId = this.record.getPdbId();
         this.chainId = this.record.getChainId();
+        this.source = this.record.getSource();
 
         // if multiple records are present, they all reference the same PDB structure, so it's OK to pick simply
         // the first record
@@ -68,7 +71,14 @@ class ActiveStructure {
             console.log(error);
             self.globals.lm.showErrorMessage(error);
             throw error;
-        });
+        }).then(() => {
+            if (this.globals.opts.alphaFoldConfidence.threshold !== undefined && this.source == 'AF') {
+                this.globals.container.find('.confidence').css('display', 'inline-block');                
+            } else {
+                this.globals.container.find('.confidence').css('display', 'none');                
+            }
+            
+        })
     }
 
     /***
@@ -349,7 +359,11 @@ const MolArt = function(opts) {
 
         ,eventEmitter: new events.EventEmitter()
 
-        ,settings: require('./settings')
+        ,afConfident: undefined
+
+        ,opts: {}
+
+        ,settings: require('./settings')        
     };
 
     globals.activeStructure =  new ActiveStructure(globals);
@@ -458,8 +472,7 @@ const MolArt = function(opts) {
 
         const lmHeader = $(`        
         <div class="pv3d-header pv3d-header-lm">
-        
-        
+            
             <div class="pv3d-button pv3d-download" title="Export to PyMol">
                 ${svgSymbols.download}
             </div>
@@ -479,12 +492,39 @@ const MolArt = function(opts) {
                 </div>
             </div>
             <div class="user-highlights ui selection dropdown">
-                    <div class="text"></div>                    
-                    <i class="dropdown icon"></i>
-                </div>            
+                <div class="text"></div>                    
+                <i class="dropdown icon"></i>
+            </div>
+            <div class="ui button confidence">
+                <div class="text af-confident">Show confident regions</div>
+                <div class="text af-all" style="display: none">Show all regions</div>
+            </div>            
+            
                       
         </div>
         `);
+
+        if (globals.opts.alphaFoldConfidence) {
+            globals.afConfident = !globals.opts.alphaFoldConfidence.startWithAll;
+        };
+
+        lmHeader.find('.confidence').on('click', () => {
+            if (globals.opts.alphaFoldConfidence == undefined) return;
+            
+            globals.afConfident = !globals.afConfident;
+
+            const divAfConfident = lmHeader.find('.af-confident');
+            const divAfAll = lmHeader.find('.af-all');;
+
+            if (!globals.afConfident) {
+                divAfConfident.css('display', 'block');
+                divAfAll.css('display', 'none')                
+            } else {
+                divAfConfident.css('display', 'none');
+                divAfAll.css('display', 'block')                
+            }
+            globals.lm.setAFConfidenceVisibility()
+        })
 
         const lmHeaderList = lmHeader.find('.lm-list');
 
@@ -870,11 +910,15 @@ const MolArt = function(opts) {
     function initializeActiveStructure(structureId){
         let rec = globals.pdbRecords[0];
         if (structureId) {
+            let found = false
             for (const _rec of globals.pdbRecords) {
                 if (_rec.getPdbId().toLowerCase() === structureId.toLowerCase()) {
                     rec = _rec;
+                    found = true;
                     break;
-                }
+                }                
+            }
+            if (!found) {
                 console.warn(`Default structure required (${structureId}) but not found in`, globals.pdbRecords)
             }
         }

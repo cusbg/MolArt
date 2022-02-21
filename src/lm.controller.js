@@ -86,7 +86,7 @@ const LmController = function () {
 
         getUserHighlightVisualIds() {
             return this.userHighlightVisualIds;
-        }
+        }        
     }
     class InteractiveVisual {
         /*
@@ -115,6 +115,7 @@ const LmController = function () {
 
     let globals;
     const mapping = {};
+    let activeRecId = undefined;
     const interactiveVisuals = {};
 
     function setToArray(set) {
@@ -398,12 +399,18 @@ const LmController = function () {
 
     function loadMolecule(rec, hideOthers) {
 
-        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getFormat(), rec.getCoordinatesFile()).then(function (modelId) {
+        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getFormat(), rec.getCoordinatesFile(), globals.opts.alphaFoldConfidence.threshold).then(function (modelId) {
             mapping[rec.getId()].setPdbRecord(rec);
             mapping[rec.getId()].setModelId(modelId);
             // load molecule into the LM plugin, retrieve ID of the respective model and hide all other models
             return hideOthers ? plugin.hideModelsExcept([modelId]) : Promise.resolve();
         });
+    }
+
+    const setAFConfidenceVisibility = () => {
+        if (mapping[activeRecId].getPdbRecord().getSource() === 'AF'){
+            return plugin.setAFConfidenceVisibility(mapping[activeRecId].getModelId(), globals.afConfident);
+        }
     }
 
     function createUniprotMappingGroup(rec) {
@@ -437,6 +444,7 @@ const LmController = function () {
     function loadRecord(rec, params = {focus: true, hideOthers: true}) {
 
         const recId = rec.getId();
+        activeRecId = recId;
 
         if (recId in mapping) {
             if (params.focus) plugin.focusSelection(mapping[recId].getSelectionId());
@@ -444,6 +452,8 @@ const LmController = function () {
             const observedResidues = rec.getObservedResidues();
             if (!observedResidues || observedResidues.length === 0) extractObservedResidues(rec);
             updateHeaderPdbLink();
+            
+            setAFConfidenceVisibility();
 
             return Promise.resolve();
         }
@@ -476,7 +486,14 @@ const LmController = function () {
                 return plugin.createVisual(selectionId);
                 // return createVisualForSelection(rec, selectionId);
                 // focusAndColorPdb(rec, selectionId, color)
-            }).then(() => {
+            }).then((surfaceVisualId) => {
+                if (rec.getSource() == 'AF' && globals.opts.alphaFoldConfidence) {
+                    const modelId = mapping[rec.getId()].getModelId();
+                    return plugin.createVisualsForAFConfidence(modelId, surfaceVisualId, globals.opts.alphaFoldConfidence.threshold)
+                        .then(setAFConfidenceVisibility);
+                } else return Promise.resolve();
+            })
+            .then(() => {
 
                 // Create group covering all selections possibly specified by the user
 
@@ -907,7 +924,7 @@ const LmController = function () {
         getHeaderPdbChainList: getHeaderPdbChainList,
         getHeaderLinkContainer: getHeaderLinkContainer,
 
-
+        setAFConfidenceVisibility: setAFConfidenceVisibility,
     };
 };
 

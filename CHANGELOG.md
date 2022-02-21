@@ -6,9 +6,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- Ability to control visibility of low-confidence regions in AlphaFold structures.
+
 ### Removed
 
 ### Fixed
+
+- Fix warning regarding default structure not found when loading MolArt
 
 ##  [1.12.1]
 

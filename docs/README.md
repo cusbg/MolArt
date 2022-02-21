@@ -456,6 +456,27 @@ residue. See the actual fields by running:
 });
 ```
 
+- ``pyMOLExportFileName``
+    * Allows user to change the PyMOL export filename:
+    ```javascript
+        pyMOLExportFileName: {
+            PDB: 'PDB-{id}_{chain}.py',
+            SMR: 'SMR-{id}_{chain}.py',
+            AF: 'AF-{id}_{chain}.py',
+            USER: 'user-{id}_{chain}.py'
+    }
+    ```
+
+- ```alphaFoldConfidence``` - Property allowint to control visibility of low-confidence regions in AlphaFold structures. When set, a button
+appears above the structure view allowing one to hide low-confident regions. The value is an object specifying what is the threshold and whether all regions or only high-confident
+regions should show up by default:
+```javascript
+    alphaFoldConfidence: {
+      threshold: 40,
+      startWithAll: true
+    }
+```
+
  ### Events
  
  MolArt object generates several events. The app which owns the MolArt object can register listeners 
@@ -503,16 +524,6 @@ residue. See the actual fields by running:
  * ``sequenceMouseOff``
     * Triggers when the mouse leaves the space of the sequence view. It is also triggered
     when it leaves a category DIV.
-* ``pyMOLExportFileName``
-    * Allows user to change the PyMOL export filename:
-    ```javascript
-        pyMOLExportFileName: {
-            PDB: 'PDB-{id}_{chain}.py',
-            SMR: 'SMR-{id}_{chain}.py',
-            AF: 'AF-{id}_{chain}.py',
-            USER: 'user-{id}_{chain}.py'
-    }
-    ```
  
  ### MolArt API
 

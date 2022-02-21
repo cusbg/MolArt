@@ -165,7 +165,7 @@ function createPlugin() {
             return controller.context.select(what);
         }
 
-        const loadMolecule = function (pdbId, source, dataFormat, url) {
+        const loadMolecule = function (pdbId, source, dataFormat, url, tempFactorThrashold) {
             controllerAvailability();
 
             const modelId = getModelId(pdbId);
@@ -190,20 +190,54 @@ function createPlugin() {
                     polymerRef: visualId,
                     het: true,
                     water: true
-                });
+                })
 
-            return controller.applyTransform(action).then(function () {
+            return controller.applyTransform(action)               
+                .then( () => {
+                    const visual = selectNodes(visualId);
+                    if (visual.length === 0) throw Error('Litemol could not access or process the structure file <br/> (' + url + ')');
 
-                const visual = selectNodes(visualId);
-                if (visual.length === 0) throw Error('Litemol could not access or process the structure file <br/> (' + url + ')');
-
-                defaultlVisuals[visualId] = Object.assign({}, visual[0].props.model.theme, {isSticky: true});
-                // let visual = selectNodes(visualId)[0];
-                return Promise.resolve(modelId);
-                // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: visual.props.style.theme});
-                // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: createMainTheme()});
-            })
+                    defaultlVisuals[visualId] = Object.assign({}, visual[0].props.model.theme, {isSticky: true});
+                    // let visual = selectNodes(visualId)[0];
+                    return Promise.resolve(modelId);
+                    // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: visual.props.style.theme});
+                    // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: createMainTheme()});
+                })
         };
+
+        const createVisualsForAFConfidence = function(modelId, surfaceVisualId, tempFactorThrashold) {
+            
+            const model = controller.selectEntities(modelId)[0];
+            const resIxs = [...new Set(model.props.model.data.atoms.residueIndex.filter((resIx, ix) => model.props.model.data.atoms.tempFactor[ix] > tempFactorThrashold))]
+            const  query = Query.residuesFromIndices(resIxs);
+            
+            const confidenceSelectionID = `${settings.selectionPrefix}confidence-${modelId}`;
+            const confidenceVisualID = `${settings.visualPrefix}confidence-${modelId}`;
+            const confidenceSelectionSurfID = `${confidenceSelectionID}-surf`;
+            const confidenceVisualSurfID = `${confidenceVisualID}-surf`;                        
+
+            let action = Bootstrap.Tree.Transform.build()
+                .add(model, Transformer.Molecule.CreateSelectionFromQuery, {query: query, name: `Confident`}, {ref: confidenceSelectionID, isBinding: false})
+                .then(Transformer.Molecule.CreateVisual, {style: Bootstrap.Visualization.Molecule.Default.ForType.get('Cartoons')}, {ref: confidenceVisualID})                            
+            return controller.applyTransform(action)                
+                .then(()=> {                    
+                    const surfaceParent = controller.selectEntities(surfaceVisualId)[0].parent;
+                    
+                    let action = Bootstrap.Tree.Transform.build()
+                        .add(surfaceParent, Transformer.Molecule.CreateSelectionFromQuery, {query: query, name: `Confident surface`}, {ref: confidenceSelectionSurfID, isBinding: false})
+                        .then(Transformer.Molecule.CreateVisual, {style: getDefaultSurfaceVis()}, {ref: confidenceVisualSurfID})
+                    return controller.applyTransform(action)
+                })  
+                .then(() => {
+                    let visual = selectNodes(confidenceVisualID)[0];
+                    defaultlVisuals[confidenceVisualID] = Object.assign({}, visual.props.model.theme, {isSticky: true});
+                    visual = selectNodes(confidenceVisualSurfID)[0];
+                    defaultlVisuals[confidenceVisualSurfID] = Object.assign({}, visual.props.model.theme, {isSticky: true});
+
+                    hideEntity(confidenceVisualID);
+                    hideEntity(confidenceVisualSurfID);
+                })
+        }
 
         const resetVisuals = function (idRestriction="") {
             controllerAvailability();
@@ -231,6 +265,27 @@ function createPlugin() {
             );
             return Promise.all(promises);
         };
+
+        const setAFConfidenceVisibility = function(modelId, showConfident){
+
+            const model = controller.selectEntities(modelId)[0];            
+            let confidentEntityIds = controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Molecule.Visual)).filter(e => e.ref.startsWith(`${settings.visualPrefix}confidence`));
+            let allEntityIds = [model.children[0].ref, model.children[1].children[0].children[0]]; //the first selection is the default one + first visual of first selection of first group (= second child) TODO: rewrite, to have user selection id
+            
+            // viss.forEach(vis => {
+            //     if (vis.ref.startsWith(`${settings.visualPrefix}confidence`)) {
+            //         confidentEntityIds.push(vis.ref);
+            //     }
+            // })
+            if (showConfident) {
+                allEntityIds.forEach(id => hideEntity(id));
+                confidentEntityIds.forEach(id => showEntity(id));
+                
+            } else {
+                confidentEntityIds.forEach(id => hideEntity(id));
+                allEntityIds.forEach(id => showEntity(id));
+            };
+        }
 
         const focusSelection = function (selectionId) {
             controllerAvailability();
@@ -321,7 +376,7 @@ function createPlugin() {
 
         const createSelectionFromList = function(params){
 
-            params.residues = params.sequenceNumbers.map(r => {return {authAsymId: params.chainId, seqNumber: r}}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+            params.residues = params.sequenceNumbers.map(r => {return {authAsymId: params.chainId, seqNumber: r}}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.core.structure.query.residueidschema.html
             return createSelection(params);
 
         };
@@ -330,7 +385,7 @@ function createPlugin() {
 
             params.residues = [];
             for (let i = params.beginIx; i <= params.endIx; i++) {
-                params.residues.push({authAsymId: params.chainId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/int`erfaces/litemol.core.structure.query.residueidschema.html
+                params.residues.push({authAsymId: params.chainId, seqNumber: i}); //https://webchemdev.ncbr.muni.cz/LiteMol/SourceDocs/interfaces/litemol.core.structure.query.residueidschema.html
             }
             return createSelection(params);
         };
@@ -742,6 +797,8 @@ function createPlugin() {
             , getStyleDefinition: getStyleDefinition
             , getAuthSeqNumber: getAuthSeqNumber
             , getAuthSeqNumberRange: getAuthSeqNumberRange
+            , createVisualsForAFConfidence: createVisualsForAFConfidence
+            , setAFConfidenceVisibility: setAFConfidenceVisibility
         }
 
     })(LiteMol || (LiteMol = {}));
