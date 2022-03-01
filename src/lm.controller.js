@@ -86,7 +86,15 @@ const LmController = function () {
 
         getUserHighlightVisualIds() {
             return this.userHighlightVisualIds;
-        }        
+        }
+        
+        setUserHighlightSelectionIds(userHighlightSelectionIds) {
+            this.userHighlightSelectionIds= userHighlightSelectionIds;
+        }
+
+        getUserHighlightSelectionIds() {
+            return this.userHighlightSelectionIds;
+        }
     }
     class InteractiveVisual {
         /*
@@ -473,6 +481,8 @@ const LmController = function () {
         let groupId, selectionId;
         let extraHighlightsContent = globals.opts.extraHighlights ? globals.opts.extraHighlights.content : [];
 
+        let extraSelectionIds = [];
+
         return loadMolecule(rec, params.hideOthers)
             .then(() => {updateHeaderPdbLink(); return Promise.resolve();})
             .then(()=> {extractObservedResidues(rec); return Promise.resolve();})
@@ -525,8 +535,23 @@ const LmController = function () {
                 });
 
                 return Promise.all(promises);
-
-            })).then(selectionsIds => {
+            }))
+            .then(selectionsIds => {
+                
+                mapping[recId].setUserHighlightSelectionIds(selectionsIds.filter(id => id !== undefined));
+                extraSelectionIds = selectionsIds;
+                
+                if (handleAfConfidence()) {
+                    return Promise.all(
+                        selectionsIds
+                            .filter(selectionId => selectionId !== undefined)
+                            .map(selectionId => plugin.createSubSelectionForAFCofidence(selectionId, globals.opts.alphaFoldConfidence.threshold))
+                        )
+                        .then(() => selectionsIds)
+                } else {
+                    return Promise.resolve(selectionsIds);
+                }
+            }).then(selectionsIds => {
 
                 const promises = selectionsIds.map( (id, i) => {
                     if (id !== undefined) {
@@ -538,7 +563,8 @@ const LmController = function () {
                                     extraHighlightsContent[i].visual.color,
                                     extraHighlightsContent[i].visual.alpha
 
-                                )}
+                                )},
+                            handleAfConfidence()
                         )
                     } else {
                         return Promise.resolve(undefined);
@@ -551,11 +577,15 @@ const LmController = function () {
                 //console.log('visualIds',visualIds);
                 const visualIdsDef = visualIds.filter(id => id !== undefined);
                 mapping[recId].setUserHighlightVisualIds(visualIdsDef);
+
                 visualIds.forEach((id, i) => {
                     if (id === undefined) return;
-                     userHighlightSelected(i) || !globals.opts.extraHighlights.controlVisibility ? plugin.showEntity(id): plugin.hideEntity(id);
+                    const selectionId = extraSelectionIds[i];
+                    extraHighlightsContent[i].selectionId = selectionId;
+                    userHighlightSelected(i) || !globals.opts.extraHighlights.controlVisibility ? plugin.showEntity(selectionId, globals.afConfident): plugin.hideEntity(selectionId);
                     if (extraHighlightsContent[i].visualIds === undefined) extraHighlightsContent[i].visualIds = [];
                     extraHighlightsContent[i].visualIds.push(id)
+                    
                 });
             }).then(() => {
                 Object.keys(interactiveVisuals).forEach(visualId => {
@@ -706,8 +736,7 @@ const LmController = function () {
 
 
     function setUserSelectionsVisibiliy(pdbId){
-
-        // const recordVisuals = recMapping ? recMapping.getUserHighlightVisualIds() : undefined;
+        
         let recordVisuals = [];
         for (const id in mapping) {
             if (mapping[id].getPdbRecord().getPdbId() === pdbId) {

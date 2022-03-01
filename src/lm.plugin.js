@@ -129,6 +129,7 @@ function createPlugin() {
             ,selectionPrefix: 'sel'
             ,visualPrefix: 'vis'
             ,groupPrefix: 'gr'
+            ,confidenceInfix: 'confidence'
         };
 
         let controller;
@@ -205,14 +206,26 @@ function createPlugin() {
                 })
         };
 
+        const createSubSelectionForAFCofidence = function(selectionId, tempFactorThrashold) {
+            const sel = controller.selectEntities(selectionId)[0];
+            const model = controller.selectEntities(Bootstrap.Tree.Selection.byRef(selectionId).ancestorOfType(Bootstrap.Entity.Molecule.Model))[0];
+            const resIxs = [...new Set(model.props.model.data.atoms.residueIndex.filter((resIx, ix) => model.props.model.data.atoms.tempFactor[ix] > tempFactorThrashold))]
+            const  query = Query.residuesFromIndices(resIxs);
+            const confidenceSelectionID = `${selectionId}-${settings.confidenceInfix}`;
+
+            let action = Bootstrap.Tree.Transform.build()
+                .add(sel, Transformer.Molecule.CreateSelectionFromQuery, {query: query, name: `Confident`}, {ref: confidenceSelectionID, isBinding: false})
+            return controller.applyTransform(action);
+        }
+
         const createVisualsForAFConfidence = function(modelId, surfaceVisualId, tempFactorThrashold) {
             
             const model = controller.selectEntities(modelId)[0];
             const resIxs = [...new Set(model.props.model.data.atoms.residueIndex.filter((resIx, ix) => model.props.model.data.atoms.tempFactor[ix] > tempFactorThrashold))]
             const  query = Query.residuesFromIndices(resIxs);
             
-            const confidenceSelectionID = `${settings.selectionPrefix}confidence-${modelId}`;
-            const confidenceVisualID = `${settings.visualPrefix}confidence-${modelId}`;
+            const confidenceSelectionID = `${settings.selectionPrefix}${settings.confidenceInfix}-${modelId}`;
+            const confidenceVisualID = `${settings.visualPrefix}${settings.confidenceInfix}-${modelId}`;
             const confidenceSelectionSurfID = `${confidenceSelectionID}-surf`;
             const confidenceVisualSurfID = `${confidenceVisualID}-surf`;                        
 
@@ -269,8 +282,11 @@ function createPlugin() {
         const setAFConfidenceVisibility = function(modelId, showConfident){
 
             const model = controller.selectEntities(modelId)[0];            
-            let confidentEntityIds = controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Molecule.Visual)).filter(e => e.ref.startsWith(`${settings.visualPrefix}confidence`));
+            let confidentEntityIds = controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Molecule.Visual)).filter(e => e.ref.indexOf(`${settings.confidenceInfix}`) >= 0);
             let allEntityIds = [model.children[0].ref, model.children[1].children[0].children[0]]; //the first selection is the default one + first visual of first selection of first group (= second child) TODO: rewrite, to have user selection id
+            
+            controller.selectEntities(Bootstrap.Tree.Selection.subtree(model).ofType(Bootstrap.Entity.Group))
+
             
             // viss.forEach(vis => {
             //     if (vis.ref.startsWith(`${settings.visualPrefix}confidence`)) {
@@ -314,7 +330,7 @@ function createPlugin() {
             };
         };
 
-        const createVisual = function (entityId, params, isUserDefined = false) {
+        const createVisual = function (entityId, params/*, isUserDefined = false*/, createAfConfidenceVisual=false) {
             controllerAvailability();
 
             //check whether the entity over which the visual is to be applied exists
@@ -342,9 +358,11 @@ function createPlugin() {
             // params.style.theme.colors = colors;
 
 
-            const visualId = getVisualId(entityId);
+            const visualId = getVisualId(entityId);            
 
             if (selectNodes(visualId).length > 0) return Promise.resolve(visualId);
+
+            const visualIdConfidence = `${settings.confidenceInfix}-${visualId}`;
 
             // params = {style: {
             //     type: 'BallsAndSticks',
@@ -357,14 +375,29 @@ function createPlugin() {
             //     params: {probeRadius: 0.01, automaticDensity: true, density: 1, smoothing: 10, isWireframe: false},
             //     theme: { template: Visualization.Molecule.Default.SurfaceThemeTemplate, colors: Visualization.Molecule.Default.SurfaceThemeTemplate.colors, transparency: { alpha: 0.35 }}}}
 
+            const root = selectNodes(entityId)[0];
+            let confidenceSelection; 
+            if (createAfConfidenceVisual) {
+                const selections = controller.selectEntities(Bootstrap.Tree.Selection.subtree(root).ofType(Bootstrap.Entity.Molecule.Selection)).filter(s => s.ref !== entityId)
+                if (selections.length > 0) {
+                    confidenceSelection =  selections[0];
+                }
+            }
 
             let action = Bootstrap.Tree.Transform.build()
-                .add(selectNodes(entityId)[0], Transformer.Molecule.CreateVisual, params, {ref: visualId});
+                .add(root, Transformer.Molecule.CreateVisual, params, {ref: visualId});
+
+            if (createAfConfidenceVisual && confidenceSelection) {
+                action.add(confidenceSelection, Transformer.Molecule.CreateVisual, params, {ref: visualIdConfidence});
+            }
 
             return controller.applyTransform(action).then(() => {
-                if (!isUserDefined) {
+                //if (!isUserDefined) {
                     defaultlVisuals[visualId] = Object.assign({}, selectNodes(visualId)[0].props.model.theme, {isSticky: true});
-                }
+                    if (createAfConfidenceVisual && confidenceSelection) {
+                        defaultlVisuals[visualIdConfidence] = Object.assign({}, selectNodes(visualIdConfidence)[0].props.model.theme, {isSticky: true});
+                    }
+                //}
 
                 return visualId;
             });
@@ -454,10 +487,18 @@ function createPlugin() {
             if (ent.state.visibility > 0) hideEntity(entityId);
         }
 
-        const showEntity = function (entityId) {
+        const showEntity = function (entityId, showConfident = true) {
             controllerAvailability();
 
-            changeEntityVisibility(entityId, true);
+            if (showConfident){
+                changeEntityVisibility(entityId, true);
+            } else {
+                controller.selectEntities(Tree.Selection.subtree().ofType(Bootstrap.Entity.Molecule.Model)).forEach( entity => {
+                    if (entity.ref.indexOf(settings.confidenceInfix) < 0) {
+                        changeEntityVisibility(entityId, true);
+                    }
+                })
+            }            
         };
 
         const toggleEntity = function (entitiyId, on) {
@@ -799,6 +840,7 @@ function createPlugin() {
             , getAuthSeqNumberRange: getAuthSeqNumberRange
             , createVisualsForAFConfidence: createVisualsForAFConfidence
             , setAFConfidenceVisibility: setAFConfidenceVisibility
+            , createSubSelectionForAFCofidence: createSubSelectionForAFCofidence
         }
 
     })(LiteMol || (LiteMol = {}));
