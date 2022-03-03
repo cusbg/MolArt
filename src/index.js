@@ -861,8 +861,21 @@ const MolArt = function(opts) {
         }).then(function(){
             if (!globals.pdbRecords) globals.pdbRecords = [];
             if (opts.alwaysLoadPredicted && pdbMappingAvailable) {
-                return Promise.all([loadAf(opts.uniprotId, opts), loadSmr(opts.uniprotId, opts)]).then(records => {
-                    globals.pdbRecords = globals.pdbRecords.concat(records[0]).concat(records[1]);
+                let promises = [];
+                const afPromise = loadAf(opts.uniprotId, opts);
+                const smrPromise = loadSmr(opts.uniprotId, opts);
+                if (Array.isArray(opts.alwaysLoadPredicted)) {
+                    const alwaysLoadPredictedUpperCase = opts.alwaysLoadPredicted.map(val => val.toUpperCase())
+                    if (alwaysLoadPredictedUpperCase.indexOf('SMR') >= 0) promises.push(smrPromise);
+                    if (alwaysLoadPredictedUpperCase.indexOf('AF') >= 0) promises.push(afPromise);
+                } else {
+                    promises = [afPromise, smrPromise]
+                }
+
+                return Promise.all(promises).then(records => {
+                    for (const rec of records) {
+                        globals.pdbRecords = globals.pdbRecords.concat(rec);
+                    }                    
                 });
             } else {
                 return Promise.resolve();

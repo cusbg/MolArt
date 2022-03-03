@@ -10,7 +10,17 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
-##  [1.13]
+##  [1.14.0]
+
+### Added
+
+- Ability to tell MolArt to only load AlphaFold or SMR structures
+
+### Removed
+
+### Fixed
+
+##  [1.13.0]
 
 ### Added
 
