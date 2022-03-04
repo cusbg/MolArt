@@ -424,8 +424,9 @@ const LmController = function () {
 
     const setAFConfidenceVisibility = () => {
         
-        if (handleAfConfidence){
-            return plugin.setAFConfidenceVisibility(mapping[activeRecId].getModelId(), globals.afConfident);
+        if (handleAfConfidence){            
+            plugin.setAFConfidenceVisibility(mapping[activeRecId].getModelId(), globals.afConfident);
+            setUserSelectionsVisibiliy(mapping[activeRecId].getPdbRecord().getPdbId());
         }
     }
 
@@ -745,10 +746,19 @@ const LmController = function () {
             }
         }
 
+        const afConfident = globals.afConfident;
+
         getHeaderUserHighlightsList().find('div.item').each(i => {
-            globals.opts.extraHighlightsextraHighlights.content[i].visualIds.forEach((visualId) => {
+            if (!globals.opts.extraHighlights.content[i].visualIds) return;
+            globals.opts.extraHighlights.content[i].visualIds.forEach((visualId) => {
                 if (recordVisuals === undefined || recordVisuals.indexOf(visualId) >= 0) {
-                    userHighlightSelected(i) ? plugin.showEntity(visualId): plugin.hideEntity(visualId);
+                    if (userHighlightSelected(i)) {
+                        //plugin.showEntity(visualId)
+                        plugin.showSelectionVisual(visualId, afConfident)
+                    } else {
+                        //plugin.hideEntity(visualId);
+                        plugin.hideSelectionVisual(visualId, afConfident);
+                    } 
                 }
             })
         })
@@ -756,6 +766,11 @@ const LmController = function () {
 
     function highlightUserSelection(i, on, pdbId) {
         //i is the index of user selection in globals.opts.extraHighlights.content
+
+        if (!globals.opts.extraHighlights.content[i].visualIds) return;
+
+        const afConfident = globals.afConfident;
+
         let recordVisuals = [];
         for (const id in mapping) {
             if (mapping[id].getPdbRecord().getPdbId() == pdbId) {
@@ -765,7 +780,13 @@ const LmController = function () {
 
         globals.opts.extraHighlights.content[i].visualIds.forEach(visualId => {
             if (recordVisuals.indexOf(visualId) >= 0) {
-                on ? plugin.showEntity(visualId) : plugin.hideEntity(visualId);
+                if (on) {
+                    //plugin.showEntity(visualId)
+                    plugin.showSelectionVisual(visualId, afConfident)
+                } else {
+                    //plugin.hideEntity(visualId);
+                    plugin.hideSelectionVisual(visualId, afConfident)
+                }
             }
         });
 

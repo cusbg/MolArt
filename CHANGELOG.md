@@ -10,6 +10,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+- AlphaFold confidence filtering applies also to user-provided highlights
+
 ##  [1.14.0]
 
 ### Added

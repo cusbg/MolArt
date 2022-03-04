@@ -501,6 +501,26 @@ function createPlugin() {
             }            
         };
 
+        const showSelectionVisual = function(visualId, showConfidentOnly){            
+            const selectionNode = selectNodes(visualId)[0].parent;
+            const visuals = controller.selectEntities(Tree.Selection.subtree(selectionNode).ofType(Bootstrap.Entity.Molecule.Visual))
+            const visualsConfident = visuals.filter(v => v.ref.indexOf(settings.confidenceInfix) >= 0);
+            const visualsAll = visuals.filter(v => v.ref.indexOf(settings.confidenceInfix) < 0);
+            let showConfident = true, showAll = false;
+            if (!showConfidentOnly){
+                showConfident = false;
+                showAll = true;                
+            } 
+            visualsConfident.forEach(v => changeEntityVisibility(v.ref, showConfident));
+            visualsAll.forEach(v => changeEntityVisibility(v.ref, showAll));
+        }
+
+        const hideSelectionVisual = function(visualId){
+            hideEntity(selectNodes(visualId)[0].parent);
+            //const selectionNode = selectNodes(visualId)[0].parent;
+            //controller.selectEntities(Tree.Selection.subtree(selectionNode).ofType(Bootstrap.Entity.Molecule.Visual)).forEach( v => hideEntity(v.ref));
+        }
+
         const toggleEntity = function (entitiyId, on) {
             controllerAvailability();
 
@@ -846,6 +866,8 @@ function createPlugin() {
             , createVisualsForAFConfidence: createVisualsForAFConfidence
             , setAFConfidenceVisibility: setAFConfidenceVisibility
             , createSubSelectionForAFCofidence: createSubSelectionForAFCofidence
+            , showSelectionVisual: showSelectionVisual
+            , hideSelectionVisual: hideSelectionVisual
         }
 
     })(LiteMol || (LiteMol = {}));
