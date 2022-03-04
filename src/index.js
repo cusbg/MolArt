@@ -498,9 +498,7 @@ const MolArt = function(opts) {
             <div class="ui button confidence">
                 <div class="text af-confident">Show confident regions</div>
                 <div class="text af-all" style="display: none">Show all regions</div>
-            </div>            
-            
-                      
+            </div>      
         </div>
         `);
 
