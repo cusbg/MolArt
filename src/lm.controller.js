@@ -407,7 +407,8 @@ const LmController = function () {
 
     function loadMolecule(rec, hideOthers) {
 
-        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getFormat(), rec.getCoordinatesFile(), globals.opts.alphaFoldConfidence.threshold).then(function (modelId) {
+        return plugin.loadMolecule(rec.getPdbId(), rec.getSource(), rec.getFormat(), rec.getCoordinatesFile(), globals.opts.alphaFoldConfidence ? globals.opts.alphaFoldConfidence.threshold : undefined)
+        .then(function (modelId) {
             mapping[rec.getId()].setPdbRecord(rec);
             mapping[rec.getId()].setModelId(modelId);
             // load molecule into the LM plugin, retrieve ID of the respective model and hide all other models
@@ -904,7 +905,7 @@ const LmController = function () {
 
         processPassedOptions(globals.opts);
 
-        plugin.initializePlugin(globals.lmContainerId, globals.activeStructure, globals.opts.labelCallback);
+        plugin.initializePlugin(globals);
 
         initalizeUserHighlights();
 

@@ -6,13 +6,33 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+### Removed
+
+### Fixed
+
+##  [1.14.0]
+
+### Added
+
+- Ability to tell MolArt to only load AlphaFold or SMR structures
+
+### Removed
+
+### Fixed
+
+##  [1.13.0]
+
+### Added
+
 - Ability to control visibility of low-confidence regions in AlphaFold structures.
+- Added uniprot position in the `labelcallback`
 
 ### Removed
 
 ### Fixed
 
 - Fix warning regarding default structure not found when loading MolArt
+- Fix failing when not AF confidence settings specified
 
 ##  [1.12.1]
 

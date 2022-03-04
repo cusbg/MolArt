@@ -649,7 +649,10 @@ function createPlugin() {
         }
 
 
-        const initializePlugin = function (idContainer, activeStructure, labelCallback) {
+        const initializePlugin = function (globals) {
+            const idContainer = globals.lmContainerId;
+            const activeStructure = globals.activeStructure;
+            const labelCallback = globals.opts.labelCallback;            
 
             const HighlightCustomElements = function (context) {
                 context.highlight.addProvider(function (info) {
@@ -694,7 +697,9 @@ function createPlugin() {
                     //TODO not sure how this should be correctly computed as in cases of 2I4I we would like to use residueIx but in case of 5E7I:A we would likte to use seqNumber
                     resInfo.unpSeqNumber = resInfo.authSeqNumber;
 
-                    return labelCallback({atomInfo: atomInfo, resInfo: resInfo});
+                    const unpPos = activeStructure.record.mapPosPdbToUnp(resInfo.seqNumber);
+
+                    return labelCallback({atomInfo: atomInfo, resInfo: resInfo, unpPos: unpPos});
                 })
 
                 // model = plugin.context.select('mod6i53')[0]
