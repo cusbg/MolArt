@@ -10,7 +10,17 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+
+##  [1.14.1]
+
+### Added
+
+### Removed
+
+### Fixed
+
 - AlphaFold confidence filtering applies also to user-provided highlights
+- Provista include change from git to https
 
 ##  [1.14.0]
 

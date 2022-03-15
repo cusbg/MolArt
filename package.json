@@ -1,7 +1,7 @@
 {
   "name": "molart",
   "description": "MOLeculAR structure annoTator",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "homepage": "https://github.com/cusbg/MolArt",
   "author": "David Hoksza",
   "keywords": [],
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@types/downloadjs": "^1.4.2",
-    "ProtVista": "git://github.com/davidhoksza/protvista.git#scaling",
+    "ProtVista": "https://github.com/davidhoksza/protvista.git#scaling",
     "color-blend": "^1.0.0",
     "downloadjs": "^1.4.7",
     "events": "^1.1.1",
