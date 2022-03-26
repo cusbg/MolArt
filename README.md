@@ -127,6 +127,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
   <img src="img/logo-elixir.png" />
 </p>
 
-PrankWeb is a part of services provided by ELIXIR – European research infrastructure for biological information.
+MolArt is a part of services provided by ELIXIR – European research infrastructure for biological information.
 See [services](https://www.elixir-czech.cz/services) provided [ELIXIR's Czech Republic Node](https://www.elixir-czech.cz/).
 
