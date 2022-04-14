@@ -10,6 +10,16 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+##  [1.14.2]
+
+### Added
+
+### Removed
+
+### Fixed
+
+- Provista include change from https to git+https
+
 
 ##  [1.14.1]
 
