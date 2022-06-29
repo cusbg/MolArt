@@ -12,7 +12,7 @@ function ajaxQuery(url, type) {
 }
 
 function getFastaByUniprotId(uniprotId) {
-    return ajaxQuery('https://www.uniprot.org/uniprot/' + uniprotId + '.fasta');
+    return ajaxQuery('https://rest.uniprot.org/uniprotkb/' + uniprotId + '.fasta');
 }
 
 function getUnpToPdbMapping(uniprotId) {

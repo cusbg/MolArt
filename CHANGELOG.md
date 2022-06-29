@@ -10,6 +10,14 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Fixed
 
+##  [1.15.0]
+
+### Added
+
+### Removed
+
+### Fixed
+Uniprot changed API resulting in CORS issues. This had to be reflected in MolArt by changing to the new API.
 ##  [1.14.2]
 
 ### Added

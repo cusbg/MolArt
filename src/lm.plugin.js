@@ -202,7 +202,7 @@ function createPlugin() {
                     // let visual = selectNodes(visualId)[0];
                     return Promise.resolve(modelId);
                     // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: visual.props.style.theme});
-                    // Command.Visual.UpdateBasicTheme.dispatch(controller.context, {visual: visual, theme: createMainTheme()});
+                    // Command.Visual.UpdateBasicTheme.dispatch(`controller`.context, {visual: visual, theme: createMainTheme()});
                 })
         };
 
