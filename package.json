@@ -49,15 +49,15 @@
   "dependencies": {
     "@types/downloadjs": "^1.4.2",
     "ProtVista": "git+https://github.com/davidhoksza/protvista.git#scaling",
-    "color-blend": "^1.0.0",
+    "color-blend": "1.0.0",
     "downloadjs": "^1.4.7",
     "events": "^1.1.1",
     "jquery": "^3.6.0",
     "litemol": "github:dsehnal/LiteMol",
     "lodash": "^4.17.21",
-    "semantic-ui-button": "^2.3.2",
-    "semantic-ui-dropdown": "^2.2.12",
-    "semantic-ui-label": "^2.2.12",
-    "semantic-ui-transition": "^2.2.12"
+    "semantic-ui-button": "2.2.12",
+    "semantic-ui-dropdown": "2.2.12",
+    "semantic-ui-label": "2.2.12",
+    "semantic-ui-transition": "2.2.12"
   }
 }
