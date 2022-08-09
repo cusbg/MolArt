@@ -9,6 +9,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Removed
 
 ### Fixed
+Fixed broken user selections (caused by bumping the version of Seminatic UI to 2.2.12)
 
 ##  [1.15.0]
 

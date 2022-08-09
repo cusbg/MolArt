@@ -879,9 +879,12 @@ const LmController = function () {
                 placeholder: globals.opts.extraHighlights.label,
                 values: ddContent,
                 action: 'hide',
-                onChange: (val, text, $selected) => {
+                onChange: (val) => {                    
+                    // After change of Semantics.ui to v 2.2.12, onChange is not sent the $selected parameter and needs thus be fetched via jQuery
+                    // const $selected = $userHighlihts.dropdown('get item', val); //calling behavior within action for some reason causes the dropdown to close even before an item can be selected
+                    const $selected = $userHighlihts.find('div.item').filter((i, el) => $(el).data('value') == val);                    
 
-                    if ($selected == undefined) return;
+                    if (!$selected.length) return;
 
                     $selected.toggleClass('selected');
                     highlightUserSelection(val, $selected.hasClass('selected'), globals.activeStructure.pdbId);
