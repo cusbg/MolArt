@@ -5,10 +5,17 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ##  [Unreleased]
 
 ### Added
+### Removed
+
+### Fixed
+##  [1.16.0]
+
+### Added
 
 ### Removed
 
 ### Fixed
+Export to PyMOL of AlphaFold structures points to the actual version of the model.
 Fixed broken user selections (caused by bumping the version of Seminatic UI to 2.2.12)
 
 ##  [1.15.0]
