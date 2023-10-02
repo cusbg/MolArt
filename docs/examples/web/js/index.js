@@ -8,7 +8,7 @@ function ajaxQuery(url, type) {
 }
 
 function queryUniprot(query) {
-    return ajaxQuery('https://rest.uniprot.org/uniprotkb/search?query=' + query + '&columns=id,entry%20name,reviewed,protein%20names,3d,genes,organism,length&format=tsv&limit=10');
+    return ajaxQuery('https://www.uniprot.org/uniprot/?query=' + query + '&sort=score&columns=id,entry%20name,reviewed,protein%20names,3d,genes,organism,length&format=tab&limit=10');
 }
 
 function querySwissprot(uniprotId) {
