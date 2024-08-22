@@ -834,8 +834,10 @@ const MolArt = function(opts) {
                 });
             }
 
-            const promises = globals.pdbRecords.map(rec => services.getObservedRanges(rec.getPdbId(), rec.getChainId()));
-            return Promise.all(promises).then(function (or) {
+            //const promises = globals.pdbRecords.map(rec => services.getObservedRanges(rec.getPdbId(), rec.getChainId()));
+            const orAPIs = globals.pdbRecords.map(rec => services.getObservedRangesAPI(rec.getPdbId(), rec.getChainId()));
+            //return Promise.all(promises).then(function (or) {
+            return services.fetchAllJson(orAPIs).then(function (or) {
                 for (let i =0; i < or.length; i++){
                     const ranges = or[i][globals.pdbRecords[i].getPdbId()].molecules[0].chains[0].observed;
                     const ors = ranges.map(r => new pdbMapping.ObservedRange(r));

@@ -6,8 +6,18 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 ### Removed
+### Fixed
+
+##  [1.17.0]
+
+### Added
+
+### Removed
 
 ### Fixed
+
+Fixed problems in Chrome when many API calls have to be done at once, resulting in ERR_INSUFFICIENT_RESOURCES (reported here - https://github.com/cusbg/MolArt/issues/45).
+
 ##  [1.16.0]
 
 ### Added

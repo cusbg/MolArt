@@ -2,6 +2,7 @@ const blender = require('color-blend');
 let LiteMol = require('litemol').default;
 const globalSettings = require('./settings');
 const {globals} = require("browserify-css/config/jshint");
+//const services = require('./services');
 
 window.LiteMol = LiteMol
 

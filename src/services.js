@@ -1,9 +1,13 @@
+const { method } = require('lodash');
+
 const useCorsForSmr = require('./settings').useCorsForSmr;
 const corsServer = require('./settings').corsServer;
 const urlPredictProtein = require('./settings').urlPredictProtein;
 
 function ajaxQuery(url, type) {
     if (type === undefined) type = "GET";
+
+    //return fetch(url, {method: type}).then(res => res.json());
 
     return $.ajax({
         type: type,
@@ -18,6 +22,11 @@ function getFastaByUniprotId(uniprotId) {
 function getUnpToPdbMapping(uniprotId) {
         return ajaxQuery('https://www.ebi.ac.uk/pdbe/api/mappings/best_structures/' + uniprotId);
 }
+
+function getObservedRangesAPI(pdbId, chainId) {
+    return `https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/${pdbId}/chain/${chainId}`;
+}
+
 
 function getObservedRanges(pdbId, chainId) {
     return ajaxQuery(`https://www.ebi.ac.uk/pdbe/api/pdb/entry/polymer_coverage/${pdbId}/chain/${chainId}`);
@@ -145,8 +154,6 @@ function getAfCifURL(uniprotId) {
 }
 
 
-
-
 function getUnpToAfMapping(uniprotId) {
 
     return ajaxQuery(getAfURL(uniprotId));
@@ -157,6 +164,62 @@ function getPredictProtein(uniprotId) {
 
 }
 
+/*
+In chrome, there is a limit on resources and when the promise pool is too large, it runs out of resources. 
+An example is retriving polymer_coverage for P01308, which has about 1600 chains, i.e. the pool has 
+more than 1600 requests.
+*/
+function promiseAll(promises){
+    const cntMaxConcurent = 10;
+    let cntProcessed = 0;
+
+    
+    let promise = Promise.resolve([]);
+    let res = [];
+    do {
+        (() => {
+            let auxcntProcessed = cntProcessed;
+            promise = promise.then((resPromise) => {
+                res = res.concat(resPromise);
+
+                console.log("running 100 promisses");
+                return Promise.all(promises.slice(auxcntProcessed, Math.min(promises.length, auxcntProcessed + cntMaxConcurent)));
+            });
+        })();
+        cntProcessed += cntMaxConcurent;
+
+    } while (cntProcessed < promises.length);
+
+    return promise.then(resPromise => res.concat(resPromise));
+
+}
+
+function fetchAllJson(APIs){
+    const cntMaxConcurent = 500;
+    let cntProcessed = 0;
+
+    
+    let promise = Promise.resolve([]);
+    let res = [];
+    do {
+        (() => {
+            let auxcntProcessed = cntProcessed;
+            promise = promise.then((resPromise) => {
+                res = res.concat(resPromise);
+
+                console.log(`running ${cntMaxConcurent} promisses`);
+                const promises = APIs.slice(auxcntProcessed, Math.min(APIs.length, auxcntProcessed + cntMaxConcurent)).map(api => fetch(api).then(res => res.json()))
+                return Promise.all(promises);
+            });
+        })();
+        cntProcessed += cntMaxConcurent;
+
+    } while (cntProcessed < APIs.length);
+
+    return promise.then(resPromise => res.concat(resPromise));
+
+}
+
 module.exports = {
     getFastaByUniprotId: getFastaByUniprotId
     , getUnpToPdbMapping: getUnpToPdbMapping
@@ -164,7 +227,10 @@ module.exports = {
     , getUnpToAfMapping: getUnpToAfMapping
     , getPredictProtein: getPredictProtein
     , getObservedRanges: getObservedRanges
+    , getObservedRangesAPI: getObservedRangesAPI
     , getUniprotSegments: getUniprotSegments
     , getAfURL: getAfURL
     , getAfCifURL: getAfCifURL
+    //, promiseAll: promiseAll  
+    , fetchAllJson: fetchAllJson
 };

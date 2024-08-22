@@ -1,6 +1,7 @@
 /* eslint-disable indent,max-len */
 const createPlugin = require('./lm.plugin.js');
 const settings = require('./settings');
+//const services = require('./services');
 
 
 require('../node_modules/semantic-ui-transition/transition.min');
